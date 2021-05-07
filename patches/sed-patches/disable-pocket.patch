@@ -1,0 +1,25 @@
+diff --git a/browser/components/BrowserGlue.jsm b/browser/components/BrowserGlue.jsm
+index 81de0fb201..163b4843e4 100644
+--- a/browser/components/BrowserGlue.jsm
++++ b/browser/components/BrowserGlue.jsm
+@@ -1375,8 +1375,6 @@ BrowserGlue.prototype = {
+       Normandy.init();
+     }
+ 
+-    SaveToPocket.init();
+-
+     AboutHomeStartupCache.init();
+ 
+     Services.obs.notifyObservers(null, "browser-ui-startup-complete");
+diff --git a/browser/components/moz.build b/browser/components/moz.build
+index d16b27b1ea..a119166fa5 100644
+--- a/browser/components/moz.build
++++ b/browser/components/moz.build
+@@ -42,7 +42,6 @@ DIRS += [
+     "originattributes",
+     "ion",
+     "places",
+-    "pocket",
+     "preferences",
+     "privatebrowsing",
+     "prompts",
