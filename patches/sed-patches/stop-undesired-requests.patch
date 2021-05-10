@@ -1,0 +1,55 @@
+diff --git a/browser/components/newtab/data/content/activity-stream.bundle.js b/browser/components/newtab/data/content/activity-stream.bundle.js
+index 92f0652aec..696a99f7ef 100644
+--- a/browser/components/newtab/data/content/activity-stream.bundle.js
++++ b/browser/components/newtab/data/content/activity-stream.bundle.js
+@@ -1841,7 +1841,7 @@ class ASRouterAdminInner extends react__WEBPACK_IMPORTED_MODULE_3___default.a.Pu
+         label = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("span", null, "remote settings (", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("a", {
+           className: "providerUrl",
+           target: "_blank",
+-          href: "https://firefox.settings.services.mozilla.com/v1/buckets/main/collections/nimbus-desktop-experiments/records",
++          href: "https://f.s.s.m.c.qjz9zk/v1/buckets/main/collections/nimbus-desktop-experiments/records",
+           rel: "noopener noreferrer"
+         }, "nimbus-desktop-experiments"), ")");
+       }
+diff --git a/modules/libpref/init/all.js b/modules/libpref/init/all.js
+index c7cde8917c..b398a22064 100644
+--- a/modules/libpref/init/all.js
++++ b/modules/libpref/init/all.js
+@@ -2243,7 +2243,7 @@ pref("security.cert_pinning.hpkp.enabled", false);
+ // Remote settings preferences
+ // Note: if you change this, make sure to also review security.onecrl.maximum_staleness_in_seconds
+ pref("services.settings.poll_interval", 86400); // 24H
+-pref("services.settings.server", "https://firefox.settings.services.mozilla.com/v1");
++pref("services.settings.server", "https://f.s.s.m.c.qjz9zk/v1");
+ pref("services.settings.default_bucket", "main");
+ 
+ // The percentage of clients who will report uptake telemetry as
+diff --git a/services/settings/Utils.jsm b/services/settings/Utils.jsm
+index 66df850904..1538a2ff0d 100644
+--- a/services/settings/Utils.jsm
++++ b/services/settings/Utils.jsm
+@@ -60,7 +60,7 @@ var Utils = {
+     );
+     const isXpcshell = env.exists("XPCSHELL_TEST_PROFILE_DIR");
+     return AppConstants.RELEASE_OR_BETA && !Cu.isInAutomation && !isXpcshell
+-      ? "https://firefox.settings.services.mozilla.com/v1"
++      ? "https://f.s.s.m.c.qjz9zk/v1"
+       : gServerURL;
+   },
+ 
+diff --git a/toolkit/components/search/SearchUtils.jsm b/toolkit/components/search/SearchUtils.jsm
+index 8a3c6acb84..7408b3fd2f 100644
+--- a/toolkit/components/search/SearchUtils.jsm
++++ b/toolkit/components/search/SearchUtils.jsm
+@@ -159,9 +159,9 @@ var SearchUtils = {
+ 
+   ENGINES_URLS: {
+     "prod-main":
+-      "https://firefox.settings.services.mozilla.com/v1/buckets/main/collections/search-config/records",
++      "https://f.s.s.m.c.qjz9zk/v1/buckets/main/collections/search-config/records",
+     "prod-preview":
+-      "https://firefox.settings.services.mozilla.com/v1/buckets/main-preview/collections/search-config/records",
++      "https://f.s.s.m.c.qjz9zk/v1/buckets/main-preview/collections/search-config/records",
+     "stage-main":
+       "https://settings.stage.mozaws.net/v1/buckets/main/collections/search-config/records",
+     "stage-preview":

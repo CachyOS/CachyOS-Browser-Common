@@ -1,0 +1,19 @@
+diff --git a/toolkit/mozapps/extensions/internal/XPIInstall.jsm b/toolkit/mozapps/extensions/internal/XPIInstall.jsm
+index 784077b740..e035b3ba6d 100644
+--- a/toolkit/mozapps/extensions/internal/XPIInstall.jsm
++++ b/toolkit/mozapps/extensions/internal/XPIInstall.jsm
+@@ -822,14 +822,6 @@ function getSignedStatus(aRv, aCert, aAddonID) {
+         return AddonManager.SIGNEDSTATE_BROKEN;
+       }
+ 
+-      if (aCert.organizationalUnit == "Mozilla Components") {
+-        return AddonManager.SIGNEDSTATE_SYSTEM;
+-      }
+-
+-      if (aCert.organizationalUnit == "Mozilla Extensions") {
+-        return AddonManager.SIGNEDSTATE_PRIVILEGED;
+-      }
+-
+       return /preliminary/i.test(aCert.organizationalUnit)
+         ? AddonManager.SIGNEDSTATE_PRELIMINARY
+         : AddonManager.SIGNEDSTATE_SIGNED;

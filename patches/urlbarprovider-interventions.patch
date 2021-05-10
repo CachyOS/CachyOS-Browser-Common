@@ -1,0 +1,13 @@
+diff --git a/browser/components/urlbar/UrlbarProviderInterventions.jsm b/browser/components/urlbar/UrlbarProviderInterventions.jsm
+index e22886ce92..d46d8191f2 100644
+--- a/browser/components/urlbar/UrlbarProviderInterventions.jsm
++++ b/browser/components/urlbar/UrlbarProviderInterventions.jsm
+@@ -451,7 +451,7 @@ class ProviderInterventions extends UrlbarProvider {
+         ]),
+       });
+       for (let [id, phrases] of Object.entries(DOCUMENTS)) {
+-        queryScorer.addDocument({ id, phrases });
++//        queryScorer.addDocument({ id, phrases });
+       }
+       return queryScorer;
+     });
