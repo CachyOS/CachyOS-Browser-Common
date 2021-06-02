@@ -1,8 +1,8 @@
 diff --git a/browser/components/urlbar/UrlbarInput.jsm b/browser/components/urlbar/UrlbarInput.jsm
-index 73d15df..99cc41b 100644
+index 4c42071..12323dd 100644
 --- a/browser/components/urlbar/UrlbarInput.jsm
 +++ b/browser/components/urlbar/UrlbarInput.jsm
-@@ -1692,13 +1692,13 @@ class UrlbarInput {
+@@ -1712,13 +1712,13 @@ class UrlbarInput {
  
      // Enable the animation only after the first extend call to ensure it
      // doesn't run when opening a new window.
@@ -13,18 +13,18 @@ index 73d15df..99cc41b 100644
 -        });
 -      });
 -    }
-+    // if (!this.hasAttribute("breakout-extend-animate")) {
-+      // this.window.promiseDocumentFlushed(() => {
-+        // this.window.requestAnimationFrame(() => {
-+          // this.setAttribute("breakout-extend-animate", "true");
-+        // });
-+      // });
-+    // }
++//    if (!this.hasAttribute("breakout-extend-animate")) {
++//      this.window.promiseDocumentFlushed(() => {
++//        this.window.requestAnimationFrame(() => {
++//          this.setAttribute("breakout-extend-animate", "true");
++//        });
++//      });
++//    }
    }
  
    endLayoutExtend() {
 diff --git a/browser/themes/shared/urlbar-searchbar.inc.css b/browser/themes/shared/urlbar-searchbar.inc.css
-index e9fde8b..6c4c444 100644
+index e80aaf6..6ec0961 100644
 --- a/browser/themes/shared/urlbar-searchbar.inc.css
 +++ b/browser/themes/shared/urlbar-searchbar.inc.css
 @@ -5,7 +5,7 @@
@@ -36,42 +36,60 @@ index e9fde8b..6c4c444 100644
  %define urlbarSearchButtonWidth calc(16px + 2 * var(--urlbar-icon-padding))
  
  :root {
-@@ -273,9 +273,9 @@
+@@ -279,40 +279,40 @@
  }
  
  #urlbar[breakout][breakout-extend] {
 -  top: -@urlbarBreakoutExtend@;
 -  left: calc(-@urlbarMarginInline@ - @urlbarBreakoutExtend@);
 -  width: calc(100% + 2 * @urlbarMarginInline@ + 2 * @urlbarBreakoutExtend@);
-+  top: calc((var(--urlbar-toolbar-height) - var(--urlbar-height)) / 2);
++  top: 0;
 +  left: 0;
 +  width: 100%;
  }
  
- @supports -moz-bool-pref("browser.proton.urlbar.enabled") {
-@@ -288,7 +288,7 @@
+ @media (-moz-proton) {
+ #urlbar[breakout][breakout-extend] {
+   top: 0;
+-  left: -@urlbarMarginInline@;
+-  width: calc(100% + 2 * @urlbarMarginInline@);
++  left: 0;
++  width: 100%;
+ }
+ } /*** END proton ***/
  
- @supports not -moz-bool-pref("browser.proton.urlbar.enabled") {
+ @media not (-moz-proton) {
  #urlbar[breakout][breakout-extend] > #urlbar-background {
 -  box-shadow: 0 3px 8px 0 rgba(0,0,0,.15)
 +  box-shadow: 0 1px 4px rgba(0,0,0,.05);
  }
  
  #urlbar[breakout][breakout-extend][open] > #urlbar-background {
-@@ -297,9 +297,9 @@
+-  box-shadow: 0 5px 18px rgba(0,0,0,.2);
++  box-shadow: 0 1px 4px rgba(0,0,0,.05);
+ }
  } /*** END !proton ***/
  
  #urlbar[breakout][breakout-extend] > #urlbar-input-container {
 -  height: calc(var(--urlbar-toolbar-height) + 2 * @urlbarBreakoutExtend@);
 -  padding-block: calc(@urlbarBreakoutExtend@ + (var(--urlbar-toolbar-height) - var(--urlbar-height)) / 2);
 -  padding-inline: calc(@urlbarMarginInline@ + @urlbarBreakoutExtend@);
-+  height: var(--urlbar-height);
++  height: var(--urlbar-toolbar-height);
 +  padding-block: 0;
 +  padding-inline: 0;
  }
  
- @supports -moz-bool-pref("browser.proton.urlbar.enabled") {
-@@ -325,7 +325,7 @@
+ @media (-moz-proton) {
+ #urlbar[breakout][breakout-extend] > #urlbar-input-container {
+   height: var(--urlbar-toolbar-height);
+-  padding-block: calc((var(--urlbar-toolbar-height) - var(--urlbar-height)) / 2 + var(--urlbar-container-padding));
+-  padding-inline: calc(@urlbarMarginInline@ + var(--urlbar-container-padding));
++  padding-block: 0;
++  padding-inline: 0;
+ }
+ } /*** END proton ***/
+ 
+@@ -331,7 +331,7 @@
  }
  
  #urlbar[breakout][breakout-extend] > #urlbar-background {
@@ -81,38 +99,57 @@ index e9fde8b..6c4c444 100644
    animation-timing-function: var(--animation-easing-function);
  }
 diff --git a/browser/themes/shared/urlbarView.inc.css b/browser/themes/shared/urlbarView.inc.css
-index c6ce546..da00fac 100644
+index d2bb269..0d47466 100644
 --- a/browser/themes/shared/urlbarView.inc.css
 +++ b/browser/themes/shared/urlbarView.inc.css
-@@ -74,8 +74,8 @@
+@@ -73,16 +73,16 @@
    display: block;
    text-shadow: none;
    overflow: clip;
 -  margin-inline: calc(5px + var(--urlbar-container-padding));
 -  width: calc(100% - 2 * (5px + var(--urlbar-container-padding)));
 +  margin-inline: 0;
-+  width: 100%;
++  width: 100%
    /* Match urlbar-background's border. */
    border-inline: 1px solid transparent;
  }
-@@ -115,7 +115,7 @@
-   flex-wrap: nowrap;
+ 
+ @media not (-moz-proton) {
+ .urlbarView {
+-  margin-inline: calc(4px + var(--identity-box-margin-inline));
+-  width: calc(100% - 2 * (4px + var(--identity-box-margin-inline)));
++  margin-inline: 0;
++  width: 100%;
+ }
+ /* If the view is open, offset the toolbar overlap so the view's top border
+    aligns with the toolbar. */
+@@ -112,7 +112,7 @@
+ .urlbarView-row {
    fill: currentColor;
-   fill-opacity: .6;
+   fill-opacity: var(--urlbar-icon-fill-opacity);
 -  padding-block: 3px;
 +  padding-block: 0;
  }
  
- :root[uidensity=compact] .urlbarView-row {
-@@ -280,6 +280,7 @@
+ @media not (-moz-proton) {
+@@ -127,7 +127,7 @@
+ }
+ 
+ :root:not([uidensity=compact]) .urlbarView-row:not([type=tip], [type=dynamic]) {
+-  min-height: 32px;
++  min-height: 0;
+ }
+ } /*** END proton ***/
+ 
+@@ -295,6 +295,7 @@
    object-fit: contain;
    flex-shrink: 0;
    -moz-context-properties: fill, fill-opacity;
 +  margin-inline-start: 20px;
  }
  
- @supports not -moz-bool-pref("browser.proton.urlbar.enabled") {
-@@ -324,10 +325,10 @@
+ @media not (-moz-proton) {
+@@ -328,10 +329,10 @@
  
  .urlbarView-type-icon {
    position: absolute;
