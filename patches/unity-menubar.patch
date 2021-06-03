@@ -5298,15 +5298,3 @@
  // {F6CD4F21-53AF-11d2-8DC4-00609703C14E}
  #define NS_POPUPMENU_CID                           \
    {                                                \
---- a/widget/gtk/nsDragService.cpp
-+++ b/widget/gtk/nsDragService.cpp
-@@ -46,6 +46,9 @@
- #include "gfxPlatform.h"
- #include "ScreenHelperGTK.h"
- #include "nsArrayUtils.h"
-+#ifdef MOZ_WAYLAND
-+#  include "gfxPlatformGtk.h"
-+#endif
- 
- using namespace mozilla;
- using namespace mozilla::gfx;
