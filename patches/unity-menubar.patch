@@ -2536,7 +2536,7 @@
 +        if (command) {
 +            command->InitCommandEvent(u"command"_ns, true, true,
 +                                      nsGlobalWindowInner::Cast(doc->GetInnerWindow()),
-+                                      0, false, false, false, false, nullptr, 0, rv);
++                                      0, false, false, false, false, 0, nullptr, 0, rv);
 +            if (!rv.Failed()) {
 +                event->SetTrusted(true);
 +                ContentNode()->DispatchEvent(*event, rv);
