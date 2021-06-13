@@ -109,7 +109,7 @@ index d2bb269..0d47466 100644
 -  margin-inline: calc(5px + var(--urlbar-container-padding));
 -  width: calc(100% - 2 * (5px + var(--urlbar-container-padding)));
 +  margin-inline: 0;
-+  width: 100%
++  width: 100%;
    /* Match urlbar-background's border. */
    border-inline: 1px solid transparent;
  }
