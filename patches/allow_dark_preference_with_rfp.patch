@@ -12,8 +12,8 @@ index ce2cbca..60fda48 100644
    }
 diff --git a/modules/libref/init/StaticPrefList.yaml b/modules/libref/init/StaticPrefList.yaml
 index b4b2dc7..e65d43f 100644
---- a/modules/libref/init/StaticPrefList.yaml
-+++ b/modules/libref/init/StaticPrefList.yaml
+--- a/modules/libpref/init/StaticPrefList.yaml
++++ b/modules/libpref/init/StaticPrefList.yaml
 @@ -9863,6 +9863,12 @@
    value: false
    mirror: always
