@@ -23,3 +23,16 @@ index d16b27b1ea..a119166fa5 100644
      "preferences",
      "privatebrowsing",
      "prompts",
+diff --git a/browser/base/content/browser.js b/browser/base/content/browser.js
+index 16168e5..857a968 100644
+--- a/browser/base/content/browser.js
++++ b/browser/base/content/browser.js
+@@ -5246,8 +5246,6 @@ var XULBrowserWindow = {
+ 
+     SafeBrowsingNotificationBox.onLocationChange(aLocationURI);
+ 
+-    SaveToPocket.onLocationChange(window);
+-
+     UrlbarProviderSearchTips.onLocationChange(
+       window,
+       aLocationURI,
