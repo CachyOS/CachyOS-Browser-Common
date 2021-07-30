@@ -24,21 +24,21 @@ run() {
     OSTYPE="$(command -v bash >/dev/null && bash -c 'echo $OSTYPE')"
     case "$OSTYPE" in
         linux-gnu|linux-musl|linux|freebsd*)
-            manifest_home="$HOME/.librewolf/native-messaging-hosts/"
+            manifest_home="$HOME/.cachy/native-messaging-hosts/"
             binary_suffix="Linux"
             ;;
         linux-gnueabihf)
-            manifest_home="$HOME/.librewolf/native-messaging-hosts/"
+            manifest_home="$HOME/.cachy/native-messaging-hosts/"
             binary_suffix="armhf-Linux"
             ;;
         darwin*)
-            manifest_home="$HOME/Library/Application Support/LibreWolf/NativeMessagingHosts/"
+            manifest_home="$HOME/Library/Application Support/CachyOS/NativeMessagingHosts/"
             binary_suffix="macOS"
             ;;
         *)
             # Fallback to default Linux location for unknown OSTYPE
             # TODO: fall back to old Python messenger
-            manifest_home="$HOME/.librewolf/native-messaging-hosts/"
+            manifest_home="$HOME/.cachy/native-messaging-hosts/"
             binary_suffix="Linux"
             ;;
     esac
