@@ -8,17 +8,17 @@
 
 # BrandFullNameInternal is used for some registry and file system values
 # instead of BrandFullName and typically should not be modified.
-!define BrandFullNameInternal "LibreWolf"
-!define BrandFullName         "LibreWolf"
-!define CompanyName           "LibreWolf"
-!define URLInfoAbout          "https://www.libreWolf.gitlab.io"
-!define HelpLink              "https://github.com/LibreWolf-Browser"
+!define BrandFullNameInternal "CachyOS"
+!define BrandFullName         "CachyOS"
+!define CompanyName           "CachyOS"
+!define URLInfoAbout          "https://cachyos.org"
+!define HelpLink              "https://github.com/CachyOS"
 
-!define URLStubDownloadX86 "https://github.com/LibreWolf-Browser/LibreWolf/releases"
-!define URLStubDownloadAMD64 "https://github.com/LibreWolf-Browser/LibreWolf/releases"
-!define URLStubDownloadAArch64 "https://github.com/LibreWolf-Browser/LibreWolf/releases"
-!define URLManualDownload "https://github.com/LibreWolf-Browser/LibreWolf/releases"
-!define URLSystemRequirements "https://github.com/LibreWolf-Browser/LibreWolf"
+!define URLStubDownloadX86 "https://github.com/CachyOS-Browser/CachyOS/releases"
+!define URLStubDownloadAMD64 "https://github.com/CachyOS-Browser/CachyOS/releases"
+!define URLStubDownloadAArch64 "https://github.com/CachyOS-Browser/CachyOS/releases"
+!define URLManualDownload "https://github.com/CachyOS-Browser/CachyOS/releases"
+!define URLSystemRequirements "https://github.com/CachyOS-Browser/CachyOS"
 !define Channel "unofficial"
 
 # The installer's certificate name and issuer expected by the stub installer

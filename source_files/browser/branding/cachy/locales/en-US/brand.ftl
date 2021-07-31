@@ -12,11 +12,11 @@
 ##
 ## Reference: https://www.mozilla.org/styleguide/communications/translation/
 
--brand-shorter-name = LibreWolf
--brand-short-name = LibreWolf
--brand-full-name = LibreWolf
+-brand-shorter-name = CachyOS
+-brand-short-name = CachyOS
+-brand-full-name = CachyOS
 # This brand name can be used in messages where the product name needs to
 # remain unchanged across different versions (Nightly, Beta, etc.).
--brand-product-name = LibreWolf
--vendor-short-name = LibreWolf
+-brand-product-name = CachyOS
+-vendor-short-name = CachyOS
 trademarkInfo = { " " }
