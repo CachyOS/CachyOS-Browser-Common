@@ -12,11 +12,11 @@
 ##
 ## Reference: https://www.mozilla.org/styleguide/communications/translation/
 
--brand-shorter-name = CachyOS
--brand-short-name = CachyOS
--brand-full-name = CachyOS
+-brand-shorter-name = Cachy
+-brand-short-name = Cachy Browser
+-brand-full-name = Cachy Browser
 # This brand name can be used in messages where the product name needs to
 # remain unchanged across different versions (Nightly, Beta, etc.).
--brand-product-name = CachyOS
+-brand-product-name = Cachy
 -vendor-short-name = CachyOS
 trademarkInfo = { " " }

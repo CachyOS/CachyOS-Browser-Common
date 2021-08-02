@@ -5,8 +5,8 @@
 # there is a possible patch to consider when changing this:
 # see: patches/browser-confvars.patch
 
-MOZ_APP_NAME=cachy
-MOZ_APP_BASENAME="Cachy Browser"
+MOZ_APP_NAME=cachy-browser
+MOZ_APP_BASENAME="Cachy"
 MOZ_APP_PROFILE=cachy
-MOZ_APP_VENDOR=CachyOS
+MOZ_APP_VENDOR=Cachy
 

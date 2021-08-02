@@ -9,8 +9,9 @@
 # BrandFullNameInternal is used for some registry and file system values
 # instead of BrandFullName and typically should not be modified.
 !define BrandFullNameInternal "Cachy Browser"
+!define BrandShortName        "Cachy Browser"
 !define BrandFullName         "Cachy Browser"
-!define CompanyName           "CachyOS"
+!define CompanyName           "cachyos.org"
 !define URLInfoAbout          "https://cachyos.org"
 !define HelpLink              "https://forum.cachyos.org"
 
