@@ -8,11 +8,11 @@
 
 # BrandFullNameInternal is used for some registry and file system values
 # instead of BrandFullName and typically should not be modified.
-!define BrandFullNameInternal "CachyOS"
-!define BrandFullName         "CachyOS"
+!define BrandFullNameInternal "Cachy Browser"
+!define BrandFullName         "Cachy Browser"
 !define CompanyName           "CachyOS"
 !define URLInfoAbout          "https://cachyos.org"
-!define HelpLink              "https://github.com/CachyOS"
+!define HelpLink              "https://forum.cachyos.org"
 
 !define URLStubDownloadX86 "https://github.com/CachyOS-Browser/CachyOS/releases"
 !define URLStubDownloadAMD64 "https://github.com/CachyOS-Browser/CachyOS/releases"
