@@ -1,9 +1,9 @@
 diff --git a/browser/components/urlbar/UrlbarInput.jsm b/browser/components/urlbar/UrlbarInput.jsm
-index 4c42071..12323dd 100644
+index e448f6f7ba..015f039c2b 100644
 --- a/browser/components/urlbar/UrlbarInput.jsm
 +++ b/browser/components/urlbar/UrlbarInput.jsm
-@@ -1712,13 +1712,13 @@ class UrlbarInput {
- 
+@@ -1684,13 +1684,13 @@ class UrlbarInput {
+
      // Enable the animation only after the first extend call to ensure it
      // doesn't run when opening a new window.
 -    if (!this.hasAttribute("breakout-extend-animate")) {
@@ -21,24 +21,24 @@ index 4c42071..12323dd 100644
 +//      });
 +//    }
    }
- 
+
    endLayoutExtend() {
 diff --git a/browser/themes/shared/urlbar-searchbar.inc.css b/browser/themes/shared/urlbar-searchbar.inc.css
-index e80aaf6..6ec0961 100644
+index 89e77b8ce9..c8219b0dbc 100644
 --- a/browser/themes/shared/urlbar-searchbar.inc.css
 +++ b/browser/themes/shared/urlbar-searchbar.inc.css
 @@ -5,7 +5,7 @@
  %endif
- 
+
  %define fieldHoverBorderColor hsla(240,5%,5%,.35)
 -%define urlbarMarginInline 5px
 +%define urlbarMarginInline 0px
  %define urlbarSearchButtonWidth calc(16px + 2 * var(--urlbar-icon-padding))
- 
+
  :root {
 @@ -279,40 +279,40 @@
  }
- 
+
  #urlbar[breakout][breakout-extend] {
 -  top: -@urlbarBreakoutExtend@;
 -  left: calc(-@urlbarMarginInline@ - @urlbarBreakoutExtend@);
@@ -47,7 +47,7 @@ index e80aaf6..6ec0961 100644
 +  left: 0;
 +  width: 100%;
  }
- 
+
  @media (-moz-proton) {
  #urlbar[breakout][breakout-extend] {
    top: 0;
@@ -57,19 +57,19 @@ index e80aaf6..6ec0961 100644
 +  width: 100%;
  }
  } /*** END proton ***/
- 
+
  @media not (-moz-proton) {
  #urlbar[breakout][breakout-extend] > #urlbar-background {
 -  box-shadow: 0 3px 8px 0 rgba(0,0,0,.15)
 +  box-shadow: 0 1px 4px rgba(0,0,0,.05);
  }
- 
+
  #urlbar[breakout][breakout-extend][open] > #urlbar-background {
 -  box-shadow: 0 5px 18px rgba(0,0,0,.2);
 +  box-shadow: 0 1px 4px rgba(0,0,0,.05);
  }
  } /*** END !proton ***/
- 
+
  #urlbar[breakout][breakout-extend] > #urlbar-input-container {
 -  height: calc(var(--urlbar-toolbar-height) + 2 * @urlbarBreakoutExtend@);
 -  padding-block: calc(@urlbarBreakoutExtend@ + (var(--urlbar-toolbar-height) - var(--urlbar-height)) / 2);
@@ -78,7 +78,7 @@ index e80aaf6..6ec0961 100644
 +  padding-block: 0;
 +  padding-inline: 0;
  }
- 
+
  @media (-moz-proton) {
  #urlbar[breakout][breakout-extend] > #urlbar-input-container {
    height: var(--urlbar-toolbar-height);
@@ -88,10 +88,10 @@ index e80aaf6..6ec0961 100644
 +  padding-inline: 0;
  }
  } /*** END proton ***/
- 
+
 @@ -331,7 +331,7 @@
  }
- 
+
  #urlbar[breakout][breakout-extend] > #urlbar-background {
 -  animation-name: urlbar-grow;
 +  animation-name: none;
@@ -99,7 +99,7 @@ index e80aaf6..6ec0961 100644
    animation-timing-function: var(--animation-easing-function);
  }
 diff --git a/browser/themes/shared/urlbarView.inc.css b/browser/themes/shared/urlbarView.inc.css
-index d2bb269..0d47466 100644
+index e5cdb585e5..b812073e74 100644
 --- a/browser/themes/shared/urlbarView.inc.css
 +++ b/browser/themes/shared/urlbarView.inc.css
 @@ -73,16 +73,16 @@
@@ -113,7 +113,7 @@ index d2bb269..0d47466 100644
    /* Match urlbar-background's border. */
    border-inline: 1px solid transparent;
  }
- 
+
  @media not (-moz-proton) {
  .urlbarView {
 -  margin-inline: calc(4px + var(--identity-box-margin-inline));
@@ -130,27 +130,27 @@ index d2bb269..0d47466 100644
 -  padding-block: 3px;
 +  padding-block: 0;
  }
- 
+
  @media not (-moz-proton) {
 @@ -127,7 +127,7 @@
  }
- 
+
  :root:not([uidensity=compact]) .urlbarView-row:not([type=tip], [type=dynamic]) {
 -  min-height: 32px;
 +  min-height: 0;
  }
  } /*** END proton ***/
- 
+
 @@ -295,6 +295,7 @@
    object-fit: contain;
    flex-shrink: 0;
    -moz-context-properties: fill, fill-opacity;
 +  margin-inline-start: 20px;
  }
- 
+
  @media not (-moz-proton) {
 @@ -328,10 +329,10 @@
- 
+
  .urlbarView-type-icon {
    position: absolute;
 -  width: 12px;
