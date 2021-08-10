@@ -2,7 +2,7 @@ diff --git a/browser/extensions/moz.build b/browser/extensions/moz.build
 index 269dcb2..ed7c31d 100644
 --- a/browser/extensions/moz.build
 +++ b/browser/extensions/moz.build
-@@ -5,10 +5,7 @@
+@@ -5,11 +5,8 @@
  # file, You can obtain one at http://mozilla.org/MPL/2.0/.
  
  DIRS += [
@@ -13,6 +13,7 @@ index 269dcb2..ed7c31d 100644
 -    "report-site-issue",
      "pictureinpicture",
  ]
+
 diff --git a/browser/locales/Makefile.in b/browser/locales/Makefile.in
 index 496379c..dd6f359 100644
 --- a/browser/locales/Makefile.in
@@ -37,10 +38,10 @@ diff --git a/browser/locales/filter.py b/browser/locales/filter.py
 index bb2e992..7d7768e 100644
 --- a/browser/locales/filter.py
 +++ b/browser/locales/filter.py
-@@ -20,7 +20,6 @@ def test(mod, path, entity=None):
+@@ -19,7 +19,6 @@
+         "devtools/startup",
          "browser",
          "browser/extensions/formautofill",
-         "browser/extensions/fxmonitor",
 -        "browser/extensions/report-site-issue",
          "extensions/spellcheck",
          "other-licenses/branding/firefox",
@@ -49,10 +50,10 @@ diff --git a/browser/locales/l10n.ini b/browser/locales/l10n.ini
 index f4cb7ca..4efac13 100644
 --- a/browser/locales/l10n.ini
 +++ b/browser/locales/l10n.ini
-@@ -14,7 +14,6 @@ dirs = browser
+@@ -13,7 +13,6 @@
+      devtools/client
       devtools/startup
       browser/extensions/formautofill
-      browser/extensions/fxmonitor
 -     browser/extensions/report-site-issue
  
  [includes]
@@ -61,14 +62,13 @@ diff --git a/browser/locales/l10n.toml b/browser/locales/l10n.toml
 index b9b18fe..af7c583 100644
 --- a/browser/locales/l10n.toml
 +++ b/browser/locales/l10n.toml
-@@ -133,10 +133,6 @@ locales = [
-     reference = "browser/extensions/fxmonitor/locales/en-US/**"
-     l10n = "{l}browser/extensions/fxmonitor/**"
+@@ -132,10 +132,6 @@
+     l10n = "{l}browser/extensions/formautofill/**"
  
--[[paths]]
+ [[paths]]
 -    reference = "browser/extensions/report-site-issue/locales/en-US/**"
 -    l10n = "{l}browser/extensions/report-site-issue/**"
 -
- [[paths]]
+-[[paths]]
      reference = "services/sync/locales/en-US/**"
      l10n = "{l}services/sync/**"

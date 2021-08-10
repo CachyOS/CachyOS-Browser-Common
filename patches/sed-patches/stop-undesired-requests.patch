@@ -28,15 +28,15 @@ diff --git a/services/settings/Utils.jsm b/services/settings/Utils.jsm
 index 66df850904..1538a2ff0d 100644
 --- a/services/settings/Utils.jsm
 +++ b/services/settings/Utils.jsm
-@@ -60,7 +60,7 @@ var Utils = {
-     );
-     const isXpcshell = env.exists("XPCSHELL_TEST_PROFILE_DIR");
-     return AppConstants.RELEASE_OR_BETA && !Cu.isInAutomation && !isXpcshell
+@@ -64,7 +64,7 @@
+       !Cu.isInAutomation &&
+       !isXpcshell &&
+       isNotThunderbird
 -      ? "https://firefox.settings.services.mozilla.com/v1"
 +      ? "https://f.s.s.m.c.qjz9zk/v1"
        : gServerURL;
    },
- 
+
 diff --git a/toolkit/components/search/SearchUtils.jsm b/toolkit/components/search/SearchUtils.jsm
 index 8a3c6acb84..7408b3fd2f 100644
 --- a/toolkit/components/search/SearchUtils.jsm

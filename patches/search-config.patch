@@ -1,19 +1,25 @@
 --- a/services/settings/dumps/main/search-config.json
 +++ b/services/settings/dumps/main/search-config.json
-@@ -1,77 +1,155 @@
+@@ -1,246 +1,155 @@
  {
    "data": [
      {
--      "schema": 1623235246279,
+-      "params": {
+-        "searchUrlGetParams": [
+-          {
+-            "name": "pc",
+-            "value": "MOZI"
+-          },
+-          {
+-            "name": "q",
+-            "value": "{searchTerms}"
 +      "schema": 1619432100208,
-       "appliesTo": [
-         {
-           "included": {
--            "regions": [
--              "cn"
--            ]
++      "appliesTo": [
++        {
++          "included": {
 +            "everywhere": true
            }
+-        ]
 +        }
 +      ],
 +      "extraParams": [
@@ -22,20 +28,8 @@
 +          "value": "ffcm",
 +          "purpose": "contextmenu",
 +          "condition": "purpose"
-         },
-         {
--          "override": true,
--          "orderHint": 1500,
--          "application": {
--            "distributions": [
--              "MozillaOnline"
--            ]
--          },
--          "webExtension": {
--            "locales": [
--              "mozillaonline"
--            ]
--          }
++        },
++        {
 +          "name": "t",
 +          "value": "ffab",
 +          "purpose": "keyword",
@@ -58,21 +52,17 @@
 +          "value": "ffnt",
 +          "purpose": "newtab",
 +          "condition": "purpose"
-         }
-       ],
--      "telemetryId": "amazondotcn",
++        }
++      ],
 +      "telemetryId": "ddg",
-       "webExtension": {
--        "id": "amazondotcn@search.mozilla.org"
++      "webExtension": {
 +        "id": "ddg@search.mozilla.org"
        },
--      "id": "ccb137f1-7733-464c-bb70-037be4ba2529",
--      "last_modified": 1623330482152
+-      "schema": 1627654944012,
 +      "id": "c0b26c0e-63e6-4235-b2ce-5f16b6a8bf87",
 +      "last_modified": 1619450717295
-     },
-     {
--      "schema": 1623235243537,
++    },
++    {
 +      "schema": 1613245306902,
        "appliesTo": [
          {
@@ -84,124 +74,326 @@
 +          "included": {
              "locales": {
                "matches": [
--                "bn",
--                "bn-IN",
-+                "af",
-+                "an",
-+                "ar",
-+                "ast",
-+                "az",
+-                "ach",
+                 "af",
+                 "an",
+                 "ar",
+                 "ast",
+                 "az",
+-                "ca",
+-                "ca-valencia",
+-                "cak",
 +                "bg",
 +                "br",
 +                "bs",
 +                "cy",
-+                "da",
-+                "de",
-+                "dsb",
-+                "el",
-+                "eo",
+                 "da",
+                 "de",
+                 "dsb",
+                 "el",
+                 "eo",
+-                "es-CL",
+-                "es-ES",
+-                "es-MX",
 +                "et",
-+                "eu",
-+                "fa",
-+                "fi",
-+                "fy-NL",
+                 "eu",
+                 "fa",
+-                "ff",
+                 "fi",
+-                "fr",
+                 "fy-NL",
 +                "ga-IE",
 +                "gd",
 +                "gl",
-+                "gn",
-+                "he",
-+                "hr",
-+                "hsb",
-+                "hu",
-+                "ia",
-+                "id",
-+                "is",
-+                "it",
-+                "ka",
-+                "kab",
-+                "kk",
-+                "km",
-                 "kn",
+                 "gn",
 -                "gu-IN",
-+                "lij",
-+                "lo",
-+                "lt",
+-                "hi-IN",
++                "he",
+                 "hr",
+                 "hsb",
++                "hu",
+                 "ia",
++                "id",
+                 "is",
+                 "it",
+-                "ja-JP-macos",
+-                "ja",
+                 "ka",
+                 "kab",
++                "kk",
+                 "km",
+                 "kn",
+                 "lij",
+                 "lo",
+                 "lt",
 +                "ltg",
 +                "lv",
-+                "mk",
-                 "mr",
+                 "mk",
++                "mr",
+                 "ms",
+                 "my",
+-                "nb-NO",
+-                "ne-NP",
+                 "nl",
+-                "nn-NO",
+                 "oc",
 -                "pa-IN",
-+                "ms",
-+                "my",
-+                "nl",
-+                "oc",
+-                "pt-BR",
 +                "pl",
-+                "rm",
-+                "ro",
+                 "rm",
+                 "ro",
+-                "sco",
+-                "son",
 +                "ru",
 +                "si",
 +                "sk",
 +                "sl",
-+                "sq",
-+                "sr",
-+                "sv-SE",
-                 "ta",
-                 "te",
--                "ur"
-+                "th",
-+                "tl",
+                 "sq",
+                 "sr",
+                 "sv-SE",
++                "ta",
++                "te",
+                 "th",
+                 "tl",
+-                "trs",
 +                "tr",
-+                "uk",
-+                "ur",
-+                "uz",
+                 "uk",
+                 "ur",
+                 "uz",
 +                "vi",
-+                "wo",
+                 "wo",
+-                "xh",
+-                "zh-CN"
+-              ],
+-              "startsWith": [
+-                "bn",
+-                "en"
 +                "zh-CN",
 +                "zh-TW"
                ]
--            },
--            "regions": [
--              "in"
+             }
+-          }
+-        },
+-        {
+-          "params": {
+-            "searchUrlGetParams": [
+-              {
+-                "name": "pc",
+-                "value": "MZSL01"
+-              },
+-              {
+-                "name": "q",
+-                "value": "{searchTerms}"
+-              }
 -            ]
-+            }
+-          },
+-          "default": "yes",
+-          "override": true,
+-          "application": {
+-            "distributions": [
+-              "sweetlabs-b-oem1",
+-              "sweetlabs-b-r-oem1"
+-            ]
+-          }
+-        },
+-        {
+-          "params": {
+-            "searchUrlGetParams": [
+-              {
+-                "name": "pc",
+-                "value": "MZSL02"
+-              },
+-              {
+-                "name": "q",
+-                "value": "{searchTerms}"
+-              }
+-            ]
+-          },
+-          "default": "yes",
+-          "override": true,
+-          "application": {
+-            "distributions": [
+-              "sweetlabs-b-oem2",
+-              "sweetlabs-b-r-oem2"
+-            ]
+-          }
+-        },
+-        {
+-          "params": {
+-            "searchUrlGetParams": [
+-              {
+-                "name": "pc",
+-                "value": "MZSL03"
+-              },
+-              {
+-                "name": "q",
+-                "value": "{searchTerms}"
+-              }
+-            ]
+-          },
+-          "default": "yes",
+-          "override": true,
+-          "application": {
+-            "distributions": [
+-              "sweetlabs-b-oem3",
+-              "sweetlabs-b-r-oem3"
+-            ]
+-          }
+-        },
+-        {
+-          "default": "yes",
+-          "included": {
+-            "everywhere": true
+-          },
+-          "application": {
+-            "distributions": [
+-              "acer-001",
+-              "acer-002",
+-              "acer-g-003"
+-            ]
+-          }
+-        },
+-        {
+-          "params": {
+-            "searchUrlGetParams": [
+-              {
+-                "name": "pc",
+-                "value": "MOZD"
+-              },
+-              {
+-                "name": "q",
+-                "value": "{searchTerms}"
+-              }
+-            ]
+-          },
+-          "override": true,
+-          "application": {
+-            "distributions": [
+-              "acer-001",
+-              "acer-002"
+-            ]
+-          }
+-        },
+-        {
+-          "params": {
+-            "searchUrlGetParams": [
+-              {
+-                "name": "pc",
+-                "value": "MOZE"
+-              },
+-              {
+-                "name": "q",
+-                "value": "{searchTerms}"
+-              }
+-            ]
            },
--          "telemetryId": "amazon-in",
-           "webExtension": {
-             "locales": [
--              "in"
+-          "override": true,
+-          "application": {
+-            "distributions": [
+-              "acer-g-003"
++          "webExtension": {
++            "locales": [
 +              "$USER_LOCALE"
              ]
            }
          },
          {
-           "included": {
--            "regions": [
--              "fr",
--              "mc"
+-          "override": "true",
+-          "orderHint": 2500,
+-          "application": {
+-            "distributions": [
+-              "MozillaOnline"
 -            ]
-+            "locales": {
-+              "matches": [
+-          }
+-        }
+-      ],
+-      "webExtension": {
+-        "id": "bing@search.mozilla.org"
+-      },
+-      "id": "7ec766f6-639a-4618-91bc-33eb3d4378c6",
+-      "last_modified": 1627663746803
+-    },
+-    {
+-      "schema": 1627058212123,
+-      "appliesTo": [
+-        {
+           "included": {
+             "locales": {
+               "matches": [
+-                "en-US"
 +                "be"
-+              ]
+               ]
+-            },
+-            "regions": [
+-              "us"
 +            }
-           },
--          "telemetryId": "amazon-france",
-           "webExtension": {
-             "locales": [
--              "france"
++          },
++          "webExtension": {
++            "locales": [
 +              "be",
 +              "be-tarask"
              ]
            }
          },
-@@ -79,60 +157,63 @@
+@@ -248,20 +157,15 @@
            "included": {
              "locales": {
                "matches": [
--                "fr"
+-                "an",
+-                "ast",
+-                "ca",
+-                "ca-valencia",
+-                "es-ES",
+-                "eu",
+-                "gl"
 +                "bn",
 +                "bn-BD",
 +                "bn-IN"
+               ]
+             }
+           },
+-          "telemetryId": "ebay-es",
+           "webExtension": {
+             "locales": [
+-              "es"
++              "bn"
+             ]
+           }
+         },
+@@ -269,16 +173,14 @@
+           "included": {
+             "locales": {
+               "matches": [
+-                "br",
+-                "fr",
+-                "wo"
++                "ca",
++                "ca-valencia"
+               ]
+             }
+           },
+-          "telemetryId": "ebay-fr",
+           "webExtension": {
+             "locales": [
+-              "fr"
++              "ca"
+             ]
+           }
+         },
+@@ -286,20 +188,18 @@
+           "included": {
+             "locales": {
+               "matches": [
+-                "br",
+-                "en-US",
+-                "fr",
+-                "wo"
++                "cak",
++                "es-AR",
++                "es-CL",
++                "es-ES",
++                "es-MX",
++                "trs"
                ]
 -            },
 -            "regions": [
@@ -209,129 +401,542 @@
 -            ]
 +            }
            },
--          "telemetryId": "amazon-france",
+-          "telemetryId": "ebay-be",
            "webExtension": {
              "locales": [
--              "france"
-+              "bn"
-             ]
-           }
-         },
-         {
-           "included": {
--            "regions": [
--              "jp"
--            ]
-+            "locales": {
-+              "matches": [
-+                "ca",
-+                "ca-valencia"
-+              ]
-+            }
-           },
--          "telemetryId": "amazon-jp",
-           "webExtension": {
-             "locales": [
--              "jp"
-+              "ca"
-             ]
-           }
-         },
-         {
-           "included": {
--            "regions": [
--              "it",
--              "sm",
--              "va"
--            ]
-+            "locales": {
-+              "matches": [
-+                "cak",
-+                "es-AR",
-+                "es-CL",
-+                "es-ES",
-+                "es-MX",
-+                "trs"
-+              ]
-+            }
-           },
--          "telemetryId": "amazon-it",
-           "webExtension": {
-             "locales": [
--              "it"
+-              "be"
 +              "es"
              ]
            }
          },
-         {
+@@ -307,20 +207,13 @@
            "included": {
--            "regions": [
--              "at",
--              "ch",
--              "de"
--            ]
-+            "locales": {
-+              "matches": [
+             "locales": {
+               "matches": [
+-                "br",
+-                "en-US",
+-                "fr",
+-                "wo"
 +                "cs"
-+              ]
+               ]
+-            },
+-            "regions": [
+-              "ca"
+-            ]
 +            }
            },
--          "telemetryId": "amazon-de",
+-          "telemetryId": "ebay-ca",
            "webExtension": {
              "locales": [
--              "de"
+-              "ca"
 +              "cz"
              ]
            }
          },
-@@ -140,32 +221,29 @@
+@@ -328,20 +221,15 @@
+           "included": {
+             "locales": {
+               "matches": [
+-                "br",
+-                "en-US",
++                "ff",
+                 "fr",
+-                "wo"
++                "son"
+               ]
+-            },
+-            "regions": [
+-              "ch"
+-            ]
++            }
+           },
+-          "telemetryId": "ebay-ch",
+           "webExtension": {
+             "locales": [
+-              "ch"
++              "fr"
+             ]
+           }
+         },
+@@ -349,16 +237,13 @@
+           "included": {
+             "locales": {
+               "matches": [
+-                "cy",
+-                "en-GB",
+-                "gd"
++                "gu-IN"
+               ]
+             }
+           },
+-          "telemetryId": "ebay-uk",
+           "webExtension": {
+             "locales": [
+-              "uk"
++              "gu"
+             ]
+           }
+         },
+@@ -366,17 +251,13 @@
+           "included": {
+             "locales": {
+               "matches": [
+-                "sco"
++                "hi-IN"
+               ]
+-            },
+-            "regions": [
+-              "gb"
+-            ]
++            }
+           },
+-          "telemetryId": "ebay-uk",
+           "webExtension": {
+             "locales": [
+-              "uk"
++              "hi"
+             ]
+           }
+         },
+@@ -384,17 +265,13 @@
+           "included": {
+             "locales": {
+               "matches": [
+-                "en-US"
++                "hy-AM"
+               ]
+-            },
+-            "regions": [
+-              "gb"
+-            ]
++            }
+           },
+-          "telemetryId": "ebay-uk",
+           "webExtension": {
+             "locales": [
+-              "uk"
++              "hy"
+             ]
+           }
+         },
+@@ -402,20 +279,14 @@
+           "included": {
+             "locales": {
+               "matches": [
+-                "cy",
+-                "en-GB",
+-                "en-US",
+-                "gd"
++                "ja-JP-macos",
++                "ja"
+               ]
+-            },
+-            "regions": [
+-              "au"
+-            ]
++            }
+           },
+-          "telemetryId": "ebay-au",
+           "webExtension": {
+             "locales": [
+-              "au"
++              "ja"
+             ]
+           }
+         },
+@@ -423,20 +294,13 @@
+           "included": {
+             "locales": {
+               "matches": [
+-                "cy",
+-                "en-GB",
+-                "en-US",
+-                "gd"
++                "ko"
+               ]
+-            },
+-            "regions": [
+-              "ie"
+-            ]
++            }
+           },
+-          "telemetryId": "ebay-ie",
+           "webExtension": {
+             "locales": [
+-              "ie"
++              "kr"
+             ]
+           }
+         },
+@@ -444,16 +308,13 @@
            "included": {
              "locales": {
                "matches": [
 -                "de",
 -                "dsb",
 -                "hsb"
-+                "ff",
-+                "fr",
-+                "son"
++                "nb-NO"
                ]
              }
            },
--          "experiment": "amazon-de-adm",
--          "telemetryId": "amazon-de-adm",
+-          "telemetryId": "ebay-de",
            "webExtension": {
              "locales": [
--              "de-adm"
-+              "fr"
+-              "de"
++              "NO"
              ]
+           }
+         },
+@@ -461,19 +322,13 @@
+           "included": {
+             "locales": {
+               "matches": [
+-                "de",
+-                "dsb",
+-                "hsb"
++                "ne-NP"
+               ]
+-            },
+-            "regions": [
+-              "at"
+-            ]
++            }
+           },
+-          "telemetryId": "ebay-at",
+           "webExtension": {
+             "locales": [
+-              "at"
++              "ne"
+             ]
+           }
+         },
+@@ -481,19 +336,13 @@
+           "included": {
+             "locales": {
+               "matches": [
+-                "de",
+-                "dsb",
+-                "hsb"
++                "nn-NO"
+               ]
+-            },
+-            "regions": [
+-              "ch"
+-            ]
++            }
+           },
+-          "telemetryId": "ebay-ch",
+           "webExtension": {
+             "locales": [
+-              "ch"
++              "NN"
+             ]
+           }
+         },
+@@ -501,14 +350,13 @@
+           "included": {
+             "locales": {
+               "matches": [
+-                "en-CA"
++                "pa-IN"
+               ]
+             }
+           },
+-          "telemetryId": "ebay-ca",
+           "webExtension": {
+             "locales": [
+-              "ca"
++              "pa"
+             ]
+           }
+         },
+@@ -516,15 +364,14 @@
+           "included": {
+             "locales": {
+               "matches": [
+-                "fy-NL",
+-                "nl"
++                "pt-BR",
++                "pt-PT"
+               ]
+             }
+           },
+-          "telemetryId": "ebay-nl",
+           "webExtension": {
+             "locales": [
+-              "nl"
++              "pt"
+             ]
+           }
+         },
+@@ -532,3549 +379,31 @@
+           "included": {
+             "locales": {
+               "matches": [
+-                "en-US"
++                "szl"
+               ]
+-            },
+-            "regions": [
+-              "nl"
+-            ]
++            }
+           },
+-          "telemetryId": "ebay-nl",
+           "webExtension": {
+             "locales": [
+-              "nl"
+-            ]
+-          }
+-        },
+-        {
+-          "included": {
+-            "locales": {
+-              "matches": [
+-                "fy-NL",
+-                "nl"
+-              ]
+-            },
+-            "regions": [
+-              "be"
+-            ]
 -          },
--          "sendAttributionRequest": true
-+          }
+-          "telemetryId": "ebay-be",
+-          "webExtension": {
+-            "locales": [
+-              "be"
+-            ]
+-          }
+-        },
+-        {
+-          "included": {
+-            "locales": {
+-              "matches": [
+-                "ga-IE"
+-              ]
+-            }
+-          },
+-          "telemetryId": "ebay-ie",
+-          "webExtension": {
+-            "locales": [
+-              "ie"
+-            ]
+-          }
+-        },
+-        {
+-          "included": {
+-            "locales": {
+-              "matches": [
+-                "it",
+-                "lij"
+-              ]
+-            }
+-          },
+-          "telemetryId": "ebay-it",
+-          "webExtension": {
+-            "locales": [
+-              "it"
+-            ]
+-          }
+-        },
+-        {
+-          "included": {
+-            "locales": {
+-              "matches": [
+-                "rm"
+-              ]
+-            }
+-          },
+-          "telemetryId": "ebay-ch",
+-          "webExtension": {
+-            "locales": [
+-              "ch"
+-            ]
+-          }
+-        }
+-      ],
+-      "webExtension": {
+-        "id": "ebay@search.mozilla.org"
+-      },
+-      "id": "cbe309e0-f638-4996-9dfc-ea5c19ef16e9",
+-      "last_modified": 1627663746799
+-    },
+-    {
+-      "schema": 1623235246279,
+-      "appliesTo": [
+-        {
+-          "included": {
+-            "regions": [
+-              "cn"
++              "pl"
+             ]
+           }
          },
          {
-           "included": {
+           "override": true,
+-          "orderHint": 1500,
++          "orderHint": 1000,
+           "application": {
+             "distributions": [
+               "MozillaOnline"
+             ]
+-          },
+-          "webExtension": {
+-            "locales": [
+-              "mozillaonline"
+-            ]
+           }
+         }
+       ],
+-      "telemetryId": "amazondotcn",
+       "webExtension": {
+-        "id": "amazondotcn@search.mozilla.org"
++        "id": "wikipedia@search.mozilla.org"
+       },
+-      "id": "ccb137f1-7733-464c-bb70-037be4ba2529",
+-      "last_modified": 1623330482152
+-    },
+-    {
+-      "schema": 1623235243537,
+-      "appliesTo": [
+-        {
+-          "included": {
+-            "locales": {
+-              "matches": [
+-                "bn",
+-                "bn-IN",
+-                "kn",
+-                "gu-IN",
+-                "mr",
+-                "pa-IN",
+-                "ta",
+-                "te",
+-                "ur"
+-              ]
+-            },
+-            "regions": [
+-              "in"
+-            ]
+-          },
+-          "telemetryId": "amazon-in",
+-          "webExtension": {
+-            "locales": [
+-              "in"
+-            ]
+-          }
+-        },
+-        {
+-          "included": {
+-            "regions": [
+-              "fr",
+-              "mc"
+-            ]
+-          },
+-          "telemetryId": "amazon-france",
+-          "webExtension": {
+-            "locales": [
+-              "france"
+-            ]
+-          }
+-        },
+-        {
+-          "included": {
+-            "locales": {
+-              "matches": [
+-                "fr"
+-              ]
+-            },
+-            "regions": [
+-              "be"
+-            ]
+-          },
+-          "telemetryId": "amazon-france",
+-          "webExtension": {
+-            "locales": [
+-              "france"
+-            ]
+-          }
+-        },
+-        {
+-          "included": {
+-            "regions": [
+-              "jp"
+-            ]
+-          },
+-          "telemetryId": "amazon-jp",
+-          "webExtension": {
+-            "locales": [
+-              "jp"
+-            ]
+-          }
+-        },
+-        {
+-          "included": {
+-            "regions": [
+-              "it",
+-              "sm",
+-              "va"
+-            ]
+-          },
+-          "telemetryId": "amazon-it",
+-          "webExtension": {
+-            "locales": [
+-              "it"
+-            ]
+-          }
+-        },
+-        {
+-          "included": {
+-            "regions": [
+-              "at",
+-              "ch",
+-              "de"
+-            ]
+-          },
+-          "telemetryId": "amazon-de",
+-          "webExtension": {
+-            "locales": [
+-              "de"
+-            ]
+-          }
+-        },
+-        {
+-          "included": {
+-            "locales": {
+-              "matches": [
+-                "de",
+-                "dsb",
+-                "hsb"
+-              ]
+-            }
+-          },
+-          "experiment": "amazon-de-adm",
+-          "telemetryId": "amazon-de-adm",
+-          "webExtension": {
+-            "locales": [
+-              "de-adm"
+-            ]
+-          },
+-          "sendAttributionRequest": true
+-        },
+-        {
+-          "included": {
 -            "regions": [
 -              "gb",
 -              "ie"
 -            ]
-+            "locales": {
-+              "matches": [
-+                "gu-IN"
-+              ]
-+            }
-           },
+-          },
 -          "telemetryId": "amazon-en-GB",
-           "webExtension": {
-             "locales": [
+-          "webExtension": {
+-            "locales": [
 -              "en-GB"
-+              "gu"
-             ]
-           }
-         },
-@@ -173,3921 +251,159 @@
-           "included": {
-             "locales": {
-               "matches": [
+-            ]
+-          }
+-        },
+-        {
+-          "included": {
+-            "locales": {
+-              "matches": [
 -                "ach",
 -                "af",
 -                "ar",
@@ -358,29 +963,25 @@
 -                "tl",
 -                "trs",
 -                "uz"
-+                "hi-IN"
-               ]
+-              ]
 -            },
 -            "regions": [
 -              "gb"
 -            ]
-+            }
-           },
+-          },
 -          "experiment": "amazon-en-GB-adm",
 -          "telemetryId": "amazon-en-GB-adm",
-           "webExtension": {
-             "locales": [
+-          "webExtension": {
+-            "locales": [
 -              "en-GB-adm"
-+              "hi"
-             ]
+-            ]
 -          },
 -          "sendAttributionRequest": true
-+          }
-         },
-         {
-           "included": {
-             "locales": {
-               "matches": [
+-        },
+-        {
+-          "included": {
+-            "locales": {
+-              "matches": [
 -                "cy",
 -                "da",
 -                "el",
@@ -395,92 +996,68 @@
 -                "pt-PT",
 -                "sq",
 -                "sr"
-+                "hy-AM"
-               ]
-             }
-           },
+-              ]
+-            }
+-          },
 -          "experiment": "amazon-en-GB-adm",
 -          "telemetryId": "amazon-en-GB-adm",
-           "webExtension": {
-             "locales": [
+-          "webExtension": {
+-            "locales": [
 -              "en-GB-adm"
-+              "hy"
-             ]
+-            ]
 -          },
 -          "sendAttributionRequest": true
-+          }
-         },
-         {
-           "included": {
+-        },
+-        {
+-          "included": {
 -            "regions": [
 -              "au"
 -            ]
-+            "locales": {
-+              "matches": [
-+                "ja-JP-macos",
-+                "ja"
-+              ]
-+            }
-           },
+-          },
 -          "telemetryId": "amazon-au",
-           "webExtension": {
-             "locales": [
+-          "webExtension": {
+-            "locales": [
 -              "au"
-+              "ja"
-             ]
-           }
-         },
-         {
-           "included": {
+-            ]
+-          }
+-        },
+-        {
+-          "included": {
 -            "regions": [
 -              "ca"
 -            ]
-+            "locales": {
-+              "matches": [
-+                "ko"
-+              ]
-+            }
-           },
+-          },
 -          "telemetryId": "amazon-ca",
-           "webExtension": {
-             "locales": [
+-          "webExtension": {
+-            "locales": [
 -              "ca"
-+              "kr"
-             ]
-           }
-         },
-         {
-           "included": {
+-            ]
+-          }
+-        },
+-        {
+-          "included": {
 -            "regions": [
 -              "nl"
 -            ]
 -          },
 -          "application": {
 -            "minVersion": "89.0a1"
-+            "locales": {
-+              "matches": [
-+                "nb-NO"
-+              ]
-+            }
-           },
+-          },
 -          "telemetryId": "amazon-nl",
-           "webExtension": {
-             "locales": [
+-          "webExtension": {
+-            "locales": [
 -              "nl"
-+              "NO"
-             ]
-           }
-         },
-         {
+-            ]
+-          }
+-        },
+-        {
 -          "excluded": {
-+          "included": {
-             "locales": {
-               "matches": [
+-            "locales": {
+-              "matches": [
 -                "fr"
-+                "ne-NP"
-               ]
-             }
-           },
+-              ]
+-            }
+-          },
 -          "included": {
 -            "regions": [
 -              "be"
@@ -490,15 +1067,14 @@
 -            "minVersion": "89.0a1"
 -          },
 -          "telemetryId": "amazon-nl",
-           "webExtension": {
-             "locales": [
+-          "webExtension": {
+-            "locales": [
 -              "nl"
-+              "ne"
-             ]
-           }
-         },
-         {
-           "included": {
+-            ]
+-          }
+-        },
+-        {
+-          "included": {
 -            "regions": [
 -              "es",
 -              "pt"
@@ -542,15 +1118,10 @@
 -          },
 -          "application": {
 -            "minVersion": "89.0a1"
-+            "locales": {
-+              "matches": [
-+                "nn-NO"
-+              ]
-+            }
-           },
+-          },
 -          "telemetryId": "amazondotcom-us",
-           "webExtension": {
-             "locales": [
+-          "webExtension": {
+-            "locales": [
 -              "us"
 -            ]
 -          }
@@ -559,14 +1130,13 @@
 -          "included": {
 -            "regions": [
 -              "us"
-+              "NN"
-             ]
+-            ]
 -          },
 -          "application": {
 -            "maxVersion": "89.0a1"
-           }
-         },
-         {
+-          }
+-        },
+-        {
 -          "excluded": {
 -            "regions": [
 -              "at",
@@ -592,9 +1162,9 @@
 -              "va"
 -            ]
 -          },
-           "included": {
-             "locales": {
-               "matches": [
+-          "included": {
+-            "locales": {
+-              "matches": [
 -                "ach",
 -                "af",
 -                "ar",
@@ -635,17 +1205,11 @@
 -                "tl",
 -                "trs",
 -                "uz"
-+                "pa-IN"
-               ]
-             }
-+          },
-+          "webExtension": {
-+            "locales": [
-+              "pa"
-+            ]
-           }
-         },
-         {
+-              ]
+-            }
+-          }
+-        },
+-        {
 -          "excluded": {
 -            "regions": [
 -              "au",
@@ -656,9 +1220,9 @@
 -              "se"
 -            ]
 -          },
-           "included": {
-             "locales": {
-               "matches": [
+-          "included": {
+-            "locales": {
+-              "matches": [
 -                "ach",
 -                "af",
 -                "ar",
@@ -685,18 +1249,15 @@
 -                "tl",
 -                "trs",
 -                "uz"
-+                "pt-BR",
-+                "pt-PT"
-               ]
-             }
-           },
+-              ]
+-            }
+-          },
 -          "experiment": "amazondotcom-adm",
 -          "telemetryId": "amazondotcom-adm",
-           "webExtension": {
-             "locales": [
+-          "webExtension": {
+-            "locales": [
 -              "en-adm"
-+              "pt"
-             ]
+-            ]
 -          },
 -          "sendAttributionRequest": true
 -        }
@@ -788,7 +1349,7 @@
 -          {
 -            "name": "wd",
 -            "value": "{searchTerms}"
-           }
+-          }
 -        ]
 -      },
 -      "schema": 1619106893528,
@@ -852,15 +1413,14 @@
 -              "condition": "purpose"
 -            }
 -          ]
-         },
-         {
-           "included": {
-             "locales": {
-               "matches": [
+-        },
+-        {
+-          "included": {
+-            "locales": {
+-              "matches": [
 -                "zh-CN"
-+                "szl"
-               ]
-             }
+-              ]
+-            }
 -          }
 -        },
 -        {
@@ -873,27 +1433,21 @@
 -            },
 -            "regions": [
 -              "cn"
-+          },
-+          "webExtension": {
-+            "locales": [
-+              "pl"
-             ]
-           }
-         },
-         {
+-            ]
+-          }
+-        },
+-        {
 -          "default": "no",
-           "override": true,
-+          "orderHint": 1000,
-           "application": {
-             "distributions": [
+-          "override": true,
+-          "application": {
+-            "distributions": [
 -              "acer-001",
 -              "acer-002",
 -              "acer-g-003"
-+              "MozillaOnline"
-             ]
-           }
-         }
-       ],
+-            ]
+-          }
+-        }
+-      ],
 -      "telemetryId": "baidu",
 -      "webExtension": {
 -        "id": "baidu@search.mozilla.org"
@@ -955,10 +1509,9 @@
 -          }
 -        }
 -      ],
-       "webExtension": {
+-      "webExtension": {
 -        "id": "allegro-pl@search.mozilla.org"
-+        "id": "wikipedia@search.mozilla.org"
-       },
+-      },
 -      "id": "d915b6bc-bbae-47a6-8323-1b2990ad0e57",
 -      "last_modified": 1613587855067
 -    },
@@ -1318,377 +1871,6 @@
 -      },
 -      "id": "3f3beb1d-e32e-40a4-b6ed-56741803e1d8",
 -      "last_modified": 1613587855064
--    },
--    {
--      "schema": 1609962110792,
--      "appliesTo": [
--        {
--          "included": {
--            "locales": {
--              "matches": [
--                "en-US"
--              ]
--            },
--            "regions": [
--              "us"
--            ]
--          }
--        },
--        {
--          "included": {
--            "locales": {
--              "matches": [
--                "an",
--                "ast",
--                "ca",
--                "ca-valencia",
--                "es-ES",
--                "eu",
--                "gl"
--              ]
--            }
--          },
--          "telemetryId": "ebay-es",
--          "webExtension": {
--            "locales": [
--              "es"
--            ]
--          }
--        },
--        {
--          "included": {
--            "locales": {
--              "matches": [
--                "br",
--                "fr",
--                "wo"
--              ]
--            }
--          },
--          "telemetryId": "ebay-fr",
--          "webExtension": {
--            "locales": [
--              "fr"
--            ]
--          }
--        },
--        {
--          "included": {
--            "locales": {
--              "matches": [
--                "br",
--                "en-US",
--                "fr",
--                "wo"
--              ]
--            },
--            "regions": [
--              "be"
--            ]
--          },
--          "telemetryId": "ebay-be",
--          "webExtension": {
--            "locales": [
--              "be"
--            ]
--          }
--        },
--        {
--          "included": {
--            "locales": {
--              "matches": [
--                "br",
--                "en-US",
--                "fr",
--                "wo"
--              ]
--            },
--            "regions": [
--              "ca"
--            ]
--          },
--          "telemetryId": "ebay-ca",
--          "webExtension": {
--            "locales": [
--              "ca"
--            ]
--          }
--        },
--        {
--          "included": {
--            "locales": {
--              "matches": [
--                "br",
--                "en-US",
--                "fr",
--                "wo"
--              ]
--            },
--            "regions": [
--              "ch"
--            ]
--          },
--          "telemetryId": "ebay-ch",
--          "webExtension": {
--            "locales": [
--              "ch"
--            ]
--          }
--        },
--        {
--          "included": {
--            "locales": {
--              "matches": [
--                "cy",
--                "en-GB",
--                "gd"
--              ]
--            }
--          },
--          "telemetryId": "ebay-uk",
--          "webExtension": {
--            "locales": [
--              "uk"
--            ]
--          }
--        },
--        {
--          "included": {
--            "locales": {
--              "matches": [
--                "en-US"
--              ]
--            },
--            "regions": [
--              "gb"
--            ]
--          },
--          "telemetryId": "ebay-uk",
--          "webExtension": {
--            "locales": [
--              "uk"
--            ]
--          }
--        },
--        {
--          "included": {
--            "locales": {
--              "matches": [
--                "cy",
--                "en-GB",
--                "en-US",
--                "gd"
--              ]
--            },
--            "regions": [
--              "au"
--            ]
--          },
--          "telemetryId": "ebay-au",
--          "webExtension": {
--            "locales": [
--              "au"
--            ]
--          }
--        },
--        {
--          "included": {
--            "locales": {
--              "matches": [
--                "cy",
--                "en-GB",
--                "en-US",
--                "gd"
--              ]
--            },
--            "regions": [
--              "ie"
--            ]
--          },
--          "telemetryId": "ebay-ie",
--          "webExtension": {
--            "locales": [
--              "ie"
--            ]
--          }
--        },
--        {
--          "included": {
--            "locales": {
--              "matches": [
--                "de",
--                "dsb",
--                "hsb"
--              ]
--            }
--          },
--          "telemetryId": "ebay-de",
--          "webExtension": {
--            "locales": [
--              "de"
--            ]
--          }
--        },
--        {
--          "included": {
--            "locales": {
--              "matches": [
--                "de",
--                "dsb",
--                "hsb"
--              ]
--            },
--            "regions": [
--              "at"
--            ]
--          },
--          "telemetryId": "ebay-at",
--          "webExtension": {
--            "locales": [
--              "at"
--            ]
--          }
--        },
--        {
--          "included": {
--            "locales": {
--              "matches": [
--                "de",
--                "dsb",
--                "hsb"
--              ]
--            },
--            "regions": [
--              "ch"
--            ]
--          },
--          "telemetryId": "ebay-ch",
--          "webExtension": {
--            "locales": [
--              "ch"
--            ]
--          }
--        },
--        {
--          "included": {
--            "locales": {
--              "matches": [
--                "en-CA"
--              ]
--            }
--          },
--          "telemetryId": "ebay-ca",
--          "webExtension": {
--            "locales": [
--              "ca"
--            ]
--          }
--        },
--        {
--          "included": {
--            "locales": {
--              "matches": [
--                "fy-NL",
--                "nl"
--              ]
--            }
--          },
--          "telemetryId": "ebay-nl",
--          "webExtension": {
--            "locales": [
--              "nl"
--            ]
--          }
--        },
--        {
--          "included": {
--            "locales": {
--              "matches": [
--                "en-US"
--              ]
--            },
--            "regions": [
--              "nl"
--            ]
--          },
--          "telemetryId": "ebay-nl",
--          "webExtension": {
--            "locales": [
--              "nl"
--            ]
--          }
--        },
--        {
--          "included": {
--            "locales": {
--              "matches": [
--                "fy-NL",
--                "nl"
--              ]
--            },
--            "regions": [
--              "be"
--            ]
--          },
--          "telemetryId": "ebay-be",
--          "webExtension": {
--            "locales": [
--              "be"
--            ]
--          }
--        },
--        {
--          "included": {
--            "locales": {
--              "matches": [
--                "ga-IE"
--              ]
--            }
--          },
--          "telemetryId": "ebay-ie",
--          "webExtension": {
--            "locales": [
--              "ie"
--            ]
--          }
--        },
--        {
--          "included": {
--            "locales": {
--              "matches": [
--                "it",
--                "lij"
--              ]
--            }
--          },
--          "telemetryId": "ebay-it",
--          "webExtension": {
--            "locales": [
--              "it"
--            ]
--          }
--        },
--        {
--          "included": {
--            "locales": {
--              "matches": [
--                "rm"
--              ]
--            }
--          },
--          "telemetryId": "ebay-ch",
--          "webExtension": {
--            "locales": [
--              "ch"
--            ]
--          }
--        }
--      ],
--      "webExtension": {
--        "id": "ebay@search.mozilla.org"
--      },
--      "id": "cbe309e0-f638-4996-9dfc-ea5c19ef16e9",
--      "last_modified": 1610163579843
 -    },
 -    {
 -      "params": {
@@ -2072,266 +2254,6 @@
 -      },
 -      "id": "1571e5fc-17e4-492b-b6d2-106d8669b6c8",
 -      "last_modified": 1597327602800
--    },
--    {
--      "params": {
--        "searchUrlGetParams": [
--          {
--            "name": "pc",
--            "value": "MOZI"
--          },
--          {
--            "name": "q",
--            "value": "{searchTerms}"
--          }
--        ]
--      },
--      "schema": 1592948527171,
--      "appliesTo": [
--        {
--          "included": {
--            "locales": {
--              "matches": [
--                "ach",
--                "af",
--                "an",
--                "ar",
--                "ast",
--                "az",
--                "ca",
--                "ca-valencia",
--                "cak",
--                "da",
--                "de",
--                "dsb",
--                "el",
--                "eo",
--                "es-CL",
--                "es-ES",
--                "es-MX",
--                "eu",
--                "fa",
--                "ff",
--                "fi",
--                "fr",
--                "fy-NL",
--                "gn",
--                "gu-IN",
--                "hi-IN",
--                "hr",
--                "hsb",
--                "ia",
--                "is",
--                "it",
--                "ja-JP-macos",
--                "ja",
--                "ka",
--                "kab",
--                "km",
--                "kn",
--                "lij",
--                "lo",
--                "lt",
--                "mk",
--                "ms",
--                "my",
--                "nb-NO",
--                "ne-NP",
--                "nl",
--                "nn-NO",
--                "oc",
--                "pa-IN",
--                "pt-BR",
--                "rm",
--                "ro",
--                "son",
--                "sq",
--                "sr",
--                "sv-SE",
--                "th",
--                "tl",
--                "trs",
--                "uk",
--                "ur",
--                "uz",
--                "wo",
--                "xh",
--                "zh-CN"
--              ],
--              "startsWith": [
--                "bn",
--                "en"
--              ]
--            }
--          }
--        },
--        {
--          "params": {
--            "searchUrlGetParams": [
--              {
--                "name": "pc",
--                "value": "MZSL01"
--              },
--              {
--                "name": "q",
--                "value": "{searchTerms}"
--              }
--            ]
--          },
--          "default": "yes",
--          "override": true,
--          "application": {
--            "distributions": [
--              "sweetlabs-b-oem1",
--              "sweetlabs-b-r-oem1"
--            ]
--          }
--        },
--        {
--          "params": {
--            "searchUrlGetParams": [
--              {
--                "name": "pc",
--                "value": "MZSL02"
--              },
--              {
--                "name": "q",
--                "value": "{searchTerms}"
--              }
--            ]
--          },
--          "default": "yes",
--          "override": true,
--          "application": {
--            "distributions": [
--              "sweetlabs-b-oem2",
--              "sweetlabs-b-r-oem2"
--            ]
--          }
--        },
--        {
--          "params": {
--            "searchUrlGetParams": [
--              {
--                "name": "pc",
--                "value": "MZSL03"
--              },
--              {
--                "name": "q",
--                "value": "{searchTerms}"
--              }
--            ]
--          },
--          "default": "yes",
--          "override": true,
--          "application": {
--            "distributions": [
--              "sweetlabs-b-oem3",
--              "sweetlabs-b-r-oem3"
--            ]
--          }
--        },
--        {
--          "default": "yes",
--          "included": {
--            "everywhere": true
--          },
--          "application": {
--            "distributions": [
--              "acer-001",
--              "acer-002",
--              "acer-g-003"
--            ]
--          }
--        },
--        {
--          "params": {
--            "searchUrlGetParams": [
--              {
--                "name": "pc",
--                "value": "MOZD"
--              },
--              {
--                "name": "q",
--                "value": "{searchTerms}"
--              }
--            ]
--          },
--          "override": true,
--          "application": {
--            "distributions": [
--              "acer-001",
--              "acer-002"
--            ]
--          }
--        },
--        {
--          "params": {
--            "searchUrlGetParams": [
--              {
--                "name": "pc",
--                "value": "MOZE"
--              },
--              {
--                "name": "q",
--                "value": "{searchTerms}"
--              }
--            ]
--          },
--          "override": true,
--          "application": {
--            "distributions": [
--              "acer-g-003"
--            ]
--          }
--        },
--        {
--          "override": "true",
--          "orderHint": 2500,
--          "application": {
--            "distributions": [
--              "MozillaOnline"
--            ]
--          }
--        }
--      ],
--      "extraParams": [
--        {
--          "name": "form",
--          "value": "MOZCON",
--          "purpose": "contextmenu",
--          "condition": "purpose"
--        },
--        {
--          "name": "form",
--          "value": "MOZSBR",
--          "purpose": "searchbar",
--          "condition": "purpose"
--        },
--        {
--          "name": "form",
--          "value": "MOZSPG",
--          "purpose": "homepage",
--          "condition": "purpose"
--        },
--        {
--          "name": "form",
--          "value": "MOZLBR",
--          "purpose": "keyword",
--          "condition": "purpose"
--        },
--        {
--          "name": "form",
--          "value": "MOZTSB",
--          "purpose": "newtab",
--          "condition": "purpose"
--        }
--      ],
--      "webExtension": {
--        "id": "bing@search.mozilla.org"
--      },
--      "id": "7ec766f6-639a-4618-91bc-33eb3d4378c6",
--      "last_modified": 1593025575021
 -    },
 -    {
 -      "schema": 1588177655532,
@@ -4303,6 +4225,4 @@
 +      "last_modified": 1613587855064
      }
    ]
--}
-+}
-\ No newline at end of file
+ }
