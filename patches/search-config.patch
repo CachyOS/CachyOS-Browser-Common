@@ -1,6 +1,6 @@
 --- a/services/settings/dumps/main/search-config.json
 +++ b/services/settings/dumps/main/search-config.json
-@@ -1,246 +1,155 @@
+@@ -1,335 +1,171 @@
  {
    "data": [
      {
@@ -58,7 +58,7 @@
 +      "webExtension": {
 +        "id": "ddg@search.mozilla.org"
        },
--      "schema": 1627654944012,
+-      "schema": 1629736603297,
 +      "id": "c0b26c0e-63e6-4235-b2ce-5f16b6a8bf87",
 +      "last_modified": 1619450717295
 +    },
@@ -230,19 +230,22 @@
 -                "value": "{searchTerms}"
 -              }
 -            ]
--          },
+           },
 -          "default": "yes",
 -          "override": true,
 -          "application": {
 -            "distributions": [
 -              "sweetlabs-b-oem3",
 -              "sweetlabs-b-r-oem3"
--            ]
--          }
--        },
--        {
++          "webExtension": {
++            "locales": [
++              "$USER_LOCALE"
+             ]
+           }
+         },
+         {
 -          "default": "yes",
--          "included": {
+           "included": {
 -            "everywhere": true
 -          },
 -          "application": {
@@ -286,32 +289,127 @@
 -                "value": "{searchTerms}"
 -              }
 -            ]
++            "locales": {
++              "matches": [
++                "be"
++              ]
++            }
            },
 -          "override": true,
 -          "application": {
 -            "distributions": [
 -              "acer-g-003"
-+          "webExtension": {
-+            "locales": [
-+              "$USER_LOCALE"
-             ]
-           }
-         },
-         {
+-            ]
+-          }
+-        },
+-        {
 -          "override": "true",
 -          "orderHint": 2500,
 -          "application": {
 -            "distributions": [
 -              "MozillaOnline"
++          "webExtension": {
++            "locales": [
++              "be",
++              "be-tarask"
+             ]
+           }
+         },
+         {
+-          "params": {
+-            "searchUrlGetParams": [
+-              {
+-                "name": "ptag",
+-                "value": "MOZZ0000000010"
+-              },
+-              {
+-                "name": "pc",
+-                "value": "MOZD"
+-              },
+-              {
+-                "name": "q",
+-                "value": "{searchTerms}"
+-              }
 -            ]
--          }
+-          },
+-          "included": {
+-            "everywhere": true
+-          },
+-          "experiment": "search-defaults-2021-1"
+-        },
+-        {
+-          "params": {
+-            "searchUrlGetParams": [
+-              {
+-                "name": "ptag",
+-                "value": "MOZZ0000000011"
+-              },
+-              {
+-                "name": "pc",
+-                "value": "MOZD"
+-              },
+-              {
+-                "name": "q",
+-                "value": "{searchTerms}"
+-              }
+-            ]
+-          },
+-          "default": "yes",
+-          "included": {
+-            "everywhere": true
+-          },
+-          "experiment": "search-defaults-2021-2"
+-        },
+-        {
+-          "params": {
+-            "searchUrlGetParams": [
+-              {
+-                "name": "ptag",
+-                "value": "MOZZ0000000012"
+-              },
+-              {
+-                "name": "pc",
+-                "value": "MOZD"
+-              },
+-              {
+-                "name": "q",
+-                "value": "{searchTerms}"
+-              }
+-            ]
+-          },
+-          "included": {
+-            "everywhere": true
+-          },
+-          "experiment": "search-defaults-2021-3"
+-        },
+-        {
+-          "params": {
+-            "searchUrlGetParams": [
+-              {
+-                "name": "ptag",
+-                "value": "MOZZ0000000013"
+-              },
+-              {
+-                "name": "pc",
+-                "value": "MOZD"
+-              },
+-              {
+-                "name": "q",
+-                "value": "{searchTerms}"
+-              }
+-            ]
+-          },
+-          "included": {
+-            "everywhere": true
+-          },
+-          "experiment": "search-defaults-2021-4"
 -        }
 -      ],
 -      "webExtension": {
 -        "id": "bing@search.mozilla.org"
 -      },
 -      "id": "7ec766f6-639a-4618-91bc-33eb3d4378c6",
--      "last_modified": 1627663746803
+-      "last_modified": 1630005303731
 -    },
 -    {
 -      "schema": 1627058212123,
@@ -321,7 +419,9 @@
              "locales": {
                "matches": [
 -                "en-US"
-+                "be"
++                "bn",
++                "bn-BD",
++                "bn-IN"
                ]
 -            },
 -            "regions": [
@@ -330,25 +430,22 @@
 +          },
 +          "webExtension": {
 +            "locales": [
-+              "be",
-+              "be-tarask"
++              "bn"
              ]
            }
          },
-@@ -248,20 +157,15 @@
+@@ -337,20 +173,14 @@
            "included": {
              "locales": {
                "matches": [
 -                "an",
 -                "ast",
--                "ca",
+                 "ca",
 -                "ca-valencia",
 -                "es-ES",
 -                "eu",
 -                "gl"
-+                "bn",
-+                "bn-BD",
-+                "bn-IN"
++                "ca-valencia"
                ]
              }
            },
@@ -356,36 +453,15 @@
            "webExtension": {
              "locales": [
 -              "es"
-+              "bn"
-             ]
-           }
-         },
-@@ -269,16 +173,14 @@
-           "included": {
-             "locales": {
-               "matches": [
--                "br",
--                "fr",
--                "wo"
-+                "ca",
-+                "ca-valencia"
-               ]
-             }
-           },
--          "telemetryId": "ebay-fr",
-           "webExtension": {
-             "locales": [
--              "fr"
 +              "ca"
              ]
            }
          },
-@@ -286,20 +188,18 @@
+@@ -358,16 +188,18 @@
            "included": {
              "locales": {
                "matches": [
 -                "br",
--                "en-US",
 -                "fr",
 -                "wo"
 +                "cak",
@@ -395,21 +471,17 @@
 +                "es-MX",
 +                "trs"
                ]
--            },
--            "regions": [
--              "be"
--            ]
-+            }
+             }
            },
--          "telemetryId": "ebay-be",
+-          "telemetryId": "ebay-fr",
            "webExtension": {
              "locales": [
--              "be"
+-              "fr"
 +              "es"
              ]
            }
          },
-@@ -307,20 +207,13 @@
+@@ -375,20 +207,13 @@
            "included": {
              "locales": {
                "matches": [
@@ -421,19 +493,19 @@
                ]
 -            },
 -            "regions": [
--              "ca"
+-              "be"
 -            ]
 +            }
            },
--          "telemetryId": "ebay-ca",
+-          "telemetryId": "ebay-be",
            "webExtension": {
              "locales": [
--              "ca"
+-              "be"
 +              "cz"
              ]
            }
          },
-@@ -328,20 +221,15 @@
+@@ -396,20 +221,15 @@
            "included": {
              "locales": {
                "matches": [
@@ -446,6 +518,30 @@
                ]
 -            },
 -            "regions": [
+-              "ca"
+-            ]
++            }
+           },
+-          "telemetryId": "ebay-ca",
+           "webExtension": {
+             "locales": [
+-              "ca"
++              "fr"
+             ]
+           }
+         },
+@@ -417,20 +237,13 @@
+           "included": {
+             "locales": {
+               "matches": [
+-                "br",
+-                "en-US",
+-                "fr",
+-                "wo"
++                "gu-IN"
+               ]
+-            },
+-            "regions": [
 -              "ch"
 -            ]
 +            }
@@ -454,41 +550,20 @@
            "webExtension": {
              "locales": [
 -              "ch"
-+              "fr"
++              "gu"
              ]
            }
          },
-@@ -349,16 +237,13 @@
+@@ -438,16 +251,13 @@
            "included": {
              "locales": {
                "matches": [
 -                "cy",
 -                "en-GB",
 -                "gd"
-+                "gu-IN"
-               ]
-             }
-           },
--          "telemetryId": "ebay-uk",
-           "webExtension": {
-             "locales": [
--              "uk"
-+              "gu"
-             ]
-           }
-         },
-@@ -366,17 +251,13 @@
-           "included": {
-             "locales": {
-               "matches": [
--                "sco"
 +                "hi-IN"
                ]
--            },
--            "regions": [
--              "gb"
--            ]
-+            }
+             }
            },
 -          "telemetryId": "ebay-uk",
            "webExtension": {
@@ -498,11 +573,11 @@
              ]
            }
          },
-@@ -384,17 +265,13 @@
+@@ -455,17 +265,13 @@
            "included": {
              "locales": {
                "matches": [
--                "en-US"
+-                "sco"
 +                "hy-AM"
                ]
 -            },
@@ -519,32 +594,29 @@
              ]
            }
          },
-@@ -402,20 +279,14 @@
+@@ -473,17 +279,14 @@
            "included": {
              "locales": {
                "matches": [
--                "cy",
--                "en-GB",
--                "en-US",
--                "gd"
+-                "en-US"
 +                "ja-JP-macos",
 +                "ja"
                ]
 -            },
 -            "regions": [
--              "au"
+-              "gb"
 -            ]
 +            }
            },
--          "telemetryId": "ebay-au",
+-          "telemetryId": "ebay-uk",
            "webExtension": {
              "locales": [
--              "au"
+-              "uk"
 +              "ja"
              ]
            }
          },
-@@ -423,20 +294,13 @@
+@@ -491,20 +294,13 @@
            "included": {
              "locales": {
                "matches": [
@@ -556,6 +628,30 @@
                ]
 -            },
 -            "regions": [
+-              "au"
+-            ]
++            }
+           },
+-          "telemetryId": "ebay-au",
+           "webExtension": {
+             "locales": [
+-              "au"
++              "kr"
+             ]
+           }
+         },
+@@ -512,20 +308,13 @@
+           "included": {
+             "locales": {
+               "matches": [
+-                "cy",
+-                "en-GB",
+-                "en-US",
+-                "gd"
++                "nb-NO"
+               ]
+-            },
+-            "regions": [
 -              "ie"
 -            ]
 +            }
@@ -564,81 +660,73 @@
            "webExtension": {
              "locales": [
 -              "ie"
-+              "kr"
-             ]
-           }
-         },
-@@ -444,16 +308,13 @@
-           "included": {
-             "locales": {
-               "matches": [
--                "de",
--                "dsb",
--                "hsb"
-+                "nb-NO"
-               ]
-             }
-           },
--          "telemetryId": "ebay-de",
-           "webExtension": {
-             "locales": [
--              "de"
 +              "NO"
              ]
            }
          },
-@@ -461,19 +322,13 @@
+@@ -533,71 +322,13 @@
            "included": {
              "locales": {
                "matches": [
 -                "de",
 -                "dsb",
 -                "hsb"
-+                "ne-NP"
-               ]
+-              ]
+-            }
+-          },
+-          "telemetryId": "ebay-de",
+-          "webExtension": {
+-            "locales": [
+-              "de"
+-            ]
+-          }
+-        },
+-        {
+-          "included": {
+-            "locales": {
+-              "matches": [
+-                "de",
+-                "dsb",
+-                "hsb"
+-              ]
 -            },
 -            "regions": [
 -              "at"
 -            ]
-+            }
-           },
+-          },
 -          "telemetryId": "ebay-at",
-           "webExtension": {
-             "locales": [
+-          "webExtension": {
+-            "locales": [
 -              "at"
-+              "ne"
-             ]
-           }
-         },
-@@ -481,19 +336,13 @@
-           "included": {
-             "locales": {
-               "matches": [
+-            ]
+-          }
+-        },
+-        {
+-          "included": {
+-            "locales": {
+-              "matches": [
 -                "de",
 -                "dsb",
 -                "hsb"
-+                "nn-NO"
-               ]
+-              ]
 -            },
 -            "regions": [
 -              "ch"
 -            ]
-+            }
-           },
+-          },
 -          "telemetryId": "ebay-ch",
-           "webExtension": {
-             "locales": [
+-          "webExtension": {
+-            "locales": [
 -              "ch"
-+              "NN"
-             ]
-           }
-         },
-@@ -501,14 +350,13 @@
-           "included": {
-             "locales": {
-               "matches": [
+-            ]
+-          }
+-        },
+-        {
+-          "included": {
+-            "locales": {
+-              "matches": [
 -                "en-CA"
-+                "pa-IN"
++                "ne-NP"
                ]
              }
            },
@@ -646,45 +734,41 @@
            "webExtension": {
              "locales": [
 -              "ca"
-+              "pa"
++              "ne"
              ]
            }
          },
-@@ -516,15 +364,14 @@
+@@ -605,52 +336,13 @@
            "included": {
              "locales": {
                "matches": [
 -                "fy-NL",
 -                "nl"
-+                "pt-BR",
-+                "pt-PT"
++                "nn-NO"
                ]
              }
            },
 -          "telemetryId": "ebay-nl",
-           "webExtension": {
-             "locales": [
+-          "webExtension": {
+-            "locales": [
 -              "nl"
-+              "pt"
-             ]
-           }
-         },
-@@ -532,3549 +379,31 @@
-           "included": {
-             "locales": {
-               "matches": [
+-            ]
+-          }
+-        },
+-        {
+-          "included": {
+-            "locales": {
+-              "matches": [
 -                "en-US"
-+                "szl"
-               ]
+-              ]
 -            },
 -            "regions": [
 -              "nl"
 -            ]
-+            }
-           },
+-          },
 -          "telemetryId": "ebay-nl",
-           "webExtension": {
-             "locales": [
+-          "webExtension": {
+-            "locales": [
 -              "nl"
 -            ]
 -          }
@@ -702,54 +786,61 @@
 -            ]
 -          },
 -          "telemetryId": "ebay-be",
--          "webExtension": {
--            "locales": [
+           "webExtension": {
+             "locales": [
 -              "be"
--            ]
--          }
--        },
--        {
--          "included": {
--            "locales": {
--              "matches": [
++              "NN"
+             ]
+           }
+         },
+@@ -658,14 +350,13 @@
+           "included": {
+             "locales": {
+               "matches": [
 -                "ga-IE"
--              ]
--            }
--          },
++                "pa-IN"
+               ]
+             }
+           },
 -          "telemetryId": "ebay-ie",
--          "webExtension": {
--            "locales": [
+           "webExtension": {
+             "locales": [
 -              "ie"
--            ]
--          }
--        },
--        {
--          "included": {
--            "locales": {
--              "matches": [
++              "pa"
+             ]
+           }
+         },
+@@ -673,15 +364,14 @@
+           "included": {
+             "locales": {
+               "matches": [
 -                "it",
 -                "lij"
--              ]
--            }
--          },
++                "pt-BR",
++                "pt-PT"
+               ]
+             }
+           },
 -          "telemetryId": "ebay-it",
--          "webExtension": {
--            "locales": [
+           "webExtension": {
+             "locales": [
 -              "it"
--            ]
--          }
--        },
--        {
--          "included": {
--            "locales": {
--              "matches": [
++              "pt"
+             ]
+           }
+         },
+@@ -689,3481 +379,31 @@
+           "included": {
+             "locales": {
+               "matches": [
 -                "rm"
--              ]
--            }
--          },
++                "szl"
+               ]
+             }
+           },
 -          "telemetryId": "ebay-ch",
--          "webExtension": {
--            "locales": [
+           "webExtension": {
+             "locales": [
 -              "ch"
 -            ]
 -          }

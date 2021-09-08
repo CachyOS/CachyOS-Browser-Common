@@ -27,10 +27,9 @@ diff --git a/browser/themes/shared/urlbar-searchbar.inc.css b/browser/themes/sha
 index e80aaf6..6ec0961 100644
 --- a/browser/themes/shared/urlbar-searchbar.inc.css
 +++ b/browser/themes/shared/urlbar-searchbar.inc.css
-@@ -5,7 +5,7 @@
+@@ -5,6 +5,6 @@
  %endif
  
- %define fieldHoverBorderColor hsla(240,5%,5%,.35)
 -%define urlbarMarginInline 5px
 +%define urlbarMarginInline 0px
  %define urlbarSearchButtonWidth calc(16px + 2 * var(--urlbar-icon-padding))
