@@ -10,10 +10,10 @@ index f8a1764..ebf4206 100644
 +<!--        <a id="private-browsing-myths" data-l10n-id="about-private-browsing-info-myths"></a> -->
        </div>
      </div>
- 
+
 +    <!--
      <div class="promo">
-       <div class="promo-image-large">
+       <div class="promo-image-small">
          <img src="" alt="" />
 @@ -73,5 +74,6 @@
          </div>
