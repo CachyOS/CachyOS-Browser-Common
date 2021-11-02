@@ -1,19 +1,19 @@
 diff --git a/browser/components/privatebrowsing/content/aboutPrivateBrowsing.html b/browser/components/privatebrowsing/content/aboutPrivateBrowsing.html
-index f8a1764..ebf4206 100644
+index 32c9146ac3..d218b1a6af 100644
 --- a/browser/components/privatebrowsing/content/aboutPrivateBrowsing.html
 +++ b/browser/components/privatebrowsing/content/aboutPrivateBrowsing.html
 @@ -54,10 +54,11 @@
        <div class="info">
-         <h1 id="info-title" data-l10n-id="about-private-browsing-info-title"></h1>
-         <p id="info-body" data-l10n-id="about-private-browsing-info-description-simplified"></p>
--        <a id="private-browsing-myths" data-l10n-id="about-private-browsing-learn-more-link"></a>
-+<!--        <a id="private-browsing-myths" data-l10n-id="about-private-browsing-info-myths"></a> -->
+         <h1 id="info-title"></h1>
+         <p id="info-body"></p>
+-        <a id="private-browsing-myths"></a>
++<!--    <a id="private-browsing-myths"></a> -->
        </div>
      </div>
 
 +    <!--
      <div class="promo">
-       <div class="promo-image-small">
+       <div class="promo-image-large">
          <img src="" alt="" />
 @@ -73,5 +74,6 @@
          </div>
