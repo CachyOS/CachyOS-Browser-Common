@@ -1,0 +1,66 @@
+--- a/browser/locales/en-US/browser/preferences/preferences.ftl
++++ b/browser/locales/en-US/browser/preferences/preferences.ftl
+@@ -140,7 +140,7 @@
+     .accesskey = D
+ 
+ startup-restore-windows-and-tabs =
+-    .label = Open previous windows and tabs
++    .label = Open previous windows and tabs (requires enabling browsing history)
+     .accesskey = s
+ 
+ startup-restore-warn-on-quit =
+@@ -252,7 +252,7 @@
+     .label = Choose…
+     .accesskey = o
+ 
+-choose-browser-language-description = Choose the languages used to display menus, messages, and notifications from { -brand-short-name }.
++choose-browser-language-description = Choose the languages used to display menus, messages, and notifications from { -brand-short-name }. Please notice that, to preserve your privacy, { -brand-short-name } forces en-US as the default language.
+ manage-browser-languages-button =
+   .label = Set Alternatives…
+   .accesskey = l
+@@ -409,13 +409,13 @@
+     .label = Play DRM-controlled content
+     .accesskey = P
+ 
+-play-drm-content-learn-more = Learn more
++play-drm-content-learn-more = Why we disable it
+ 
+ update-application-title = { -brand-short-name } Updates
+ 
+ update-application-description = Keep { -brand-short-name } up to date for the best performance, stability, and security.
+ 
+-update-application-version = Version { $version } <a data-l10n-name="learn-more">What’s new</a>
++update-application-version = Version { $version } <a data-l10n-name="learn-more">Visit the repositories</a>
+ 
+ update-history =
+     .label = Show Update History…
+@@ -568,7 +568,7 @@
+ # "Firefox" should be treated as a brand and kept in English,
+ # while "Home" and "(Default)" can be localized.
+ home-mode-choice-default =
+-    .label = Firefox Home (Default)
++    .label = Homepage (Default)
+ 
+ home-mode-choice-custom =
+     .label = Custom URLs…
+@@ -597,8 +597,8 @@
+ 
+ ## Home Section - Firefox Home Content Customization
+ 
+-home-prefs-content-header = Firefox Home Content
+-home-prefs-content-description = Choose what content you want on your Firefox Home screen.
++home-prefs-content-header = Homepage Content
++home-prefs-content-description = Choose what content you want on your Homepage screen.
+ 
+ home-prefs-search-header =
+     .label = Web Search
+@@ -649,9 +649,9 @@
+ # and non-essential but also not entirely trivial and useless.
+ home-prefs-snippets-header =
+     .label = Snippets
+ 
+-home-prefs-snippets-description-new = Tips and news from { -vendor-short-name } and { -brand-product-name }
++home-prefs-snippets-description-new = Tips and news from { -vendor-short-name }
+ 
+ home-prefs-sections-rows-option =
+     .label =

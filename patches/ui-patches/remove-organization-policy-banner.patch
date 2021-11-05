@@ -1,0 +1,11 @@
+--- a/browser/components/preferences/preferences.js
++++ b/browser/components/preferences/preferences.js
+@@ -161,8 +161,6 @@
+     this.removeAttribute("keyboard-navigation");
+   });
+ 
+-  maybeDisplayPoliciesNotice();
+-
+   window.addEventListener("hashchange", onHashChange);
+ 
+   gotoPref().then(() => {

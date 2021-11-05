@@ -1,0 +1,22 @@
+--- a/browser/components/newtab/lib/AboutPreferences.jsm
++++ b/browser/components/newtab/lib/AboutPreferences.jsm
+@@ -54,18 +54,7 @@
+   },
+ ];
+ 
+-const PREFS_AFTER_SECTIONS = () => [
+-  {
+-    id: "snippets",
+-    pref: {
+-      feed: "feeds.snippets",
+-      titleString: "home-prefs-snippets-header",
+-      descString: "home-prefs-snippets-description-new",
+-    },
+-    icon: "chrome://global/skin/icons/info.svg",
+-    eventSource: "SNIPPETS",
+-  },
+-];
++const PREFS_AFTER_SECTIONS = () => [];
+ 
+ this.AboutPreferences = class AboutPreferences {
+   init() {
