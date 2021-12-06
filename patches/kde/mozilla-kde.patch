@@ -346,7 +346,7 @@ diff --git a/toolkit/system/unixproxy/nsUnixSystemProxySettings.cpp b/toolkit/sy
 diff --git a/toolkit/xre/moz.build b/toolkit/xre/moz.build
 --- a/toolkit/xre/moz.build
 +++ b/toolkit/xre/moz.build
-@@ -91,17 +91,19 @@ elif CONFIG["MOZ_WIDGET_TOOLKIT"] == "co
+@@ -91,18 +91,20 @@ elif CONFIG["MOZ_WIDGET_TOOLKIT"] == "co
          "../components/printingui",
      ]
  elif CONFIG["MOZ_WIDGET_TOOLKIT"] == "uikit":
@@ -360,6 +360,7 @@ diff --git a/toolkit/xre/moz.build b/toolkit/xre/moz.build
 +        "nsKDEUtils.cpp",
          "nsNativeAppSupportUnix.cpp",
      ]
+     CXXFLAGS += CONFIG["MOZ_X11_SM_CFLAGS"]
  else:
      UNIFIED_SOURCES += [
          "nsNativeAppSupportDefault.cpp",
