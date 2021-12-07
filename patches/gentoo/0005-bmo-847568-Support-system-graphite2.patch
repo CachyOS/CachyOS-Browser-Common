@@ -1,7 +1,7 @@
-From ffc7b194ef0fb5509d27a34063c52048912b8002 Mon Sep 17 00:00:00 2001
+From c5230b3e0caf6fa208bab8f7fd4c30c7fe58a2c9 Mon Sep 17 00:00:00 2001
 From: Thomas Deutschmann <whissi@gentoo.org>
 Date: Mon, 6 Apr 2020 19:34:44 +0200
-Subject: [PATCH 05/36] bmo#847568: Support system graphite2
+Subject: [PATCH 05/31] bmo#847568: Support system graphite2
 
 Allow building against system-wide graphite2.
 
@@ -20,7 +20,7 @@ Signed-off-by: Thomas Deutschmann <whissi@gentoo.org>
  create mode 100644 gfx/graphite2/geckoextra/moz.build
 
 diff --git a/config/system-headers.mozbuild b/config/system-headers.mozbuild
-index 449328ffaa..27b5171d0a 100644
+index 7178ada497..4e3aef0f24 100644
 --- a/config/system-headers.mozbuild
 +++ b/config/system-headers.mozbuild
 @@ -1243,6 +1243,12 @@ if CONFIG['MOZ_SYSTEM_HARFBUZZ']:
@@ -94,12 +94,12 @@ index b91d9c161c..a97e6eb203 100755
  echo
  echo If gfx/graphite2/src/files.mk has changed, please make corresponding
 diff --git a/gfx/moz.build b/gfx/moz.build
-index c9cb3d592a..2e822f0134 100644
+index 8222b72333..16a2b401db 100644
 --- a/gfx/moz.build
 +++ b/gfx/moz.build
-@@ -13,6 +13,11 @@ with Files("wr/**"):
- if CONFIG["MOZ_TREE_CAIRO"]:
-     DIRS += ["cairo"]
+@@ -10,6 +10,11 @@ with Files("**"):
+ with Files("wr/**"):
+     BUG_COMPONENT = ("Core", "Graphics: WebRender")
  
 +if CONFIG["MOZ_SYSTEM_GRAPHITE2"]:
 +    DIRS += ["graphite2/geckoextra"]
@@ -109,7 +109,7 @@ index c9cb3d592a..2e822f0134 100644
  if not CONFIG["MOZ_SYSTEM_HARFBUZZ"]:
      DIRS += ["harfbuzz/src"]
  
-@@ -24,7 +29,6 @@ DIRS += [
+@@ -22,7 +27,6 @@ DIRS += [
      "qcms",
      "gl",
      "layers",
@@ -118,10 +118,10 @@ index c9cb3d592a..2e822f0134 100644
      "thebes",
      "ipc",
 diff --git a/gfx/thebes/moz.build b/gfx/thebes/moz.build
-index fb2ad5bf34..c6ce6f8417 100644
+index c51c36e2b4..4f02a9e2a5 100644
 --- a/gfx/thebes/moz.build
 +++ b/gfx/thebes/moz.build
-@@ -288,7 +288,10 @@ if CONFIG["MOZ_WAYLAND"]:
+@@ -286,7 +286,10 @@ if CONFIG["MOZ_WAYLAND"]:
  
  LOCAL_INCLUDES += CONFIG["SKIA_INCLUDES"]
  
@@ -134,10 +134,10 @@ index fb2ad5bf34..c6ce6f8417 100644
  if CONFIG["MOZ_SYSTEM_HARFBUZZ"]:
      CXXFLAGS += CONFIG["MOZ_HARFBUZZ_CFLAGS"]
 diff --git a/old-configure.in b/old-configure.in
-index 4ddc3f5b45..de727a48bd 100644
+index 1707e98471..95098e4638 100644
 --- a/old-configure.in
 +++ b/old-configure.in
-@@ -2283,6 +2283,27 @@ if test "$USE_FC_FREETYPE"; then
+@@ -2204,6 +2204,27 @@ if test "$USE_FC_FREETYPE"; then
      fi
  fi
  
@@ -166,12 +166,12 @@ index 4ddc3f5b45..de727a48bd 100644
  dnl Check if we need the 32-bit Linux SSE2 error dialog
  dnl ========================================================
 diff --git a/toolkit/library/moz.build b/toolkit/library/moz.build
-index 3f393f3316..df178bc6cf 100644
+index dd6901ba9a..be73ac4bee 100644
 --- a/toolkit/library/moz.build
 +++ b/toolkit/library/moz.build
-@@ -241,6 +241,9 @@ if CONFIG["MOZ_ANDROID_GOOGLE_VR"]:
- OS_LIBS += CONFIG["MOZ_CAIRO_OSLIBS"]
- OS_LIBS += CONFIG["MOZ_WEBRTC_X11_LIBS"]
+@@ -260,6 +260,9 @@ if CONFIG["MOZ_ANDROID_GOOGLE_VR"]:
+         "-lgvr",
+     ]
  
 +if CONFIG["MOZ_SYSTEM_GRAPHITE2"]:
 +    OS_LIBS += CONFIG["MOZ_GRAPHITE2_LIBS"]
@@ -180,12 +180,12 @@ index 3f393f3316..df178bc6cf 100644
      OS_LIBS += CONFIG["MOZ_HARFBUZZ_LIBS"]
  
 diff --git a/toolkit/moz.configure b/toolkit/moz.configure
-index c934a661bd..0783019981 100644
+index 73658c073e..77424c64c2 100644
 --- a/toolkit/moz.configure
 +++ b/toolkit/moz.configure
-@@ -475,6 +475,19 @@ add_old_configure_assignment(
-     "_HAVE_FREETYPE2", depends_if(freetype2_info)(lambda _: True)
+@@ -460,6 +460,19 @@ add_old_configure_assignment(
  )
+ set_define("MOZ_HAVE_FREETYPE2", depends_if(freetype2_info)(lambda _: True))
  
 +# Graphite2
 +# ==============================================================
@@ -204,5 +204,5 @@ index c934a661bd..0783019981 100644
  # ==============================================================
  option('--with-system-harfbuzz', help="Use system harfbuzz (located with pkgconfig)")
 -- 
-2.31.1
+2.34.1
 
