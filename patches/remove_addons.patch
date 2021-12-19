@@ -12,8 +12,8 @@ index 269dcb2..ed7c31d 100644
 -    "webcompat",
 -    "report-site-issue",
      "pictureinpicture",
- ]
-
+     "proxy-failover",
+     "search-detection",
 diff --git a/browser/locales/Makefile.in b/browser/locales/Makefile.in
 index 496379c..dd6f359 100644
 --- a/browser/locales/Makefile.in
