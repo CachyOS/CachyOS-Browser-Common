@@ -832,12 +832,7 @@ diff --git a/uriloader/exthandler/HandlerServiceParent.cpp b/uriloader/exthandle
 diff --git a/uriloader/exthandler/moz.build b/uriloader/exthandler/moz.build
 --- a/uriloader/exthandler/moz.build
 +++ b/uriloader/exthandler/moz.build
-@@ -80,17 +80,19 @@ else:
-     SOURCES += [
-         osdir + "/nsOSHelperAppService.cpp",
-     ]
-     if CONFIG["CC_TYPE"] in ("clang", "gcc"):
-         CXXFLAGS += ["-Wno-error=shadow"]
+@@ -83,7 +83,9 @@ else:
 
  if CONFIG["MOZ_WIDGET_TOOLKIT"] == "gtk":
      UNIFIED_SOURCES += [
@@ -847,11 +842,6 @@ diff --git a/uriloader/exthandler/moz.build b/uriloader/exthandler/moz.build
          "unix/nsMIMEInfoUnix.cpp",
      ]
  elif CONFIG["MOZ_WIDGET_TOOLKIT"] == "android":
-     UNIFIED_SOURCES += [
-         "android/nsMIMEInfoAndroid.cpp",
-     ]
- elif CONFIG["MOZ_WIDGET_TOOLKIT"] == "windows":
-     UNIFIED_SOURCES += [
 @@ -128,16 +130,17 @@ include("/ipc/chromium/chromium-config.m
  FINAL_LIBRARY = "xul"
 
