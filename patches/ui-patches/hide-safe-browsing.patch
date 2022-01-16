@@ -1,0 +1,21 @@
+--- a//browser/components/preferences/privacy.inc.xhtml
++++ b//browser/components/preferences/privacy.inc.xhtml
+@@ -1008,15 +1008,15 @@
+ 
+ <!-- addons, forgery (phishing) UI Security -->
+ <groupbox id="browsingProtectionGroup" data-category="panePrivacy" hidden="true">
+-  <label><html:h2 data-l10n-id="security-browsing-protection"/></label>
+-  <hbox align = "center">
++  <label><html:h2 data-l10n-id="security-browsing-protection" hidden="true"/></label>
++  <hbox align = "center" hidden="true">
+     <checkbox id="enableSafeBrowsing"
+               data-l10n-id="security-enable-safe-browsing"
+               class="tail-with-learn-more"/>
+     <label id="enableSafeBrowsingLearnMore"
+            class="learnMore" is="text-link" data-l10n-id="security-enable-safe-browsing-link"/>
+   </hbox>
+-  <vbox class="indent">
++  <vbox class="indent" hidden="true">
+     <checkbox id="blockDownloads"
+               data-l10n-id="security-block-downloads"/>
+     <checkbox id="blockUncommonUnwanted"
