@@ -1,7 +1,7 @@
 --- a//browser/components/preferences/privacy.inc.xhtml
 +++ b//browser/components/preferences/privacy.inc.xhtml
 @@ -1008,15 +1008,15 @@
- 
+
  <!-- addons, forgery (phishing) UI Security -->
  <groupbox id="browsingProtectionGroup" data-category="panePrivacy" hidden="true">
 -  <label><html:h2 data-l10n-id="security-browsing-protection"/></label>
