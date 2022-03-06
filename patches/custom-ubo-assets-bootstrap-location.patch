@@ -4,7 +4,7 @@
  
              let data = await lookup;
              if (!data) {
-+              const assetsBootstrapLocation = Services.prefs.getStringPref("librewolf.uBO.assetsBootstrapLocation", undefined);
++              const assetsBootstrapLocation = Services.prefs.getStringPref("cachy-browser.uBO.assetsBootstrapLocation", undefined);
 +              if (extension.id == "uBlock0@raymondhill.net" && assetsBootstrapLocation) {
 +                return {
 +                  adminSettings: {
