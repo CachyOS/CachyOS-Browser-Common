@@ -8,7 +8,7 @@ index 57d7e2af8c..68928017fb 100644
  # support down to the oldest locally-installed version (5.4.2).
 -pypi-optional:psutil>=5.4.2,<=5.8.0:telemetry will be missing some data
 +pypi-optional:psutil>=5.4.2,<=5.9.0:telemetry will be missing some data
- pypi-optional:zstandard>=0.11.1,<=0.16.0:zstd archives will not be possible to extract
+ pypi-optional:zstandard>=0.11.1,<=0.17.0:zstd archives will not be possible to extract
 diff --git a/build/psutil_requirements.in b/build/psutil_requirements.in
 index 25a1813a4b..389957c9d6 100644
 --- a/build/psutil_requirements.in
@@ -16,7 +16,7 @@ index 25a1813a4b..389957c9d6 100644
 @@ -1,2 +1,2 @@
 -psutil==5.8.0
 +psutil==5.9.0
- 
+
 diff --git a/build/psutil_virtualenv_packages.txt b/build/psutil_virtualenv_packages.txt
 index 1fdad6983d..c14ad05226 100644
 --- a/build/psutil_virtualenv_packages.txt
