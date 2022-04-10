@@ -1,0 +1,17 @@
+diff --git a/browser/components/preferences/main.inc.xhtml b/browser/components/preferences/main.inc.xhtml
+index 855ee64..617911a 100644
+--- a/browser/components/preferences/main.inc.xhtml
++++ b/browser/components/preferences/main.inc.xhtml
+@@ -29,6 +29,7 @@
+   <vbox id="startupPageBox">
+     <checkbox id="browserRestoreSession"
+               data-l10n-id="startup-restore-windows-and-tabs"/>
++    <label id="sessionRestoreLearnMore" is="text-link" class="learnMore" data-l10n-id="session-restore-learn-more"/>
+   </vbox>
+ 
+ #ifdef HAVE_SHELL_SERVICE
+-  <vbox id="defaultBrowserBox">
++  <vbox id="defaultBrowserBox" hidden="true">
+     <checkbox id="alwaysCheckDefault" preference="browser.shell.checkDefaultBrowser"
+               disabled="true"
+               data-l10n-id="always-check-default"/>

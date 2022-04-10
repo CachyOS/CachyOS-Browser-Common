@@ -55,22 +55,22 @@ index 50a64a2..79d7d9c 100644
 +  } else if (NS_FAILED(localDir->AppendNative("Cachy"_ns))) {
      return NS_ERROR_FAILURE;
    }
-
+ 
 @@ -1559,7 +1559,7 @@ nsresult nsXREDirProvider::AppendSysUserExtensionPath(nsIFile* aFile) {
-
+ 
  #if defined(XP_MACOSX) || defined(XP_WIN)
-
+ 
 -  static const char* const sXR = "Mozilla";
 +  static const char* const sXR = "Cachy";
    rv = aFile->AppendNative(nsDependentCString(sXR));
    NS_ENSURE_SUCCESS(rv, rv);
-
+ 
 @@ -1569,7 +1569,7 @@ nsresult nsXREDirProvider::AppendSysUserExtensionPath(nsIFile* aFile) {
-
+ 
  #elif defined(XP_UNIX)
-
+ 
 -  static const char* const sXR = ".mozilla";
 +  static const char* const sXR = ".cachy";
    rv = aFile->AppendNative(nsDependentCString(sXR));
    NS_ENSURE_SUCCESS(rv, rv);
-
+ 

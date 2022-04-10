@@ -1,0 +1,112 @@
+--- a/browser/components/preferences/main.js
++++ b/browser/components/preferences/main.js
+@@ -312,6 +312,14 @@ var gMainPane = {
+       "performance";
+     performanceSettingsLink.setAttribute("href", performanceSettingsUrl);
+ 
++    let sessionRestoreLink = document.getElementById(
++      "sessionRestoreLearnMore"
++    );
++    let sessionRestoreUrl =
++      Services.urlFormatter.formatURLPref("app.support.baseURL") +
++      "why-is-session-restore-not-working";
++      sessionRestoreLink.setAttribute("href", sessionRestoreUrl);
++
+     this.updateDefaultPerformanceSettingsPref();
+ 
+     let defaultPerformancePref = Preferences.get(
+@@ -543,7 +551,7 @@ var gMainPane = {
+ 
+     let drmInfoURL =
+       Services.urlFormatter.formatURLPref("app.support.baseURL") +
+-      "drm-content";
++      "how-do-i-enable-drm";
+     document
+       .getElementById("playDRMContentLink")
+       .setAttribute("href", drmInfoURL);
+@@ -870,7 +878,8 @@ var gMainPane = {
+ 
+     const link = document.getElementById("browserContainersLearnMore");
+     link.href =
+-      Services.urlFormatter.formatURLPref("app.support.baseURL") + "containers";
++      Services.urlFormatter.formatURLPref("app.support.baseURL") +
++      "why-isnt-first-party-isolate-enabled-by-default";
+ 
+     document.getElementById("browserContainersbox").hidden = false;
+     this.readBrowserContainersCheckbox();
+--- a/browser/components/preferences/privacy.js
++++ b/browser/components/preferences/privacy.js
+@@ -283,7 +283,7 @@ function setUpContentBlockingWarnings()
+   let links = document.querySelectorAll(".contentBlockWarningLink");
+   let contentBlockingWarningUrl =
+     Services.urlFormatter.formatURLPref("app.support.baseURL") +
+-    "turn-off-etp-desktop";
++    "what-is-mozilla-tracking-protection";
+   for (let link of links) {
+     link.setAttribute("href", contentBlockingWarningUrl);
+   }
+@@ -478,7 +478,7 @@ var gPrivacyPane = {
+     let link = document.getElementById("httpsOnlyLearnMore");
+     let httpsOnlyURL =
+       Services.urlFormatter.formatURLPref("app.support.baseURL") +
+-      "https-only-prefs";
++      "does-cachy-browser-use-https-only-mode";
+     link.setAttribute("href", httpsOnlyURL);
+ 
+     // Set radio-value based on the pref value
+@@ -644,7 +644,7 @@ var gPrivacyPane = {
+     );
+     const breachAlertsLearnMoreUrl =
+       Services.urlFormatter.formatURLPref("app.support.baseURL") +
+-      "lockwise-alerts";
++      "why-is-the-built-in-password-manager-disabled";
+     breachAlertsLearnMoreLink.setAttribute("href", breachAlertsLearnMoreUrl);
+ 
+     this._initSafeBrowsing();
+@@ -751,7 +751,7 @@ var gPrivacyPane = {
+     );
+     let url =
+       Services.urlFormatter.formatURLPref("app.support.baseURL") +
+-      "storage-permissions";
++      "how-do-i-stay-logged-into-specific-websites";
+     document.getElementById("siteDataLearnMoreLink").setAttribute("href", url);
+ 
+     let notificationInfoURL =
+@@ -924,7 +924,7 @@ var gPrivacyPane = {
+     let link = document.getElementById("contentBlockingLearnMore");
+     let contentBlockingUrl =
+       Services.urlFormatter.formatURLPref("app.support.baseURL") +
+-      "enhanced-tracking-protection";
++      "what-is-mozilla-tracking-protection";
+     link.setAttribute("href", contentBlockingUrl);
+ 
+     // Toggles the text "Cross-site and social media trackers" based on the
+@@ -2276,7 +2276,7 @@ var gPrivacyPane = {
+     let learnMoreLink = document.getElementById("primaryPasswordLearnMoreLink");
+     let learnMoreURL =
+       Services.urlFormatter.formatURLPref("app.support.baseURL") +
+-      "primary-password-stored-logins";
++      "why-is-the-built-in-password-manager-disabled";
+     learnMoreLink.setAttribute("href", learnMoreURL);
+   },
+ 
+@@ -2474,7 +2474,7 @@ var gPrivacyPane = {
+     let learnMoreLink = document.getElementById("enableSafeBrowsingLearnMore");
+     let phishingUrl =
+       Services.urlFormatter.formatURLPref("app.support.baseURL") +
+-      "phishing-malware";
++      "why-do-you-disable-google-safe-browsing";
+     learnMoreLink.setAttribute("href", phishingUrl);
+ 
+     enableSafeBrowsing.addEventListener("command", function() {
+--- a/toolkit/mozapps/extensions/content/aboutaddons.js
++++ b/toolkit/mozapps/extensions/content/aboutaddons.js
+@@ -1997,7 +1997,7 @@ class SidebarFooter extends HTMLElement
+       icon: "chrome://global/skin/icons/help.svg",
+       createLinkElement: () => {
+         let link = document.createElement("a", { is: "support-link" });
+-        link.setAttribute("support-page", "addons-help");
++        link.setAttribute("support-page", "do-you-recommend-using-any-extensions");
+         link.id = "help-button";
+         return link;
+       },

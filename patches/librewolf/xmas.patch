@@ -1,0 +1,43 @@
+diff --git a/browser/installer/package-manifest.in b/browser/installer/package-manifest.in
+index 4d7a481..4daacdb 100644
+--- a/browser/installer/package-manifest.in
++++ b/browser/installer/package-manifest.in
+@@ -282,6 +282,11 @@
+ ; gre location for now.
+ @RESPATH@/defaults/pref/channel-prefs.js
+ 
++; Cachy specific files.
++@RESPATH@/defaults/pref/local-settings.js
++@RESPATH@/distribution/policies.json
++@RESPATH@/cachyos.cfg
++
+ ; Background tasks-specific preferences.  These are in the GRE
+ ; location since they apply to all tasks at this time.
+ #ifdef MOZ_BACKGROUNDTASKS
+diff --git a/lw/moz.build b/lw/moz.build
+index e69de29..8589aac 100644
+--- a/lw/moz.build
++++ b/lw/moz.build
+@@ -0,0 +1,12 @@
++FINAL_TARGET_FILES += [
++  "cachyos.cfg",
++]
++
++FINAL_TARGET_FILES.distribution += [
++  "policies.json",
++]
++
++# local-settings does not yet end up being pacakged.
++FINAL_TARGET_FILES.defaults.pref += [
++  "local-settings.js",
++]
+diff --git a/moz.build b/moz.build
+index 41c9ad7..046e01b 100644
+--- a/moz.build
++++ b/moz.build
+@@ -202,3 +202,5 @@ SPHINX_TREES["metrics"] = "docs/metrics"
+ SPHINX_TREES["gtest"] = "docs/gtest"
+ 
+ include("build/templates.mozbuild")
++
++DIRS += ["lw"]

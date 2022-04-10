@@ -1,14 +1,14 @@
 --- a/browser/locales/en-US/browser/preferences/preferences.ftl
 +++ b/browser/locales/en-US/browser/preferences/preferences.ftl
-@@ -140,7 +140,7 @@
-     .accesskey = D
+@@ -128,6 +128,8 @@
  
- startup-restore-windows-and-tabs =
--    .label = Open previous windows and tabs
-+    .label = Open previous windows and tabs (requires enabling browsing history)
-     .accesskey = s
+ startup-header = Startup
  
- startup-restore-warn-on-quit =
++session-restore-learn-more = What if it does not work?
++
+ always-check-default =
+     .label = Always check if { -brand-short-name } is your default browser
+     .accesskey = y
 @@ -409,13 +409,13 @@
      .label = Play DRM-controlled content
      .accesskey = P
