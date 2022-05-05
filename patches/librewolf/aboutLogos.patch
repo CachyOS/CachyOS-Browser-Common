@@ -1,0 +1,17 @@
+--- a/browser/base/jar.mn
++++ b/browser/base/jar.mn
+@@ -97,6 +97,14 @@ browser.jar:
+ #endif
+         content/browser/webrtcIndicator.xhtml         (content/webrtcIndicator.xhtml)
+         content/browser/webrtcIndicator.js            (content/webrtcIndicator.js)
++        content/browser/aboutLogos/0.png              (content/aboutLogos/0.png)
++        content/browser/aboutLogos/1.png              (content/aboutLogos/1.png)
++        content/browser/aboutLogos/2.png              (content/aboutLogos/2.png)
++        content/browser/aboutLogos/3.png              (content/aboutLogos/3.png)
++        content/browser/aboutLogos/4.png              (content/aboutLogos/4.png)
++        content/browser/aboutLogos/5.png              (content/aboutLogos/5.png)
++        content/browser/aboutLogos/6.png              (content/aboutLogos/6.png)
++        content/browser/aboutLogos/original.svg       (content/aboutLogos/original.svg)
+ # the following files are browser-specific overrides
+ *       content/browser/license.html                  (/toolkit/content/license.html)
+ % override chrome://global/content/license.html chrome://browser/content/license.html

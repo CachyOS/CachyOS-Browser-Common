@@ -38,5 +38,7 @@ rebrand "io.gitlab." "org.cachyos."
 rebrand LibreWolf Cachy
 rebrand Librewolf Cachy
 rebrand librewolf cachy-browser
+rebrand "cachy-browser\.net" "librewolf.net"
+rebrand "#why-is-cachy-browser-forcing-light-theme" "#why-is-librewolf-forcing-light-theme"
 
 rebrand cachy-browser.cfg cachyos.cfg

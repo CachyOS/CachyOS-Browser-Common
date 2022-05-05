@@ -1,10 +1,10 @@
+diff --git a/python/mozboot/mozboot/bootstrap.py b/python/mozboot/mozboot/bootstrap.py
+index 0c5ecbf..d9a6d9d 100644
 --- a/python/mozboot/mozboot/bootstrap.py
 +++ b/python/mozboot/mozboot/bootstrap.py
-@@ -548,11 +548,9 @@ def current_firefox_checkout(env, hg: Optional[Path] = None):
- 
-         if not len(path.parents):
+@@ -550,10 +550,7 @@ def current_firefox_checkout(env, hg: Optional[Path] = None):
              break
-+        path = path.parent
+         path = path.parent
  
 -    raise UserError(
 -        "Could not identify the root directory of your checkout! "
@@ -14,6 +14,8 @@
  
  
  def update_git_tools(git: Optional[Path], root_state_dir: Path):
+diff --git a/python/mozversioncontrol/mozversioncontrol/__init__.py b/python/mozversioncontrol/mozversioncontrol/__init__.py
+index dd31f53..6f0087a 100644
 --- a/python/mozversioncontrol/mozversioncontrol/__init__.py
 +++ b/python/mozversioncontrol/mozversioncontrol/__init__.py
 @@ -684,6 +684,29 @@ class GitRepository(Repository):
@@ -64,16 +66,16 @@
      else:
          raise MissingVCSInfo("unknown VCS_CHECKOUT_TYPE value: %s" % flavor)
  
+diff --git a/third_party/python/taskcluster_taskgraph/taskgraph/util/vcs.py b/third_party/python/taskcluster_taskgraph/taskgraph/util/vcs.py
+index 016578b..7525139 100644
 --- a/third_party/python/taskcluster_taskgraph/taskgraph/util/vcs.py
 +++ b/third_party/python/taskcluster_taskgraph/taskgraph/util/vcs.py
-@@ -168,6 +168,27 @@ class GitRepository(Repository):
+@@ -168,6 +168,43 @@ class GitRepository(Repository):
          self.run("checkout", ref)
  
  
 +class LocalRepository(Repository):
-+
-+    def __init__(self, path):
-+        super(LocalRepository, self).__init__(path, tool="true")
++    tool = "true"
 +
 +    @property
 +    def head_ref(self):
@@ -85,6 +87,24 @@
 +    def get_changed_files(self):
 +        return []
 +
++    def base_ref(self):
++        raise Exception("Unimplemented")
++
++    def branch(self):
++        raise Exception("Unimplemented")
++
++    def get_commit_message(self):
++        raise Exception("Unimplemented")
++
++    def get_url(self):
++        return ""
++
++    def update(self):
++        raise Exception("Unimplemented")
++
++    def working_directory_clean(self):
++        raise Exception("Unimplemented")
++
 +    def get_tracked_files_finder(self):
 +        files = [os.path.relpath(os.path.join(dp, f), self.path).replace("\\","/") for dp, dn, fn in os.walk(self.path) for f in fn]
 +        files.sort()
@@ -94,7 +114,7 @@
  def get_repository(path):
      """Get a repository object for the repository at `path`.
      If `path` is not a known VCS repository, raise an exception.
-@@ -178,7 +199,7 @@ def get_repository(path):
+@@ -178,7 +215,7 @@ def get_repository(path):
          elif os.path.exists(os.path.join(path, ".git")):
              return GitRepository(path)
  

@@ -1,5 +1,27 @@
+From cf709e1a1c879fb6b88d7dc05d2ab3e7b759ffbe Mon Sep 17 00:00:00 2001
+From: ohfp <1813007-ohfp@users.noreply.gitlab.com>
+Date: Tue, 12 Apr 2022 11:57:53 +0200
+Subject: [PATCH 1/2] port pref-pane patch changes to gecko-dev
+
+---
+ browser/components/preferences/jar.mn         |   1 +
+ .../preferences/cachy-browser.inc.xhtml           | 254 +++++++++++++++++
+ browser/components/preferences/cachy-browser.js   | 260 ++++++++++++++++++
+ browser/components/preferences/preferences.js |   2 +
+ .../components/preferences/preferences.xhtml  |  13 +
+ .../en-US/browser/preferences/preferences.ftl |  90 ++++++
+ browser/themes/shared/jar.inc.mn              |   2 +
+ .../shared/preferences/category-cachy-browser.svg |  96 +++++++
+ .../themes/shared/preferences/cachy-browser.css   |  23 ++
+ .../themes/shared/preferences/preferences.css |   4 +
+ 10 files changed, 745 insertions(+)
+ create mode 100644 browser/components/preferences/cachy-browser.inc.xhtml
+ create mode 100644 browser/components/preferences/cachy-browser.js
+ create mode 100644 browser/themes/shared/preferences/category-cachy-browser.svg
+ create mode 100644 browser/themes/shared/preferences/cachy-browser.css
+
 diff --git a/browser/components/preferences/jar.mn b/browser/components/preferences/jar.mn
-index 752b0b2..0aa6f60 100644
+index 912d9edf0855..30a83da4edca 100644
 --- a/browser/components/preferences/jar.mn
 +++ b/browser/components/preferences/jar.mn
 @@ -11,6 +11,7 @@ browser.jar:
@@ -12,7 +34,7 @@ index 752b0b2..0aa6f60 100644
     content/browser/preferences/experimental.js
 diff --git a/browser/components/preferences/cachy-browser.inc.xhtml b/browser/components/preferences/cachy-browser.inc.xhtml
 new file mode 100644
-index 0000000..7a582fb
+index 000000000000..7a582fb9bb0c
 --- /dev/null
 +++ b/browser/components/preferences/cachy-browser.inc.xhtml
 @@ -0,0 +1,254 @@
@@ -272,7 +294,7 @@ index 0000000..7a582fb
 +</html:template>
 diff --git a/browser/components/preferences/cachy-browser.js b/browser/components/preferences/cachy-browser.js
 new file mode 100644
-index 0000000..bd20104
+index 000000000000..23395f027a50
 --- /dev/null
 +++ b/browser/components/preferences/cachy-browser.js
 @@ -0,0 +1,260 @@
@@ -287,7 +309,7 @@ index 0000000..bd20104
 +XPCOMUtils.defineLazyGetter(this, "L10n", () => {
 +  return new Localization([
 +    "branding/brand.ftl",
-+    "browser/preferences/preferences.ftl",
++    "browser/locales/en-US/browser/preferences/preferences.ftl",
 +  ]);
 +});
 +
@@ -537,7 +559,7 @@ index 0000000..bd20104
 +}
 +
 diff --git a/browser/components/preferences/preferences.js b/browser/components/preferences/preferences.js
-index f6dc2b3..7d401fc 100644
+index f6dc2b3781f8..7d401fc63219 100644
 --- a/browser/components/preferences/preferences.js
 +++ b/browser/components/preferences/preferences.js
 @@ -8,6 +8,7 @@
@@ -557,7 +579,7 @@ index f6dc2b3..7d401fc 100644
    if (Services.prefs.getBoolPref("browser.preferences.experimental")) {
      // Set hidden based on previous load's hidden value.
 diff --git a/browser/components/preferences/preferences.xhtml b/browser/components/preferences/preferences.xhtml
-index 81059f3..d815682 100644
+index 81059f3d2e01..d815682d68bc 100644
 --- a/browser/components/preferences/preferences.xhtml
 +++ b/browser/components/preferences/preferences.xhtml
 @@ -13,6 +13,7 @@
@@ -595,10 +617,10 @@ index 81059f3..d815682 100644
  #include sync.inc.xhtml
  #include experimental.inc.xhtml
 diff --git a/browser/locales/en-US/browser/preferences/preferences.ftl b/browser/locales/en-US/browser/preferences/preferences.ftl
-index 8c3f3f5..40fdfef 100644
+index f4d5eaea2193..61c05fb0560f 100644
 --- a/browser/locales/en-US/browser/preferences/preferences.ftl
-+++ b/browser/preferences/preferences.ftl
-@@ -1372,3 +1372,93 @@ choose-download-folder-title = Choose Download Folder:
++++ b/browser/locales/en-US/browser/preferences/preferences.ftl
+@@ -1409,3 +1409,93 @@ choose-download-folder-title = Choose Download Folder:
  #   $service-name (String) - Name of a cloud storage provider like Dropbox, Google Drive, etc...
  save-files-to-cloud-storage =
      .label = Save files to { $service-name }
@@ -693,10 +715,10 @@ index 8c3f3f5..40fdfef 100644
 +cachy-browser-config-link = All advanced settings (about:config)
 +cachy-browser-open-profile = Open user profile directory
 diff --git a/browser/themes/shared/jar.inc.mn b/browser/themes/shared/jar.inc.mn
-index 9e25fa9..f476053 100644
+index 26f209ad7047..a305db88cbbd 100644
 --- a/browser/themes/shared/jar.inc.mn
 +++ b/browser/themes/shared/jar.inc.mn
-@@ -86,6 +86,7 @@
+@@ -106,6 +106,7 @@
    skin/classic/browser/preferences/android-menu.svg            (../shared/preferences/android-menu.svg)
    skin/classic/browser/preferences/category-general.svg        (../shared/preferences/category-general.svg)
    skin/classic/browser/preferences/category-privacy-security.svg    (../shared/preferences/category-privacy-security.svg)
@@ -704,7 +726,7 @@ index 9e25fa9..f476053 100644
    skin/classic/browser/preferences/category-search.svg         (../shared/preferences/category-search.svg)
    skin/classic/browser/preferences/category-sync.svg           (../shared/preferences/category-sync.svg)
    skin/classic/browser/preferences/containers.css              (../shared/preferences/containers.css)
-@@ -108,6 +109,7 @@
+@@ -128,6 +129,7 @@
    skin/classic/browser/preferences/vpn-logo.svg                (../shared/preferences/vpn-logo.svg)
    skin/classic/browser/preferences/search.css                  (../shared/preferences/search.css)
    skin/classic/browser/preferences/siteDataSettings.css        (../shared/preferences/siteDataSettings.css)
@@ -714,7 +736,7 @@ index 9e25fa9..f476053 100644
    skin/classic/browser/upgradeDialog/abstract.png              (../shared/upgradeDialog/abstract.png)
 diff --git a/browser/themes/shared/preferences/category-cachy-browser.svg b/browser/themes/shared/preferences/category-cachy-browser.svg
 new file mode 100644
-index 0000000..8ebf2eb
+index 000000000000..8ebf2ebe19a9
 --- /dev/null
 +++ b/browser/themes/shared/preferences/category-cachy-browser.svg
 @@ -0,0 +1,71 @@
@@ -791,7 +813,7 @@ index 0000000..8ebf2eb
 +
 diff --git a/browser/themes/shared/preferences/cachy-browser.css b/browser/themes/shared/preferences/cachy-browser.css
 new file mode 100644
-index 0000000..12f926a
+index 000000000000..12f926ab7018
 --- /dev/null
 +++ b/browser/themes/shared/preferences/cachy-browser.css
 @@ -0,0 +1,23 @@
@@ -819,7 +841,7 @@ index 0000000..12f926a
 +	fill: currentColor;
 +}
 diff --git a/browser/themes/shared/preferences/preferences.css b/browser/themes/shared/preferences/preferences.css
-index 8b110d3..801b183 100644
+index 406dc5603070..d6920777ec81 100644
 --- a/browser/themes/shared/preferences/preferences.css
 +++ b/browser/themes/shared/preferences/preferences.css
 @@ -222,6 +222,10 @@ checkbox {
@@ -833,3 +855,159 @@ index 8b110d3..801b183 100644
  #category-sync > .category-icon {
    list-style-image: url("chrome://browser/skin/preferences/category-sync.svg");
  }
+-- 
+2.36.0
+
+
+From 0844e8bdf9c85bb4d74f923d0b97ae834c24e6c1 Mon Sep 17 00:00:00 2001
+From: ohfp <1813007-ohfp@users.noreply.gitlab.com>
+Date: Thu, 14 Apr 2022 10:28:41 +0200
+Subject: [PATCH 2/2] fix xorigin pref init and handling
+
+---
+ .../preferences/cachy-browser.inc.xhtml           |  4 +-
+ browser/components/preferences/cachy-browser.js   | 48 ++++++++++++-------
+ .../en-US/browser/preferences/preferences.ftl |  2 +-
+ 3 files changed, 33 insertions(+), 21 deletions(-)
+
+diff --git a/browser/components/preferences/cachy-browser.inc.xhtml b/browser/components/preferences/cachy-browser.inc.xhtml
+index 7a582fb9bb0c..c2dfea6d0858 100644
+--- a/browser/components/preferences/cachy-browser.inc.xhtml
++++ b/browser/components/preferences/cachy-browser.inc.xhtml
+@@ -105,7 +105,7 @@
+   <html:h2 data-l10n-id="cachy-browser-privacy-heading" />
+ 
+   <hbox>
+-    <checkbox id="cachy-browser-xorigin-ref-checbox" data-l10n-id="cachy-browser-xorigin-ref-checbox" preference="network.http.referer.XOriginPolicy" flex="1" />
++    <checkbox id="cachy-browser-xorigin-ref-checkbox" data-l10n-id="cachy-browser-xorigin-ref-checkbox" preference="network.http.referer.XOriginPolicy" flex="1" />
+     <html:label for="cachy-browser-xorigin-ref-collapse" class="sidebar-footer-link" pack="end"> <image class="sidebar-footer-icon help-icon"/> </html:label>
+   </hbox>
+   <vbox class="cachy-browser-collapse indent">
+@@ -113,7 +113,7 @@
+     <vbox class="cachy-browser-collapsed tracking-protection-ui content-blocking-category">
+       <label data-l10n-id="cachy-browser-xorigin-ref-description" />
+       <html:div> <image src="chrome://browser/skin/warning.svg" /> <label data-l10n-id="cachy-browser-xorigin-ref-warning1" class="cachy-browser-warning" /> </html:div>
+-      <checkbox preference="network.http.referer.XOriginPolicy" label="network.http.referer.XOriginPolicy" />
++      <checkbox disabled="true" preference="network.http.referer.XOriginPolicy" label="network.http.referer.XOriginPolicy" />
+     </vbox>
+   </vbox>
+ 
+diff --git a/browser/components/preferences/cachy-browser.js b/browser/components/preferences/cachy-browser.js
+index 23395f027a50..95c5dbb48291 100644
+--- a/browser/components/preferences/cachy-browser.js
++++ b/browser/components/preferences/cachy-browser.js
+@@ -9,17 +9,17 @@ var { AppConstants } = ChromeUtils.import( "resource://gre/modules/AppConstants.
+ XPCOMUtils.defineLazyGetter(this, "L10n", () => {
+   return new Localization([
+     "branding/brand.ftl",
+-    "browser/locales/en-US/browser/preferences/preferences.ftl",
++    "browser/preferences/preferences.ftl",
+   ]);
+ });
+ 
+ Preferences.addAll([
+-    // IPv6
+-    { id: "network.dns.disableIPv6", type: "bool" },
+-    // ocsp hard-fail
+-    { id: "security.OCSP.require", type: "bool" },
+-    // ocsp hard-fail
+-    { id: "identity.fxaccounts.enabled", type: "bool" },
++  // IPv6
++  { id: "network.dns.disableIPv6", type: "bool" },
++  // ocsp hard-fail
++  { id: "security.OCSP.require", type: "bool" },
++  // ocsp hard-fail
++  { id: "identity.fxaccounts.enabled", type: "bool" },
+   // WebGL
+   { id: "webgl.disabled", type: "bool" },
+   // RFP
+@@ -31,7 +31,7 @@ Preferences.addAll([
+   { id: "clipboard.autocopy", type: "bool" },
+   { id: "middlemouse.paste", type: "bool" },
+   // XOrigin referrers
+-  { id: "network.http.referer.XOriginPolicy", type: "int"},
++  { id: "network.http.referer.XOriginPolicy", type: "int" },
+   // Harden
+   { id: "privacy.resistFingerprinting.letterboxing", type: "bool" },
+   // Google Safe Browsing
+@@ -47,7 +47,10 @@ Preferences.addAll([
+   //{ id: "browser.safebrowsing.downloads.enabled", type: "bool" }, //Also already added
+   { id: "toolkit.legacyUserProfileCustomizations.stylesheets", type: "bool" },
+   // Canvas UI when blocked
+-  { id: "privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts", type: "bool" },
++  {
++    id: "privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts",
++    type: "bool",
++  },
+ ]);
+ 
+ var gCachyPane = {
+@@ -142,7 +145,12 @@ var gCachyPane = {
+       ]
+     );
+ 
+-    Preferences.get("network.http.referer.XOriginPolicy").on("change", syncXOriginPolicy(Preferences.get("network.http.referer.XOriginPolicy")));
++    setXOriginPolicySyncListeners(
++      "cachy-browser-xorigin-ref-checkbox",
++      "network.http.referer.XOriginPolicy",
++      [1, 2],
++      [0]
++    );
+ 
+     // Set event listener on open profile directory button
+     setEventListener("cachy-browser-open-profile", "command", openProfileDirectory);
+@@ -154,12 +162,16 @@ var gCachyPane = {
+   },
+ };
+ 
+-function syncXOriginPolicy(prefValue) {
+-  if (prefValue == "0" || prefValue == "1") {
+-    Services.prefs.setIntPref("network.http.referer.XOriginPolicy", 2);
+-  } else {
+-    Services.prefs.setIntPref("network.http.referer.XOriginPolicy", 0);
+-  }
++function setXOriginPolicySyncListeners(checkboxid, pref, onVals, offVals) {
++  setSyncFromPrefListener(checkboxid, () => onVals.includes(getPref(pref)));
++  setSyncToPrefListener(checkboxid, () =>
++    writeGenericPrefs([pref], [2], [0], document.getElementById(checkboxid).checked)
++  );
++  Preferences.get(pref).on("change", () =>
++    makeMasterCheckboxesReactive(checkboxid, () =>
++      onVals.includes(getPref(pref))
++    )
++  );
+ }
+ 
+ function openProfileDirectory() {
+@@ -196,13 +208,13 @@ function setSyncListeners(checkboxid, opts, onVals, offVals) {
+ }
+ 
+ function makeMasterCheckboxesReactive(checkboxid, func) {
+-  let shouldBeChecked = func();
++  const shouldBeChecked = func();
+   document.getElementById(checkboxid).checked = shouldBeChecked;
+ }
+ 
+ // Wrapper function in case something more is required (as I suspected in the first iteration of this)
+ function getPref(pref) {
+-  let retval = Preferences.get(pref);
++  const retval = Preferences.get(pref);
+ /*  if (retval === undefined) {
+     return defaultValue;
+   } */
+diff --git a/browser/locales/en-US/browser/preferences/preferences.ftl b/browser/locales/en-US/browser/preferences/preferences.ftl
+index 61c05fb0560f..46de6b40af65 100644
+--- a/browser/locales/en-US/browser/preferences/preferences.ftl
++++ b/browser/locales/en-US/browser/preferences/preferences.ftl
+@@ -1438,7 +1438,7 @@ cachy-browser-ipv6-checkbox =
+     .label = Enable IPv6
+ 
+ cachy-browser-privacy-heading = Privacy
+-cachy-browser-xorigin-ref-checbox =
++cachy-browser-xorigin-ref-checkbox =
+     .label = Limit cross-origin referrers
+ 
+ cachy-browser-broken-heading = Fingerprinting
+-- 
+2.36.0
+

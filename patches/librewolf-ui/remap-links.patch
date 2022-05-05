@@ -1,8 +1,15 @@
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -312,6 +312,14 @@ var gMainPane = {
-       "performance";
+@@ -308,12 +308,19 @@
+       "performanceSettingsLearnMore"
+     );
+     let performanceSettingsUrl =
+-      Services.urlFormatter.formatURLPref("app.support.baseURL") +
+-      "performance";
++      "https://support.mozilla.org/en-US/kb/performance-settings";
      performanceSettingsLink.setAttribute("href", performanceSettingsUrl);
+ 
+     this.updateDefaultPerformanceSettingsPref();
  
 +    let sessionRestoreLink = document.getElementById(
 +      "sessionRestoreLearnMore"
@@ -10,12 +17,42 @@
 +    let sessionRestoreUrl =
 +      Services.urlFormatter.formatURLPref("app.support.baseURL") +
 +      "why-is-session-restore-not-working";
-+      sessionRestoreLink.setAttribute("href", sessionRestoreUrl);
++    sessionRestoreLink.setAttribute("href", sessionRestoreUrl);
 +
-     this.updateDefaultPerformanceSettingsPref();
- 
      let defaultPerformancePref = Preferences.get(
-@@ -543,7 +551,7 @@ var gMainPane = {
+       "browser.preferences.defaultPerformanceSettings.enabled"
+     );
+@@ -326,8 +333,7 @@
+       "connectionSettingsLearnMore"
+     );
+     let connectionSettingsUrl =
+-      Services.urlFormatter.formatURLPref("app.support.baseURL") +
+-      "prefs-connection-settings";
++     "https://support.mozilla.org/en-US/kb/connection-settings-firefox"
+     connectionSettingsLink.setAttribute("href", connectionSettingsUrl);
+     this.updateProxySettingsUI();
+     initializeProxyUI(gMainPane);
+@@ -357,8 +363,7 @@
+       document.getElementById("pictureInPictureBox").hidden = false;
+ 
+       let pipLearnMoreUrl =
+-        Services.urlFormatter.formatURLPref("app.support.baseURL") +
+-        "picture-in-picture";
++        "https://support.mozilla.org/en-US/kb/turn-picture-picture-mode";
+       let link = document.getElementById("pictureInPictureLearnMore");
+       link.setAttribute("href", pipLearnMoreUrl);
+     }
+@@ -509,8 +514,7 @@
+     ) {
+       document.getElementById("mediaControlBox").hidden = false;
+       let mediaControlLearnMoreUrl =
+-        Services.urlFormatter.formatURLPref("app.support.baseURL") +
+-        "media-keyboard-control";
++        "https://support.mozilla.org/en-US/kb/control-audio-or-video-playback-your-keyboard";
+       let link = document.getElementById("mediaControlLearnMore");
+       link.setAttribute("href", mediaControlLearnMoreUrl);
+     }
+@@ -543,7 +547,7 @@
  
      let drmInfoURL =
        Services.urlFormatter.formatURLPref("app.support.baseURL") +
@@ -24,7 +61,7 @@
      document
        .getElementById("playDRMContentLink")
        .setAttribute("href", drmInfoURL);
-@@ -870,7 +878,8 @@ var gMainPane = {
+@@ -870,7 +874,8 @@
  
      const link = document.getElementById("browserContainersLearnMore");
      link.href =
@@ -34,9 +71,10 @@
  
      document.getElementById("browserContainersbox").hidden = false;
      this.readBrowserContainersCheckbox();
+
 --- a/browser/components/preferences/privacy.js
 +++ b/browser/components/preferences/privacy.js
-@@ -283,7 +283,7 @@ function setUpContentBlockingWarnings()
+@@ -283,7 +283,7 @@ function setUpContentBlockingWarnings() {
    let links = document.querySelectorAll(".contentBlockWarningLink");
    let contentBlockingWarningUrl =
      Services.urlFormatter.formatURLPref("app.support.baseURL") +
@@ -63,7 +101,7 @@
      breachAlertsLearnMoreLink.setAttribute("href", breachAlertsLearnMoreUrl);
  
      this._initSafeBrowsing();
-@@ -751,7 +751,7 @@ var gPrivacyPane = {
+@@ -751,11 +751,12 @@ var gPrivacyPane = {
      );
      let url =
        Services.urlFormatter.formatURLPref("app.support.baseURL") +
@@ -72,7 +110,13 @@
      document.getElementById("siteDataLearnMoreLink").setAttribute("href", url);
  
      let notificationInfoURL =
-@@ -924,7 +924,7 @@ var gPrivacyPane = {
+-      Services.urlFormatter.formatURLPref("app.support.baseURL") + "push";
++      Services.urlFormatter.formatURLPref("app.support.baseURL") +
++      "how-do-i-enable-push-notifications";
+     document
+       .getElementById("notificationPermissionsLearnMore")
+       .setAttribute("href", notificationInfoURL);
+@@ -924,7 +925,7 @@ var gPrivacyPane = {
      let link = document.getElementById("contentBlockingLearnMore");
      let contentBlockingUrl =
        Services.urlFormatter.formatURLPref("app.support.baseURL") +
@@ -81,7 +125,7 @@
      link.setAttribute("href", contentBlockingUrl);
  
      // Toggles the text "Cross-site and social media trackers" based on the
-@@ -2276,7 +2276,7 @@ var gPrivacyPane = {
+@@ -2276,7 +2277,7 @@ var gPrivacyPane = {
      let learnMoreLink = document.getElementById("primaryPasswordLearnMoreLink");
      let learnMoreURL =
        Services.urlFormatter.formatURLPref("app.support.baseURL") +
@@ -90,7 +134,7 @@
      learnMoreLink.setAttribute("href", learnMoreURL);
    },
  
-@@ -2474,7 +2474,7 @@ var gPrivacyPane = {
+@@ -2474,7 +2475,7 @@ var gPrivacyPane = {
      let learnMoreLink = document.getElementById("enableSafeBrowsingLearnMore");
      let phishingUrl =
        Services.urlFormatter.formatURLPref("app.support.baseURL") +
