@@ -1,13 +1,31 @@
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -806,6 +806,29 @@ var gMainPane = {
-       () => this.readBrowserContainersCheckbox()
-     );
+@@ -3737,6 +3737,7 @@ const AppearanceChooser = {
+     FORCED_COLORS_QUERY.addEventListener("change", this);
+     SYSTEM_DARK_MODE_QUERY.addEventListener("change", this);
+     Services.prefs.addObserver(PREF_USE_SYSTEM_COLORS, this);
++    Services.prefs.addObserver("privacy.resistFingerprinting", this);
+     Services.obs.addObserver(this, "look-and-feel-changed");
+     this._update();
+   },
+@@ -3756,6 +3757,7 @@ const AppearanceChooser = {
  
+   destroy() {
+     Services.prefs.removeObserver(PREF_USE_SYSTEM_COLORS, this);
++    Services.prefs.removeObserver("privacy.resistFingerprinting", this);
+     Services.obs.removeObserver(this, "look-and-feel-changed");
+     FORCED_COLORS_QUERY.removeEventListener("change", this);
+     SYSTEM_DARK_MODE_QUERY.removeEventListener("change", this);
+@@ -3798,5 +3800,33 @@ const AppearanceChooser = {
+       (AppConstants.platform == "win" ||
+         !Services.prefs.getBoolPref(PREF_USE_SYSTEM_COLORS));
+     this.warning.hidden = !forcingColorsAndNoColorSchemeSupport;
++
 +    if (Services.prefs.getBoolPref("privacy.resistFingerprinting")) {
 +      document.getElementById("web-appearance-chooser").style.opacity = 0.3;
 +      document.getElementById("web-appearance-chooser").style.pointerEvents = "none";
 +      const infoBox = document.createElement("div");
++      infoBox.id = "web-appearance-rfp-warning";
 +      infoBox.classList.add("info-box-container");
 +      infoBox.style.display = "flex";
 +      infoBox.style.alignItems = "center";
@@ -25,8 +43,10 @@
 +      learnMore.innerText = "Learn more";
 +      infoBox.appendChild(learnMore);
 +      document.getElementById("webAppearanceSettings").insertBefore(infoBox, document.getElementById("webAppearanceSettings").children[2]);
++    } else {
++      document.getElementById("web-appearance-rfp-warning")?.remove();
++      document.getElementById("web-appearance-chooser").style.opacity = 1;
++      document.getElementById("web-appearance-chooser").style.pointerEvents = "all";
 +    }
-+
-     this.setInitialized();
    },
- 
+ };

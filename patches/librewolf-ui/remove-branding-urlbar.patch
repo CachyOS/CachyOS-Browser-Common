@@ -1,6 +1,6 @@
 --- a/browser/locales/en-US/browser/browser.ftl
 +++ b/browser/locales/en-US/browser/browser.ftl
-@@ -543,7 +543,7 @@
+@@ -543,7 +543,7 @@ urlbar-result-action-search-tabs = Searc
  # A label shown above the "Firefox Suggest" (bookmarks/history) group in the
  # urlbar results.
  urlbar-group-firefox-suggest =
@@ -8,4 +8,4 @@
 +  .label = Suggestions
  
  # A label shown above the search suggestions group in the urlbar results. It
- # should use title case.
+ # should use sentence case.
