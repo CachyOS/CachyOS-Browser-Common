@@ -1,7 +1,7 @@
-From 3c5c8813e5c3f7149ebe7c30afa8698731b72164 Mon Sep 17 00:00:00 2001
+From 522af8951f5faf17862bf962f573f516aa78799b Mon Sep 17 00:00:00 2001
 From: ohfp <1813007-ohfp@users.noreply.gitlab.com>
-Date: Wed, 4 May 2022 11:11:58 +0200
-Subject: [PATCH] mozilla-kde.patch 99.0 applied
+Date: Fri, 10 Jun 2022 11:44:14 +0200
+Subject: [PATCH] kde
 
 ---
  modules/libpref/Preferences.cpp               |  14 +-
@@ -27,8 +27,8 @@ Subject: [PATCH] mozilla-kde.patch 99.0 applied
  widget/gtk/nsFilePicker.h                     |   6 +
  xpcom/components/ManifestParser.cpp           |  11 +-
  xpcom/components/moz.build                    |   1 +
- xpcom/io/nsLocalFileUnix.cpp                  |  28 +-
- 24 files changed, 1013 insertions(+), 42 deletions(-)
+ xpcom/io/nsLocalFileUnix.cpp                  |  21 +-
+ 24 files changed, 1010 insertions(+), 38 deletions(-)
  create mode 100644 toolkit/xre/nsKDEUtils.cpp
  create mode 100644 toolkit/xre/nsKDEUtils.h
  create mode 100644 uriloader/exthandler/unix/nsCommonRegistry.cpp
@@ -37,10 +37,10 @@ Subject: [PATCH] mozilla-kde.patch 99.0 applied
  create mode 100644 uriloader/exthandler/unix/nsKDERegistry.h
 
 diff --git a/modules/libpref/Preferences.cpp b/modules/libpref/Preferences.cpp
-index fa88d4b4ec18..85a33909ceb6 100644
+index 65d2b6b1252a..ad651009dbf3 100644
 --- a/modules/libpref/Preferences.cpp
 +++ b/modules/libpref/Preferences.cpp
-@@ -91,6 +91,7 @@
+@@ -93,6 +93,7 @@
  #ifdef MOZ_BACKGROUNDTASKS
  #  include "mozilla/BackgroundTasks.h"
  #endif
@@ -48,7 +48,7 @@ index fa88d4b4ec18..85a33909ceb6 100644
  
  #ifdef DEBUG
  #  include <map>
-@@ -4666,6 +4667,17 @@ nsresult Preferences::InitInitialObjects(bool aIsStartup) {
+@@ -4772,6 +4773,17 @@ nsresult Preferences::InitInitialObjects(bool aIsStartup) {
  #endif
    };
  
@@ -66,7 +66,7 @@ index fa88d4b4ec18..85a33909ceb6 100644
    rv = pref_LoadPrefsInDir(defaultPrefDir, specialFiles,
                             ArrayLength(specialFiles));
    if (NS_FAILED(rv)) {
-@@ -4740,7 +4752,7 @@ nsresult Preferences::InitInitialObjects(bool aIsStartup) {
+@@ -4846,7 +4858,7 @@ nsresult Preferences::InitInitialObjects(bool aIsStartup) {
        }
  
        // Do we care if a file provided by this process fails to load?
@@ -76,10 +76,10 @@ index fa88d4b4ec18..85a33909ceb6 100644
    }
  
 diff --git a/modules/libpref/moz.build b/modules/libpref/moz.build
-index f5028fa69168..80c55c5689fc 100644
+index 1f021d409c51..171d034cc03a 100644
 --- a/modules/libpref/moz.build
 +++ b/modules/libpref/moz.build
-@@ -124,6 +124,10 @@ UNIFIED_SOURCES += [
+@@ -125,6 +125,10 @@ UNIFIED_SOURCES += [
      "SharedPrefMap.cpp",
  ]
  
@@ -129,10 +129,10 @@ index d4172e2d73ad..8bd0577bc535 100644
  with Files("**"):
      BUG_COMPONENT = ("Toolkit", "Downloads API")
 diff --git a/toolkit/mozapps/downloads/HelperAppDlg.jsm b/toolkit/mozapps/downloads/HelperAppDlg.jsm
-index 64de8d098907..2321f3a8eb37 100644
+index e3572722f774..812133d09d92 100644
 --- a/toolkit/mozapps/downloads/HelperAppDlg.jsm
 +++ b/toolkit/mozapps/downloads/HelperAppDlg.jsm
-@@ -1259,26 +1259,56 @@ nsUnknownContentTypeDialog.prototype = {
+@@ -1257,26 +1257,56 @@ nsUnknownContentTypeDialog.prototype = {
          this.chosenApp = params.handlerApp;
        }
      } else if ("@mozilla.org/applicationchooser;1" in Cc) {
@@ -274,7 +274,7 @@ index f8d088054506..091ccf3d9e76 100644
    auto result = MakeRefPtr<nsUnixSystemProxySettings>();
    result->Init();
 diff --git a/toolkit/xre/moz.build b/toolkit/xre/moz.build
-index c19a11dd6e0e..6243723355fc 100644
+index 84af551f180c..751627fd97ce 100644
 --- a/toolkit/xre/moz.build
 +++ b/toolkit/xre/moz.build
 @@ -97,7 +97,9 @@ elif CONFIG["MOZ_WIDGET_TOOLKIT"] == "uikit":
@@ -1068,10 +1068,10 @@ index b9e7aed3cb5c..367ad9ee2421 100644
        LOG(
            ("Got MIMEInfo from GNOME registry without extensions; setting them "
 diff --git a/widget/gtk/moz.build b/widget/gtk/moz.build
-index 87e96e6c693a..4daae0f17de0 100644
+index bf64f7ebdc65..f94b4e017e5e 100644
 --- a/widget/gtk/moz.build
 +++ b/widget/gtk/moz.build
-@@ -165,6 +165,7 @@ LOCAL_INCLUDES += [
+@@ -169,6 +169,7 @@ LOCAL_INCLUDES += [
      "/layout/xul",
      "/other-licenses/atk-1.0",
      "/third_party/cups/include",
@@ -1080,7 +1080,7 @@ index 87e96e6c693a..4daae0f17de0 100644
      "/widget/headless",
  ]
 diff --git a/widget/gtk/nsFilePicker.cpp b/widget/gtk/nsFilePicker.cpp
-index 00a5caa288ff..8e436f0fc02a 100644
+index c73130496ae7..9e7b9aed56f1 100644
 --- a/widget/gtk/nsFilePicker.cpp
 +++ b/widget/gtk/nsFilePicker.cpp
 @@ -5,6 +5,7 @@
@@ -1485,7 +1485,7 @@ index 6cf78aa9bec5..dfcf9c7697af 100644
  
  if CONFIG["MOZ_WIDGET_TOOLKIT"] == "gtk":
 diff --git a/xpcom/io/nsLocalFileUnix.cpp b/xpcom/io/nsLocalFileUnix.cpp
-index b609a0b89027..974b92f2b48f 100644
+index f3f98008ed74..e2edd26b7640 100644
 --- a/xpcom/io/nsLocalFileUnix.cpp
 +++ b/xpcom/io/nsLocalFileUnix.cpp
 @@ -59,6 +59,7 @@
@@ -1496,56 +1496,29 @@ index b609a0b89027..974b92f2b48f 100644
  #endif
  
  #ifdef MOZ_WIDGET_COCOA
-@@ -2076,18 +2077,16 @@ nsLocalFile::Reveal() {
+@@ -2076,10 +2077,19 @@ nsLocalFile::Reveal() {
    }
  
  #ifdef MOZ_WIDGET_GTK
--  nsCOMPtr<nsIGIOService> giovfs = do_GetService(NS_GIOSERVICE_CONTRACTID);
++  nsAutoCString url;
+   nsCOMPtr<nsIGIOService> giovfs = do_GetService(NS_GIOSERVICE_CONTRACTID);
 -  if (!giovfs) {
 -    return NS_ERROR_FAILURE;
--  }
-+  nsAutoCString url;
- 
-   bool isDirectory;
-   if (NS_FAILED(IsDirectory(&isDirectory))) {
-     return NS_ERROR_FAILURE;
-   }
- 
-+  nsCOMPtr<nsIGIOService> giovfs = do_GetService(NS_GIOSERVICE_CONTRACTID);
-   if (isDirectory) {
--    return giovfs->ShowURIForInput(mPath);
-+    url = mPath;
-   }
-   if (NS_SUCCEEDED(giovfs->OrgFreedesktopFileManager1ShowItems(mPath))) {
-     return NS_OK;
-@@ -2101,7 +2100,7 @@ nsLocalFile::Reveal() {
-     return NS_ERROR_FAILURE;
-   }
- 
--  return giovfs->ShowURIForInput(dirPath);
-+  url = dirPath;
- #elif defined(MOZ_WIDGET_COCOA)
-   CFURLRef url;
-   if (NS_SUCCEEDED(GetCFURL(&url))) {
-@@ -2113,6 +2112,17 @@ nsLocalFile::Reveal() {
- #else
-   return NS_ERROR_FAILURE;
- #endif
++  url = mPath;
 +  if(nsKDEUtils::kdeSupport()) {
 +    nsTArray<nsCString> command;
 +    command.AppendElement( "REVEAL"_ns );
 +    command.AppendElement( mPath );
 +    return nsKDEUtils::command( command ) ? NS_OK : NS_ERROR_FAILURE;
-+  }
+   }
 +
 +  if (!giovfs)
 +    return NS_ERROR_FAILURE;
 +
-+  return giovfs->ShowURIForInput(url);
- }
- 
- NS_IMETHODIMP
-@@ -2122,6 +2132,12 @@ nsLocalFile::Launch() {
+   return giovfs->RevealFile(this);
+ #elif defined(MOZ_WIDGET_COCOA)
+   CFURLRef url;
+@@ -2101,6 +2111,13 @@ nsLocalFile::Launch() {
    }
  
  #ifdef MOZ_WIDGET_GTK
@@ -1555,9 +1528,10 @@ index b609a0b89027..974b92f2b48f 100644
 +    command.AppendElement( mPath );
 +    return nsKDEUtils::command( command ) ? NS_OK : NS_ERROR_FAILURE;
 +  }
++
    nsCOMPtr<nsIGIOService> giovfs = do_GetService(NS_GIOSERVICE_CONTRACTID);
    if (!giovfs) {
      return NS_ERROR_FAILURE;
 -- 
-2.36.0
+2.36.1
 

@@ -3,13 +3,13 @@
 @@ -71,9 +71,7 @@ async function getRuntimeIcon(runtime, channel) {
      }
    }
-
+ 
 -  return channel === "release" || channel === "beta" || channel === "aurora"
 -    ? `chrome://devtools/skin/images/aboutdebugging-firefox-${channel}.svg`
 -    : "chrome://devtools/skin/images/aboutdebugging-firefox-nightly.svg";
 +  return "chrome://devtools/skin/images/aboutdebugging-firefox-cachy-browser.svg";
  }
-
+ 
  function onRemoteDevToolsClientClosed() {
 --- a/devtools/client/jar.mn
 +++ b/devtools/client/jar.mn

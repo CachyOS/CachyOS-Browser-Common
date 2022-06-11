@@ -1,5 +1,5 @@
 diff --git a/browser/extensions/moz.build b/browser/extensions/moz.build
-index 269dcb2..ed7c31d 100644
+index 0d4b9c3..d923333 100644
 --- a/browser/extensions/moz.build
 +++ b/browser/extensions/moz.build
 @@ -5,11 +5,9 @@
@@ -12,13 +12,13 @@ index 269dcb2..ed7c31d 100644
      "webcompat",
 -    "report-site-issue",
      "pictureinpicture",
-     "proxy-failover",
      "search-detection",
+ ]
 diff --git a/browser/locales/Makefile.in b/browser/locales/Makefile.in
-index 496379c..dd6f359 100644
+index e4b60a0..c38fdd2 100644
 --- a/browser/locales/Makefile.in
 +++ b/browser/locales/Makefile.in
-@@ -61,7 +61,6 @@ l10n-%:
+@@ -55,7 +55,6 @@ l10n-%:
  ifneq (,$(wildcard ../extensions/formautofill/locales))
  	@$(MAKE) -C ../extensions/formautofill/locales AB_CD=$* XPI_NAME=locale-$*
  endif
@@ -26,7 +26,7 @@ index 496379c..dd6f359 100644
  	@$(MAKE) -C ../../devtools/client/locales AB_CD=$* XPI_NAME=locale-$* XPI_ROOT_APPID='$(XPI_ROOT_APPID)'
  	@$(MAKE) -C ../../devtools/startup/locales AB_CD=$* XPI_NAME=locale-$* XPI_ROOT_APPID='$(XPI_ROOT_APPID)'
  	@$(MAKE) l10n AB_CD=$* XPI_NAME=locale-$* PREF_DIR=$(PREF_DIR)
-@@ -82,7 +81,6 @@ endif
+@@ -76,7 +75,6 @@ endif
  	@$(MAKE) -C ../../devtools/startup/locales chrome AB_CD=$*
  	@$(MAKE) chrome AB_CD=$*
  	@$(MAKE) -C $(DEPTH)/$(MOZ_BRANDING_DIRECTORY)/locales chrome AB_CD=$*
@@ -35,10 +35,10 @@ index 496379c..dd6f359 100644
  package-win32-installer: $(SUBMAKEFILES)
  	$(MAKE) -C ../installer/windows CONFIG_DIR=l10ngen ZIP_IN='$(ZIP_OUT)' installer
 diff --git a/browser/locales/filter.py b/browser/locales/filter.py
-index bb2e992..7d7768e 100644
+index 22eb5cb..5e1f09f 100644
 --- a/browser/locales/filter.py
 +++ b/browser/locales/filter.py
-@@ -19,7 +19,6 @@
+@@ -17,7 +17,6 @@ def test(mod, path, entity=None):
          "devtools/startup",
          "browser",
          "browser/extensions/formautofill",
@@ -47,10 +47,10 @@ index bb2e992..7d7768e 100644
          "other-licenses/branding/firefox",
          "browser/branding/official",
 diff --git a/browser/locales/l10n.ini b/browser/locales/l10n.ini
-index f4cb7ca..4efac13 100644
+index 7a65997..7f97667 100644
 --- a/browser/locales/l10n.ini
 +++ b/browser/locales/l10n.ini
-@@ -13,7 +13,6 @@
+@@ -13,7 +13,6 @@ dirs = browser
       devtools/client
       devtools/startup
       browser/extensions/formautofill
@@ -59,16 +59,17 @@ index f4cb7ca..4efac13 100644
  [includes]
  # non-central apps might want to use %(topsrcdir)s here, or other vars
 diff --git a/browser/locales/l10n.toml b/browser/locales/l10n.toml
-index b9b18fe..af7c583 100644
+index e9d5010..914a2f1 100644
 --- a/browser/locales/l10n.toml
 +++ b/browser/locales/l10n.toml
-@@ -132,10 +132,6 @@
+@@ -133,10 +133,6 @@ locales = [
+     reference = "browser/extensions/formautofill/locales/en-US/**"
      l10n = "{l}browser/extensions/formautofill/**"
  
- [[paths]]
+-[[paths]]
 -    reference = "browser/extensions/report-site-issue/locales/en-US/**"
 -    l10n = "{l}browser/extensions/report-site-issue/**"
 -
--[[paths]]
+ [[paths]]
      reference = "services/sync/locales/en-US/**"
      l10n = "{l}services/sync/**"
