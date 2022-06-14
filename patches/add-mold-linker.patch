@@ -1,0 +1,56 @@
+diff --git a/build/moz.configure/toolchain.configure b/build/moz.configure/toolchain.configure
+--- a/build/moz.configure/toolchain.configure
++++ b/build/moz.configure/toolchain.configure
+@@ -2156,11 +2156,11 @@
+ 
+ 
+ option(
+     "--enable-linker",
+     nargs=1,
+-    help="Select the linker {bfd, gold, ld64, lld, lld-*}{|}",
++    help="Select the linker {bfd, gold, ld64, lld, lld-*, mold}{|}",
+     default=enable_linker_default,
+     when=is_linker_option_enabled,
+ )
+ 
+ 
+@@ -2194,11 +2194,11 @@
+ 
+     def is_valid_linker(linker):
+         if target.kernel == "Darwin":
+             valid_linkers = ("ld64", "lld")
+         else:
+-            valid_linkers = ("bfd", "gold", "lld")
++            valid_linkers = ("bfd", "gold", "lld", "mold")
+         if linker in valid_linkers:
+             return True
+         if "lld" in valid_linkers and linker.startswith("lld-"):
+             return True
+         return False
+@@ -2239,10 +2239,13 @@
+             kind = "ld64"
+ 
+         elif retcode != 0:
+             return None
+ 
++        elif "mold" in stdout:
++            kind = "mold"
++
+         elif "GNU ld" in stdout:
+             # We are using the normal linker
+             kind = "bfd"
+ 
+         elif "GNU gold" in stdout:
+@@ -2323,11 +2326,11 @@
+ # There's a wrinkle with MinGW: linker configuration is not enabled, so
+ # `select_linker` is never invoked.  Hard-code around it.
+ @depends(select_linker, target, c_compiler)
+ def gcc_use_gnu_ld(select_linker, target, c_compiler):
+     if select_linker is not None and target.kernel != "Darwin":
+-        return select_linker.KIND in ("bfd", "gold", "lld")
++        return select_linker.KIND in ("bfd", "gold", "lld", "mold")
+     if target.kernel == "WINNT" and c_compiler.type == "clang":
+         return True
+     return None
+ 
+ 
