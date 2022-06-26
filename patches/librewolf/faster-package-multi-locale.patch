@@ -8,13 +8,13 @@ diff --git a/python/mozbuild/mozbuild/mach_commands.py b/python/mozbuild/mozbuil
      nargs="+",
      required=True,
 -    help='List of locales to package, including "en-US"',
-+    help="List of locales to package",
++    help='List of locales to package, excluding "en-US"',
  )
  @CommandArgument(
      "--verbose", action="store_true", help="Log informative status messages."
  )
  def package_l10n(command_context, verbose=False, locales=[]):
-@@ -2484,55 +2484,33 @@
+@@ -2484,55 +2484,36 @@
              "export BUILD_BACKENDS=FasterMake,RecursiveMake\n"
              "in your mozconfig."
          )
@@ -30,7 +30,7 @@ diff --git a/python/mozbuild/mozbuild/mach_commands.py b/python/mozbuild/mozbuil
 -        )
 -        locales.append("en-US")
 -    locales = list(sorted(locales))
-+    locales = sorted(locale for locale in locales if locale != "en-US")
++    locales = list(filter(lambda locale: locale != "en-US", sorted(locales)))
  
      append_env = {
          # We are only (re-)packaging, we don't want to (re-)build
@@ -72,13 +72,16 @@ diff --git a/python/mozbuild/mozbuild/mach_commands.py b/python/mozbuild/mozbuil
 +        {"locales": locales},
 +        "Processing chrome Gecko resources for locales {locales}",
 +    )
-+    command_context._run_make(
-+        directory=command_context.topobjdir,
-+        target=["chrome-{}".format(locale) for locale in locales],
++    command_context.run_process(
++        [
++            mozpath.join(command_context.topsrcdir, "mach"),
++            "build",
++            " ".join(map(lambda locale: "chrome-{}".format(locale), locales)),
++        ],
 +        append_env=append_env,
-+        pass_thru=False,
-+        print_directory=False,
++        pass_thru=True,
 +        ensure_exit_code=True,
++        cwd=mozpath.join(command_context.topsrcdir),
 +    )
  
      if command_context.substs["MOZ_BUILD_APP"] == "mobile/android":
