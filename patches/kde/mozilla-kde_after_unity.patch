@@ -40,14 +40,14 @@ diff --git a/modules/libpref/Preferences.cpp b/modules/libpref/Preferences.cpp
 index 40d6f89e56..79bfe40fb9 100644
 --- a/modules/libpref/Preferences.cpp
 +++ b/modules/libpref/Preferences.cpp
-@@ -91,6 +91,7 @@
- #ifdef MOZ_BACKGROUNDTASKS
- #  include "mozilla/BackgroundTasks.h"
- #endif
+@@ -10,6 +10,7 @@
+ #include "prnetdb.h"
+ #include "prenv.h"
+ #include "nsInterfaceHashtable.h"
 +#include "nsKDEUtils.h"
- 
- #ifdef DEBUG
- #  include <map>
+ #include "nsHashtablesFwd.h"
+ #include "nsHashKeys.h"
+ #include "nsNetUtil.h"
 @@ -4671,6 +4672,17 @@ nsresult Preferences::InitInitialObjects(bool aIsStartup) {
  #endif
    };
