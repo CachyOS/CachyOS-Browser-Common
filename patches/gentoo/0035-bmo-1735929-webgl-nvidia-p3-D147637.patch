@@ -1,7 +1,27 @@
-diff -up firefox-101.0/gfx/gl/SharedSurfaceDMABUF.cpp.D147637.diff firefox-101.0/gfx/gl/SharedSurfaceDMABUF.cpp
---- firefox-101.0/gfx/gl/SharedSurfaceDMABUF.cpp.D147637.diff	2022-05-27 01:16:54.000000000 +0200
-+++ firefox-101.0/gfx/gl/SharedSurfaceDMABUF.cpp	2022-06-07 09:37:29.361992695 +0200
-@@ -12,22 +12,37 @@
+
+# HG changeset patch
+# User stransky <stransky@redhat.com>
+# Date 1654763840 0
+# Node ID f9c796ae5117065116947d61b8fe2bcae1f6b78c
+# Parent  12142d005f41be34d021ff2ae7ee01c565abef46
+Bug 1735929 [Linux] Use EGL_MESA_image_dma_buf_export in SharedSurfaceDMABUF r=jgilbert,aosmond
+
+- Update SharedSurfaceDMABUF for EGL_MESA_image_dma_buf_export DMABufSurface interface.
+- Test surface export and import in SurfaceFactory_DMABUF::CanCreateSurface() to make sure it really works.
+
+Depends on D147636
+
+Differential Revision: https://phabricator.services.mozilla.com/D147637
+
+diff --git a/gfx/gl/SharedSurfaceDMABUF.cpp b/gfx/gl/SharedSurfaceDMABUF.cpp
+--- a/gfx/gl/SharedSurfaceDMABUF.cpp
++++ b/gfx/gl/SharedSurfaceDMABUF.cpp
+@@ -7,32 +7,47 @@
+ 
+ #include "gfxPlatform.h"
+ #include "GLContextEGL.h"
+ #include "MozFramebuffer.h"
+ #include "mozilla/layers/LayersSurfaces.h"  // for SurfaceDescriptor, etc
  
  namespace mozilla::gl {
  
@@ -47,7 +67,17 @@ diff -up firefox-101.0/gfx/gl/SharedSurfaceDMABUF.cpp.D147637.diff firefox-101.0
    return AsUnique(new SharedSurface_DMABUF(desc, std::move(fb), surface));
  }
  
-@@ -61,7 +76,7 @@ UniquePtr<SurfaceFactory_DMABUF> Surface
+ SharedSurface_DMABUF::SharedSurface_DMABUF(const SharedSurfaceDesc& desc,
+                                            UniquePtr<MozFramebuffer> fb,
+                                            const RefPtr<DMABufSurface> surface)
+     : SharedSurface(desc, std::move(fb)), mSurface(surface) {}
+ 
+@@ -56,23 +71,53 @@ Maybe<layers::SurfaceDescriptor> SharedS
+ 
+ /*static*/
+ UniquePtr<SurfaceFactory_DMABUF> SurfaceFactory_DMABUF::Create(GLContext& gl) {
+   if (!widget::GetDMABufDevice()->IsDMABufWebGLEnabled()) {
+     return nullptr;
    }
  
    auto dmabufFactory = MakeUnique<SurfaceFactory_DMABUF>(gl);
@@ -56,13 +86,15 @@ diff -up firefox-101.0/gfx/gl/SharedSurfaceDMABUF.cpp.D147637.diff firefox-101.0
      return dmabufFactory;
    }
  
-@@ -71,8 +86,38 @@ UniquePtr<SurfaceFactory_DMABUF> Surface
+   LOGDMABUF(
+       ("SurfaceFactory_DMABUF::Create() failed, fallback to SW buffers.\n"));
+   widget::GetDMABufDevice()->DisableDMABufWebGL();
    return nullptr;
  }
  
 +bool SurfaceFactory_DMABUF::CanCreateSurface(GLContext& gl) {
 +  UniquePtr<SharedSurface> test =
-+      CreateShared(gfx::IntSize(1, 1));
++      CreateShared(gfx::IntSize(1, 1), gfx::ColorSpace2::SRGB);
 +  if (!test) {
 +    LOGDMABUF((
 +        "SurfaceFactory_DMABUF::CanCreateSurface() failed to create surface."));
@@ -96,18 +128,29 @@ diff -up firefox-101.0/gfx/gl/SharedSurfaceDMABUF.cpp.D147637.diff firefox-101.0
                        layers::TextureType::DMABUF, true}) {}
 -
  }  // namespace mozilla::gl
-diff -up firefox-101.0/gfx/gl/SharedSurfaceDMABUF.h.D147637.diff firefox-101.0/gfx/gl/SharedSurfaceDMABUF.h
---- firefox-101.0/gfx/gl/SharedSurfaceDMABUF.h.D147637.diff	2022-06-07 09:31:23.678228010 +0200
-+++ firefox-101.0/gfx/gl/SharedSurfaceDMABUF.h	2022-06-07 09:36:39.691512555 +0200
-@@ -59,10 +59,7 @@ class SurfaceFactory_DMABUF : public Sur
+diff --git a/gfx/gl/SharedSurfaceDMABUF.h b/gfx/gl/SharedSurfaceDMABUF.h
+--- a/gfx/gl/SharedSurfaceDMABUF.h
++++ b/gfx/gl/SharedSurfaceDMABUF.h
+@@ -54,20 +54,16 @@ class SurfaceFactory_DMABUF : public Sur
+   explicit SurfaceFactory_DMABUF(GLContext&);
+ 
+  public:
+   virtual UniquePtr<SharedSurface> CreateSharedImpl(
+       const SharedSurfaceDesc& desc) override {
      return SharedSurface_DMABUF::Create(desc);
    }
  
 -  bool CanCreateSurface() {
--    UniquePtr<SharedSurface> test = CreateShared(gfx::IntSize(1, 1));
+-    UniquePtr<SharedSurface> test =
+-        CreateShared(gfx::IntSize(1, 1), gfx::ColorSpace2::SRGB);
 -    return test != nullptr;
 -  }
 +  bool CanCreateSurface(GLContext& gl);
  };
  
  }  // namespace gl
+ 
+ }  // namespace mozilla
+ 
+ #endif /* SHARED_SURFACE_DMABUF_H_ */
+
