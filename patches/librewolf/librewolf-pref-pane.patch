@@ -1,4 +1,4 @@
-From babb9dc13626b8d7096b3e9debd36a2404c34a80 Mon Sep 17 00:00:00 2001
+From cd0ec42d56fe5d4689ed19c84ad5ca5a27a005fd Mon Sep 17 00:00:00 2001
 From: ohfp <1813007-ohfp@users.noreply.gitlab.com>
 Date: Tue, 12 Apr 2022 11:57:53 +0200
 Subject: [PATCH] port pref-pane patch changes to gecko-dev
@@ -589,7 +589,7 @@ index 000000000000..c8cbb075d59b
 +  });
 +});
 diff --git a/browser/components/preferences/preferences.js b/browser/components/preferences/preferences.js
-index 0a2a7895ae44..430f70cf06a2 100644
+index 0b97e8c3cb59..637090adaa5e 100644
 --- a/browser/components/preferences/preferences.js
 +++ b/browser/components/preferences/preferences.js
 @@ -8,6 +8,7 @@
@@ -609,7 +609,7 @@ index 0a2a7895ae44..430f70cf06a2 100644
    if (Services.prefs.getBoolPref("browser.preferences.experimental")) {
      // Set hidden based on previous load's hidden value.
 diff --git a/browser/components/preferences/preferences.xhtml b/browser/components/preferences/preferences.xhtml
-index 81059f3d2e01..d815682d68bc 100644
+index 6ee14eec9b2e..a0d768dce307 100644
 --- a/browser/components/preferences/preferences.xhtml
 +++ b/browser/components/preferences/preferences.xhtml
 @@ -13,6 +13,7 @@
@@ -638,7 +638,7 @@ index 81059f3d2e01..d815682d68bc 100644
          <richlistitem id="category-sync"
                        class="category"
                        hidden="true"
-@@ -211,6 +223,7 @@
+@@ -207,6 +219,7 @@
  #include home.inc.xhtml
  #include search.inc.xhtml
  #include privacy.inc.xhtml
@@ -750,7 +750,7 @@ index b10403800c7a..7f9bc2760342 100644
 +cachy-browser-config-link = All advanced settings (about:config)
 +cachy-browser-open-profile = Open user profile directory
 diff --git a/browser/themes/shared/jar.inc.mn b/browser/themes/shared/jar.inc.mn
-index 615644e2f1de..df8e3a849a4c 100644
+index 4a88a1cc318d..2d7ac15e9b48 100644
 --- a/browser/themes/shared/jar.inc.mn
 +++ b/browser/themes/shared/jar.inc.mn
 @@ -106,6 +106,7 @@
