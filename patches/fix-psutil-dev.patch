@@ -6,5 +6,5 @@ diff --git a/python/sites/mach.txt b/python/sites/mach.txt
  # We aren't (yet) able to pin packages in automation, so we have to
  # support down to the oldest locally-installed version (5.4.2).
 -pypi-optional:psutil>=5.4.2,<=5.8.0:telemetry will be missing some data
-+pypi-optional:psutil>=5.4.2,<=5.9.0:telemetry will be missing some data
- pypi-optional:zstandard>=0.11.1,<=0.17.0:zstd archives will not be possible to extract
++pypi-optional:psutil>=5.4.2,<=5.9.1:telemetry will be missing some data
+ pypi-optional:zstandard>=0.11.1,<=0.18.0:zstd archives will not be possible to extract
