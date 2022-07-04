@@ -1,4 +1,4 @@
-From 38eb5068331323a0b6bae12ed280fdcd75c8f495 Mon Sep 17 00:00:00 2001
+From afe53a3e933a68b0d898288449a7d50a44db354f Mon Sep 17 00:00:00 2001
 From: ohfp <1813007-ohfp@users.noreply.gitlab.com>
 Date: Wed, 29 Jun 2022 10:58:45 +0200
 Subject: [PATCH] kde
@@ -10,7 +10,7 @@ Subject: [PATCH] kde
  python/mozbuild/mozpack/chrome/manifest.py    |   1 +
  toolkit/components/downloads/moz.build        |   4 +
  toolkit/mozapps/downloads/HelperAppDlg.jsm    |  70 ++--
- .../unixproxy/nsUnixSystemProxySettings.cpp   |  32 ++
+ .../unixproxy/nsUnixSystemProxySettings.cpp   |  33 ++
  toolkit/xre/moz.build                         |   2 +
  toolkit/xre/nsKDEUtils.cpp                    | 321 ++++++++++++++++++
  toolkit/xre/nsKDEUtils.h                      |  48 +++
@@ -28,7 +28,7 @@ Subject: [PATCH] kde
  xpcom/components/ManifestParser.cpp           |  11 +-
  xpcom/components/moz.build                    |   1 +
  xpcom/io/nsLocalFileUnix.cpp                  |  21 +-
- 24 files changed, 1009 insertions(+), 37 deletions(-)
+ 24 files changed, 1010 insertions(+), 37 deletions(-)
  create mode 100644 toolkit/xre/nsKDEUtils.cpp
  create mode 100644 toolkit/xre/nsKDEUtils.h
  create mode 100644 uriloader/exthandler/unix/nsCommonRegistry.cpp
@@ -210,18 +210,19 @@ index 325de51c0c5f..8e5219f0e22f 100644
        var nsIFilePicker = Ci.nsIFilePicker;
        var fp = Cc["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
 diff --git a/toolkit/system/unixproxy/nsUnixSystemProxySettings.cpp b/toolkit/system/unixproxy/nsUnixSystemProxySettings.cpp
-index ef110b1287bf..4983f0bd76b0 100644
+index ef110b1287bf..d82e149f482f 100644
 --- a/toolkit/system/unixproxy/nsUnixSystemProxySettings.cpp
 +++ b/toolkit/system/unixproxy/nsUnixSystemProxySettings.cpp
-@@ -15,6 +15,7 @@
+@@ -15,6 +15,8 @@
  #include "nsNetUtil.h"
  #include "nsISupportsPrimitives.h"
  #include "nsIGSettingsService.h"
 +#include "nsKDEUtils.h"
++#include "nsPrintfCString.h"
  
  using namespace mozilla;
  
-@@ -38,6 +39,8 @@ class nsUnixSystemProxySettings final : public nsISystemProxySettings {
+@@ -38,6 +40,8 @@ class nsUnixSystemProxySettings final : public nsISystemProxySettings {
                                   nsACString& aResult);
    nsresult SetProxyResultFromGSettings(const char* aKeyBase, const char* aType,
                                         nsACString& aResult);
@@ -230,7 +231,7 @@ index ef110b1287bf..4983f0bd76b0 100644
  };
  
  NS_IMPL_ISUPPORTS(nsUnixSystemProxySettings, nsISystemProxySettings)
-@@ -379,6 +382,9 @@ nsresult nsUnixSystemProxySettings::GetProxyForURI(const nsACString& aSpec,
+@@ -379,6 +383,9 @@ nsresult nsUnixSystemProxySettings::GetProxyForURI(const nsACString& aSpec,
                                                     const nsACString& aHost,
                                                     const int32_t aPort,
                                                     nsACString& aResult) {
@@ -240,7 +241,7 @@ index ef110b1287bf..4983f0bd76b0 100644
    if (mProxySettings) {
      nsresult rv = GetProxyFromGSettings(aScheme, aHost, aPort, aResult);
      if (NS_SUCCEEDED(rv)) return rv;
-@@ -387,6 +393,32 @@ nsresult nsUnixSystemProxySettings::GetProxyForURI(const nsACString& aSpec,
+@@ -387,6 +394,32 @@ nsresult nsUnixSystemProxySettings::GetProxyForURI(const nsACString& aSpec,
    return GetProxyFromEnvironment(aScheme, aHost, aPort, aResult);
  }
  
@@ -1524,5 +1525,5 @@ index 410fcc19e435..d7c976e0e4b2 100644
    if (!giovfs) {
      return NS_ERROR_FAILURE;
 -- 
-2.36.1
+2.37.0
 
