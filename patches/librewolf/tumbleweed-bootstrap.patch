@@ -1,0 +1,57 @@
+--- a/python/mozboot/mozboot/opensuse.py
++++ b/python/mozboot/mozboot/opensuse.py
+@@ -16,6 +16,7 @@ class OpenSUSEBootstrapper(LinuxBootstrapper, BaseBootstrapper):
+         "rpmconf",
+         "libcurl-devel",
+         "libpulse-devel",
++        "unzip",
+     ]
+ 
+     BROWSER_PACKAGES = [
+@@ -23,7 +24,6 @@ class OpenSUSEBootstrapper(LinuxBootstrapper, BaseBootstrapper):
+         "gcc-c++",
+         "gtk3-devel",
+         "dbus-1-glib-devel",
+-        "gconf2-devel",
+         "glibc-devel-static",
+         "libstdc++-devel",
+         "libXt-devel",
+@@ -97,29 +97,19 @@ class OpenSUSEBootstrapper(LinuxBootstrapper, BaseBootstrapper):
+         self(["pip3", "install", "--upgrade", "pip", "--user"])
+         self(["pip3", "install", "--upgrade", "Mercurial", "--user"])
+ 
+-    def zypper_install(self, *packages):
+-        command = ["zypper", "install"]
++    def zypper(self, *args):
+         if self.no_interactive:
+-            command.append("-n")
+-
+-        command.extend(packages)
++            command = ["zypper", "-n", *args]
++        else:
++            command = ["zypper", *args]
+ 
+         self.run_as_root(command)
+ 
+-    def zypper_update(self, *packages):
+-        command = ["zypper", "update"]
+-        if self.no_interactive:
+-            command.append("-n")
+-
+-        command.extend(packages)
++    def zypper_install(self, *packages):
++        self.zypper("install", *packages)
+ 
+-        self.run_as_root(command)
++    def zypper_update(self, *packages):
++        self.zypper("update", *packages)
+ 
+     def zypper_patterninstall(self, *packages):
+-        command = ["zypper", "install", "-t", "pattern"]
+-        if self.no_interactive:
+-            command.append("-y")
+-
+-        command.extend(packages)
+-
+-        self.run_as_root(command)
++        self.zypper("install", "-t", "pattern", *packages)
