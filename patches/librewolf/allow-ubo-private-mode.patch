@@ -1,6 +1,6 @@
 --- a/toolkit/components/extensions/Extension.jsm
 +++ b/toolkit/components/extensions/Extension.jsm
-@@ -2658,6 +2658,15 @@
+@@ -3028,6 +3028,14 @@ class Extension extends ExtensionData {
          this.permissions.add(PRIVATE_ALLOWED_PERMISSION);
        }
  
@@ -11,7 +11,6 @@
 +        });
 +        this.permissions.add(PRIVATE_ALLOWED_PERMISSION);
 +      }
-+
 +
        // We only want to update the SVG_CONTEXT_PROPERTIES_PERMISSION during install and
        // upgrade/downgrade startups.
