@@ -1,4 +1,4 @@
-From cd0ec42d56fe5d4689ed19c84ad5ca5a27a005fd Mon Sep 17 00:00:00 2001
+From e582ddcb9f82d23c4a1d5e0da0d0fa29f3c425cf Mon Sep 17 00:00:00 2001
 From: ohfp <1813007-ohfp@users.noreply.gitlab.com>
 Date: Tue, 12 Apr 2022 11:57:53 +0200
 Subject: [PATCH] port pref-pane patch changes to gecko-dev
@@ -24,7 +24,7 @@ fix xorigin pref init and handling
  create mode 100644 browser/themes/shared/preferences/cachy-browser.css
 
 diff --git a/browser/components/preferences/jar.mn b/browser/components/preferences/jar.mn
-index 912d9edf0855..30a83da4edca 100644
+index 2131a15ceef7..0b97dc14b42e 100644
 --- a/browser/components/preferences/jar.mn
 +++ b/browser/components/preferences/jar.mn
 @@ -11,6 +11,7 @@ browser.jar:
@@ -589,7 +589,7 @@ index 000000000000..c8cbb075d59b
 +  });
 +});
 diff --git a/browser/components/preferences/preferences.js b/browser/components/preferences/preferences.js
-index 0b97e8c3cb59..637090adaa5e 100644
+index d3a1fce03d4f..435c219a15a4 100644
 --- a/browser/components/preferences/preferences.js
 +++ b/browser/components/preferences/preferences.js
 @@ -8,6 +8,7 @@
@@ -600,7 +600,7 @@ index 0b97e8c3cb59..637090adaa5e 100644
  /* import-globals-from sync.js */
  /* import-globals-from experimental.js */
  /* import-globals-from moreFromMozilla.js */
-@@ -191,6 +192,7 @@ function init_all() {
+@@ -193,6 +194,7 @@ function init_all() {
    register_module("paneHome", gHomePane);
    register_module("paneSearch", gSearchPane);
    register_module("panePrivacy", gPrivacyPane);
@@ -647,10 +647,10 @@ index 6ee14eec9b2e..a0d768dce307 100644
  #include sync.inc.xhtml
  #include experimental.inc.xhtml
 diff --git a/browser/locales/en-US/browser/preferences/preferences.ftl b/browser/locales/en-US/browser/preferences/preferences.ftl
-index b10403800c7a..7f9bc2760342 100644
+index fa57b8f6ee1b..39c95396f78c 100644
 --- a/browser/locales/en-US/browser/preferences/preferences.ftl
 +++ b/browser/locales/en-US/browser/preferences/preferences.ftl
-@@ -1413,3 +1413,98 @@ httpsonly-radio-disabled =
+@@ -1415,3 +1415,98 @@ httpsonly-radio-disabled =
  desktop-folder-name = Desktop
  downloads-folder-name = Downloads
  choose-download-folder-title = Choose Download Folder:
@@ -714,7 +714,7 @@ index b10403800c7a..7f9bc2760342 100644
 +cachy-browser-extension-update-warning1 = If you don't review the code of your extensions before every update, you should enable this option.
 +
 +cachy-browser-ipv6-description = Allow { -brand-short-name } to connect using IPv6.
-+cachy-browser-ipv6-warning1 = Before you change this, make sure your OS uses the IPv6 privacy extension.
++cachy-browser-ipv6-warning1 = Instead of blocking IPv6 in the browser, we suggest enabling the IPv6 privacy extension in your OS.
 +cachy-browser-ocsp-description = Prevent connecting to a website if the OCSP check cannot be performed.
 +cachy-browser-ocsp-warning1 = This increases security, but it will cause breakage when an OCSP server is down.
 +cachy-browser-sync-description = Sync your data with other browsers. Requires restart.
@@ -750,7 +750,7 @@ index b10403800c7a..7f9bc2760342 100644
 +cachy-browser-config-link = All advanced settings (about:config)
 +cachy-browser-open-profile = Open user profile directory
 diff --git a/browser/themes/shared/jar.inc.mn b/browser/themes/shared/jar.inc.mn
-index 4a88a1cc318d..2d7ac15e9b48 100644
+index c7fab5f54f80..dda1f1d27a58 100644
 --- a/browser/themes/shared/jar.inc.mn
 +++ b/browser/themes/shared/jar.inc.mn
 @@ -106,6 +106,7 @@
@@ -761,7 +761,7 @@ index 4a88a1cc318d..2d7ac15e9b48 100644
    skin/classic/browser/preferences/category-search.svg         (../shared/preferences/category-search.svg)
    skin/classic/browser/preferences/category-sync.svg           (../shared/preferences/category-sync.svg)
    skin/classic/browser/preferences/containers.css              (../shared/preferences/containers.css)
-@@ -128,6 +129,7 @@
+@@ -125,6 +126,7 @@
    skin/classic/browser/preferences/vpn-logo.svg                (../shared/preferences/vpn-logo.svg)
    skin/classic/browser/preferences/search.css                  (../shared/preferences/search.css)
    skin/classic/browser/preferences/siteDataSettings.css        (../shared/preferences/siteDataSettings.css)
@@ -901,7 +901,7 @@ index 000000000000..12f926ab7018
 +	fill: currentColor;
 +}
 diff --git a/browser/themes/shared/preferences/preferences.css b/browser/themes/shared/preferences/preferences.css
-index 74493f3c59c4..2f3623cf6631 100644
+index 97d49620f182..6fe0c6f4d9c6 100644
 --- a/browser/themes/shared/preferences/preferences.css
 +++ b/browser/themes/shared/preferences/preferences.css
 @@ -222,6 +222,10 @@ checkbox {
@@ -916,5 +916,5 @@ index 74493f3c59c4..2f3623cf6631 100644
    list-style-image: url("chrome://browser/skin/preferences/category-sync.svg");
  }
 -- 
-2.36.1
+2.37.1
 
