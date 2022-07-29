@@ -5,7 +5,7 @@
        }
  
 +      if (this.id === "uBlock0@raymondhill.net") {
-+        ExtensionPermissions.add(this.id, {
++        lazy.ExtensionPermissions.add(this.id, {
 +          permissions: [PRIVATE_ALLOWED_PERMISSION],
 +          origins: [],
 +        });
