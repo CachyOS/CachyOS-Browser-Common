@@ -25,10 +25,10 @@ index 23d6bf1..4affc89 100644
    if (!AppConstants.RELEASE_OR_BETA) {
      // Always allow to override the server URL on Nightly/DevEdition.
      return true;
-diff --git a/toolkit/components/search/SearchUtils.jsm b/toolkit/components/search/SearchUtils.jsm
+diff --git a/toolkit/components/search/SearchUtils.sys.mjs b/toolkit/components/search/SearchUtils.sys.mjs
 index a3100fa..c7bf03b 100644
---- a/toolkit/components/search/SearchUtils.jsm
-+++ b/toolkit/components/search/SearchUtils.jsm
+--- a/toolkit/components/search/SearchUtils.sys.mjs
++++ b/toolkit/components/search/SearchUtils.sys.mjs
 @@ -157,9 +157,9 @@ var SearchUtils = {
  
    ENGINES_URLS: {

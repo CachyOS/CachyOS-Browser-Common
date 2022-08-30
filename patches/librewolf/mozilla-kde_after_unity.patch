@@ -1,6 +1,6 @@
-From afe53a3e933a68b0d898288449a7d50a44db354f Mon Sep 17 00:00:00 2001
+From 8c876f93d73edd6ddae693152639b5090e41f5de Mon Sep 17 00:00:00 2001
 From: ohfp <1813007-ohfp@users.noreply.gitlab.com>
-Date: Wed, 29 Jun 2022 10:58:45 +0200
+Date: Sat, 27 Aug 2022 14:39:44 +0200
 Subject: [PATCH] kde
 
 ---
@@ -37,7 +37,7 @@ Subject: [PATCH] kde
  create mode 100644 uriloader/exthandler/unix/nsKDERegistry.h
 
 diff --git a/modules/libpref/Preferences.cpp b/modules/libpref/Preferences.cpp
-index 6d0bebd2ee68..c138e63b23dc 100644
+index 4a021270e174..251eb32c566e 100644
 --- a/modules/libpref/Preferences.cpp
 +++ b/modules/libpref/Preferences.cpp
 @@ -93,6 +93,7 @@
@@ -48,7 +48,7 @@ index 6d0bebd2ee68..c138e63b23dc 100644
  
  #ifdef DEBUG
  #  include <map>
-@@ -4772,6 +4773,17 @@ nsresult Preferences::InitInitialObjects(bool aIsStartup) {
+@@ -4796,6 +4797,17 @@ nsresult Preferences::InitInitialObjects(bool aIsStartup) {
  #endif
    };
  
@@ -66,7 +66,7 @@ index 6d0bebd2ee68..c138e63b23dc 100644
    rv = pref_LoadPrefsInDir(defaultPrefDir, specialFiles,
                             ArrayLength(specialFiles));
    if (NS_FAILED(rv)) {
-@@ -4846,7 +4858,7 @@ nsresult Preferences::InitInitialObjects(bool aIsStartup) {
+@@ -4870,7 +4882,7 @@ nsresult Preferences::InitInitialObjects(bool aIsStartup) {
        }
  
        // Do we care if a file provided by this process fails to load?
@@ -129,7 +129,7 @@ index d4172e2d73ad..8bd0577bc535 100644
  with Files("**"):
      BUG_COMPONENT = ("Toolkit", "Downloads API")
 diff --git a/toolkit/mozapps/downloads/HelperAppDlg.jsm b/toolkit/mozapps/downloads/HelperAppDlg.jsm
-index 325de51c0c5f..8e5219f0e22f 100644
+index 23a7ed4493ad..b00eb7493b39 100644
 --- a/toolkit/mozapps/downloads/HelperAppDlg.jsm
 +++ b/toolkit/mozapps/downloads/HelperAppDlg.jsm
 @@ -1259,26 +1259,56 @@ nsUnknownContentTypeDialog.prototype = {
@@ -210,15 +210,15 @@ index 325de51c0c5f..8e5219f0e22f 100644
        var nsIFilePicker = Ci.nsIFilePicker;
        var fp = Cc["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
 diff --git a/toolkit/system/unixproxy/nsUnixSystemProxySettings.cpp b/toolkit/system/unixproxy/nsUnixSystemProxySettings.cpp
-index ef110b1287bf..d82e149f482f 100644
+index ef110b1287bf..e29e8a5b62de 100644
 --- a/toolkit/system/unixproxy/nsUnixSystemProxySettings.cpp
 +++ b/toolkit/system/unixproxy/nsUnixSystemProxySettings.cpp
 @@ -15,6 +15,8 @@
  #include "nsNetUtil.h"
  #include "nsISupportsPrimitives.h"
  #include "nsIGSettingsService.h"
-+#include "nsKDEUtils.h"
 +#include "nsPrintfCString.h"
++#include "nsKDEUtils.h"
  
  using namespace mozilla;
  
@@ -275,7 +275,7 @@ index ef110b1287bf..d82e149f482f 100644
    auto result = MakeRefPtr<nsUnixSystemProxySettings>();
    result->Init();
 diff --git a/toolkit/xre/moz.build b/toolkit/xre/moz.build
-index 6475c0296aac..83e0184d4938 100644
+index a3ea40edf0a3..96538442ccb3 100644
 --- a/toolkit/xre/moz.build
 +++ b/toolkit/xre/moz.build
 @@ -97,7 +97,9 @@ elif CONFIG["MOZ_WIDGET_TOOLKIT"] == "uikit":
@@ -692,7 +692,7 @@ index dbcc95d95646..5f2542a95065 100644
    *aHandlerExists = false;
  #endif
 diff --git a/uriloader/exthandler/moz.build b/uriloader/exthandler/moz.build
-index 92647a9b3478..fc5068cd2069 100644
+index 260574f3905c..af549112883a 100644
 --- a/uriloader/exthandler/moz.build
 +++ b/uriloader/exthandler/moz.build
 @@ -83,7 +83,9 @@ else:
@@ -705,7 +705,7 @@ index 92647a9b3478..fc5068cd2069 100644
          "unix/nsMIMEInfoUnix.cpp",
      ]
  elif CONFIG["MOZ_WIDGET_TOOLKIT"] == "android":
-@@ -135,6 +137,7 @@ LOCAL_INCLUDES += [
+@@ -131,6 +133,7 @@ LOCAL_INCLUDES += [
      "/dom/ipc",
      "/netwerk/base",
      "/netwerk/protocol/http",
@@ -1011,7 +1011,7 @@ index 7cbefcce3e94..84083348c8f1 100644
    if (!giovfs) {
      return NS_ERROR_FAILURE;
 diff --git a/uriloader/exthandler/unix/nsOSHelperAppService.cpp b/uriloader/exthandler/unix/nsOSHelperAppService.cpp
-index b9e7aed3cb5c..367ad9ee2421 100644
+index 8b5820b9fd71..256f94703a92 100644
 --- a/uriloader/exthandler/unix/nsOSHelperAppService.cpp
 +++ b/uriloader/exthandler/unix/nsOSHelperAppService.cpp
 @@ -10,7 +10,7 @@
@@ -1023,7 +1023,7 @@ index b9e7aed3cb5c..367ad9ee2421 100644
  #  ifdef MOZ_BUILD_APP_IS_BROWSER
  #    include "nsIToolkitShellService.h"
  #    include "nsIGNOMEShellService.h"
-@@ -1030,7 +1030,7 @@ nsresult nsOSHelperAppService::OSProtocolHandlerExists(
+@@ -1107,7 +1107,7 @@ nsresult nsOSHelperAppService::OSProtocolHandlerExists(
    if (!XRE_IsContentProcess()) {
  #ifdef MOZ_WIDGET_GTK
      // Check the GNOME registry for a protocol handler
@@ -1032,7 +1032,7 @@ index b9e7aed3cb5c..367ad9ee2421 100644
  #else
      *aHandlerExists = false;
  #endif
-@@ -1050,7 +1050,7 @@ nsresult nsOSHelperAppService::OSProtocolHandlerExists(
+@@ -1127,7 +1127,7 @@ nsresult nsOSHelperAppService::OSProtocolHandlerExists(
  NS_IMETHODIMP nsOSHelperAppService::GetApplicationDescription(
      const nsACString& aScheme, nsAString& _retval) {
  #ifdef MOZ_WIDGET_GTK
@@ -1041,29 +1041,29 @@ index b9e7aed3cb5c..367ad9ee2421 100644
    return _retval.IsEmpty() ? NS_ERROR_NOT_AVAILABLE : NS_OK;
  #else
    return NS_ERROR_NOT_AVAILABLE;
-@@ -1153,7 +1153,7 @@ already_AddRefed<nsMIMEInfoBase> nsOSHelperAppService::GetFromExtension(
+@@ -1232,7 +1232,7 @@ already_AddRefed<nsMIMEInfoBase> nsOSHelperAppService::GetFromExtension(
  #ifdef MOZ_WIDGET_GTK
-     LOG(("Looking in GNOME registry\n"));
+     LOG("Looking in GNOME registry\n");
      RefPtr<nsMIMEInfoBase> gnomeInfo =
 -        nsGNOMERegistry::GetFromExtension(aFileExt);
 +        nsCommonRegistry::GetFromExtension(aFileExt);
      if (gnomeInfo) {
-       LOG(("Got MIMEInfo from GNOME registry\n"));
+       LOG("Got MIMEInfo from GNOME registry\n");
        return gnomeInfo.forget();
-@@ -1266,7 +1266,7 @@ already_AddRefed<nsMIMEInfoBase> nsOSHelperAppService::GetFromType(
+@@ -1347,7 +1347,7 @@ already_AddRefed<nsMIMEInfoBase> nsOSHelperAppService::GetFromType(
  
  #ifdef MOZ_WIDGET_GTK
    if (handler.IsEmpty()) {
 -    RefPtr<nsMIMEInfoBase> gnomeInfo = nsGNOMERegistry::GetFromType(aMIMEType);
 +    RefPtr<nsMIMEInfoBase> gnomeInfo = nsCommonRegistry::GetFromType(aMIMEType);
      if (gnomeInfo) {
-       LOG(
-           ("Got MIMEInfo from GNOME registry without extensions; setting them "
+       LOG("Got MIMEInfo from GNOME registry without extensions; setting them "
+           "to %s\n",
 diff --git a/widget/gtk/moz.build b/widget/gtk/moz.build
-index bf64f7ebdc65..f94b4e017e5e 100644
+index d60d1995b278..693a5a251400 100644
 --- a/widget/gtk/moz.build
 +++ b/widget/gtk/moz.build
-@@ -169,6 +169,7 @@ LOCAL_INCLUDES += [
+@@ -162,6 +162,7 @@ LOCAL_INCLUDES += [
      "/layout/xul",
      "/other-licenses/atk-1.0",
      "/third_party/cups/include",
@@ -1386,7 +1386,7 @@ index 9b3110aa0048..be9d559c7bf4 100644
                            GtkFileChooserAction action,
                            const gchar* accept_label);
 diff --git a/xpcom/components/ManifestParser.cpp b/xpcom/components/ManifestParser.cpp
-index f3d0055f2cc6..d13543ab5221 100644
+index 7812bfd946ef..1b11780ac47b 100644
 --- a/xpcom/components/ManifestParser.cpp
 +++ b/xpcom/components/ManifestParser.cpp
 @@ -43,6 +43,7 @@
@@ -1397,7 +1397,7 @@ index f3d0055f2cc6..d13543ab5221 100644
  
  using namespace mozilla;
  
-@@ -402,6 +403,7 @@ void ParseManifest(NSLocationType aType, FileLocation& aFile, char* aBuf,
+@@ -394,6 +395,7 @@ void ParseManifest(NSLocationType aType, FileLocation& aFile, char* aBuf,
    constexpr auto kOs = u"os"_ns;
    constexpr auto kOsVersion = u"osversion"_ns;
    constexpr auto kABI = u"abi"_ns;
@@ -1405,7 +1405,7 @@ index f3d0055f2cc6..d13543ab5221 100644
    constexpr auto kProcess = u"process"_ns;
  #if defined(MOZ_WIDGET_ANDROID)
    constexpr auto kTablet = u"tablet"_ns;
-@@ -461,6 +463,7 @@ void ParseManifest(NSLocationType aType, FileLocation& aFile, char* aBuf,
+@@ -453,6 +455,7 @@ void ParseManifest(NSLocationType aType, FileLocation& aFile, char* aBuf,
    }
  
    nsAutoString osVersion;
@@ -1413,7 +1413,7 @@ index f3d0055f2cc6..d13543ab5221 100644
  #if defined(XP_WIN)
  #  pragma warning(push)
  #  pragma warning(disable : 4996)  // VC12+ deprecates GetVersionEx
-@@ -469,14 +472,17 @@ void ParseManifest(NSLocationType aType, FileLocation& aFile, char* aBuf,
+@@ -461,14 +464,17 @@ void ParseManifest(NSLocationType aType, FileLocation& aFile, char* aBuf,
      nsTextFormatter::ssprintf(osVersion, u"%ld.%ld", info.dwMajorVersion,
                                info.dwMinorVersion);
    }
@@ -1431,7 +1431,7 @@ index f3d0055f2cc6..d13543ab5221 100644
  #elif defined(MOZ_WIDGET_ANDROID)
    bool isTablet = false;
    if (mozilla::AndroidBridge::Bridge()) {
-@@ -484,6 +490,7 @@ void ParseManifest(NSLocationType aType, FileLocation& aFile, char* aBuf,
+@@ -476,6 +482,7 @@ void ParseManifest(NSLocationType aType, FileLocation& aFile, char* aBuf,
          "android/os/Build$VERSION", "RELEASE", osVersion);
      isTablet = java::GeckoAppShell::IsTablet();
    }
@@ -1439,7 +1439,7 @@ index f3d0055f2cc6..d13543ab5221 100644
  #endif
  
    if (XRE_IsContentProcess()) {
-@@ -588,6 +595,7 @@ void ParseManifest(NSLocationType aType, FileLocation& aFile, char* aBuf,
+@@ -576,6 +583,7 @@ void ParseManifest(NSLocationType aType, FileLocation& aFile, char* aBuf,
                                      : eUnspecified;
  #endif
      int flags = 0;
@@ -1447,7 +1447,7 @@ index f3d0055f2cc6..d13543ab5221 100644
  
      while ((token = nsCRT::strtok(whitespace, kWhitespace, &whitespace)) &&
             ok) {
-@@ -597,6 +605,7 @@ void ParseManifest(NSLocationType aType, FileLocation& aFile, char* aBuf,
+@@ -585,6 +593,7 @@ void ParseManifest(NSLocationType aType, FileLocation& aFile, char* aBuf,
        if (CheckStringFlag(kApplication, wtoken, appID, stApp) ||
            CheckOsFlag(kOs, wtoken, osTarget, stOs) ||
            CheckStringFlag(kABI, wtoken, abi, stABI) ||
@@ -1455,7 +1455,7 @@ index f3d0055f2cc6..d13543ab5221 100644
            CheckStringFlag(kProcess, wtoken, process, stProcess) ||
            CheckVersionFlag(kOsVersion, wtoken, osVersion, stOsVersion) ||
            CheckVersionFlag(kAppVersion, wtoken, appVersion, stAppVersion) ||
-@@ -655,7 +664,7 @@ void ParseManifest(NSLocationType aType, FileLocation& aFile, char* aBuf,
+@@ -643,7 +652,7 @@ void ParseManifest(NSLocationType aType, FileLocation& aFile, char* aBuf,
      }
  
      if (!ok || stApp == eBad || stAppVersion == eBad ||
@@ -1477,10 +1477,10 @@ index 6cf78aa9bec5..dfcf9c7697af 100644
  
  if CONFIG["MOZ_WIDGET_TOOLKIT"] == "gtk":
 diff --git a/xpcom/io/nsLocalFileUnix.cpp b/xpcom/io/nsLocalFileUnix.cpp
-index 410fcc19e435..d7c976e0e4b2 100644
+index 918e2b7955c0..54d6b230cf67 100644
 --- a/xpcom/io/nsLocalFileUnix.cpp
 +++ b/xpcom/io/nsLocalFileUnix.cpp
-@@ -59,6 +59,7 @@
+@@ -51,6 +51,7 @@
  
  #ifdef MOZ_WIDGET_GTK
  #  include "nsIGIOService.h"
@@ -1488,7 +1488,7 @@ index 410fcc19e435..d7c976e0e4b2 100644
  #endif
  
  #ifdef MOZ_WIDGET_COCOA
-@@ -2102,10 +2103,19 @@ nsLocalFile::Reveal() {
+@@ -2088,10 +2089,19 @@ nsLocalFile::Reveal() {
    }
  
  #ifdef MOZ_WIDGET_GTK
@@ -1510,7 +1510,7 @@ index 410fcc19e435..d7c976e0e4b2 100644
    return giovfs->RevealFile(this);
  #elif defined(MOZ_WIDGET_COCOA)
    CFURLRef url;
-@@ -2127,6 +2137,13 @@ nsLocalFile::Launch() {
+@@ -2113,6 +2123,13 @@ nsLocalFile::Launch() {
    }
  
  #ifdef MOZ_WIDGET_GTK
@@ -1525,5 +1525,5 @@ index 410fcc19e435..d7c976e0e4b2 100644
    if (!giovfs) {
      return NS_ERROR_FAILURE;
 -- 
-2.37.0
+2.37.2
 
