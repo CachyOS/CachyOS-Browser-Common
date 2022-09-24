@@ -1,8 +1,8 @@
-diff --git a/browser/components/urlbar/UrlbarProviderInterventions.jsm b/browser/components/urlbar/UrlbarProviderInterventions.jsm
-index e22886ce92..d46d8191f2 100644
---- a/browser/components/urlbar/UrlbarProviderInterventions.jsm
-+++ b/browser/components/urlbar/UrlbarProviderInterventions.jsm
-@@ -451,7 +451,7 @@ class ProviderInterventions extends UrlbarProvider {
+diff --git a/browser/components/urlbar/UrlbarProviderInterventions.sys.mjs b/browser/components/urlbar/UrlbarProviderInterventions.sys.mjs
+index 575205158bb8..e0c76c682a7d 100644
+--- a/browser/components/urlbar/UrlbarProviderInterventions.sys.mjs
++++ b/browser/components/urlbar/UrlbarProviderInterventions.sys.mjs
+@@ -454,7 +454,7 @@ class ProviderInterventions extends UrlbarProvider {
          ]),
        });
        for (let [id, phrases] of Object.entries(DOCUMENTS)) {
@@ -11,3 +11,6 @@ index e22886ce92..d46d8191f2 100644
        }
        return queryScorer;
      });
+-- 
+2.37.3
+

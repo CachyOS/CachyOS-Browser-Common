@@ -1,6 +1,6 @@
-From 8c876f93d73edd6ddae693152639b5090e41f5de Mon Sep 17 00:00:00 2001
+From 6dee561c5afeb3371295d64a957a6d919bc37c11 Mon Sep 17 00:00:00 2001
 From: ohfp <1813007-ohfp@users.noreply.gitlab.com>
-Date: Sat, 27 Aug 2022 14:39:44 +0200
+Date: Wed, 21 Sep 2022 11:26:12 +0200
 Subject: [PATCH] kde
 
 ---
@@ -37,7 +37,7 @@ Subject: [PATCH] kde
  create mode 100644 uriloader/exthandler/unix/nsKDERegistry.h
 
 diff --git a/modules/libpref/Preferences.cpp b/modules/libpref/Preferences.cpp
-index 4a021270e174..251eb32c566e 100644
+index 5c4b4af67b80..8fefc56b1180 100644
 --- a/modules/libpref/Preferences.cpp
 +++ b/modules/libpref/Preferences.cpp
 @@ -93,6 +93,7 @@
@@ -48,7 +48,7 @@ index 4a021270e174..251eb32c566e 100644
  
  #ifdef DEBUG
  #  include <map>
-@@ -4796,6 +4797,17 @@ nsresult Preferences::InitInitialObjects(bool aIsStartup) {
+@@ -4828,6 +4829,17 @@ nsresult Preferences::InitInitialObjects(bool aIsStartup) {
  #endif
    };
  
@@ -66,7 +66,7 @@ index 4a021270e174..251eb32c566e 100644
    rv = pref_LoadPrefsInDir(defaultPrefDir, specialFiles,
                             ArrayLength(specialFiles));
    if (NS_FAILED(rv)) {
-@@ -4870,7 +4882,7 @@ nsresult Preferences::InitInitialObjects(bool aIsStartup) {
+@@ -4902,7 +4914,7 @@ nsresult Preferences::InitInitialObjects(bool aIsStartup) {
        }
  
        // Do we care if a file provided by this process fails to load?
@@ -76,10 +76,10 @@ index 4a021270e174..251eb32c566e 100644
    }
  
 diff --git a/modules/libpref/moz.build b/modules/libpref/moz.build
-index 1f021d409c51..171d034cc03a 100644
+index f6e8556d4c8f..c9002ea541c9 100644
 --- a/modules/libpref/moz.build
 +++ b/modules/libpref/moz.build
-@@ -125,6 +125,10 @@ UNIFIED_SOURCES += [
+@@ -126,6 +126,10 @@ UNIFIED_SOURCES += [
      "SharedPrefMap.cpp",
  ]
  
@@ -129,10 +129,10 @@ index d4172e2d73ad..8bd0577bc535 100644
  with Files("**"):
      BUG_COMPONENT = ("Toolkit", "Downloads API")
 diff --git a/toolkit/mozapps/downloads/HelperAppDlg.jsm b/toolkit/mozapps/downloads/HelperAppDlg.jsm
-index 23a7ed4493ad..b00eb7493b39 100644
+index 9042007f3d57..19b133638658 100644
 --- a/toolkit/mozapps/downloads/HelperAppDlg.jsm
 +++ b/toolkit/mozapps/downloads/HelperAppDlg.jsm
-@@ -1259,26 +1259,56 @@ nsUnknownContentTypeDialog.prototype = {
+@@ -1270,26 +1270,56 @@ nsUnknownContentTypeDialog.prototype = {
          this.chosenApp = params.handlerApp;
        }
      } else if ("@mozilla.org/applicationchooser;1" in Cc) {
@@ -670,7 +670,7 @@ index 000000000000..c9c1284e294a
 +
 +#endif // nsKDEUtils
 diff --git a/uriloader/exthandler/HandlerServiceParent.cpp b/uriloader/exthandler/HandlerServiceParent.cpp
-index dbcc95d95646..5f2542a95065 100644
+index 6eefb48f1316..08dfb1e0c7c7 100644
 --- a/uriloader/exthandler/HandlerServiceParent.cpp
 +++ b/uriloader/exthandler/HandlerServiceParent.cpp
 @@ -12,7 +12,7 @@
@@ -682,12 +682,12 @@ index dbcc95d95646..5f2542a95065 100644
  #endif
  
  using mozilla::dom::ContentHandlerService;
-@@ -304,7 +304,7 @@ mozilla::ipc::IPCResult HandlerServiceParent::RecvExistsForProtocolOS(
-   }
+@@ -305,7 +305,7 @@ mozilla::ipc::IPCResult HandlerServiceParent::RecvExistsForProtocolOS(
  #ifdef MOZ_WIDGET_GTK
    // Check the GNOME registry for a protocol handler
--  *aHandlerExists = nsGNOMERegistry::HandlerExists(aProtocolScheme.get());
-+  *aHandlerExists = nsCommonRegistry::HandlerExists(aProtocolScheme.get());
+   *aHandlerExists =
+-      nsGNOMERegistry::HandlerExists(PromiseFlatCString(aProtocolScheme).get());
++      nsCommonRegistry::HandlerExists(PromiseFlatCString(aProtocolScheme).get());
  #else
    *aHandlerExists = false;
  #endif
@@ -1386,7 +1386,7 @@ index 9b3110aa0048..be9d559c7bf4 100644
                            GtkFileChooserAction action,
                            const gchar* accept_label);
 diff --git a/xpcom/components/ManifestParser.cpp b/xpcom/components/ManifestParser.cpp
-index 7812bfd946ef..1b11780ac47b 100644
+index 6f127896e334..b465ff529ce2 100644
 --- a/xpcom/components/ManifestParser.cpp
 +++ b/xpcom/components/ManifestParser.cpp
 @@ -43,6 +43,7 @@
@@ -1525,5 +1525,5 @@ index 918e2b7955c0..54d6b230cf67 100644
    if (!giovfs) {
      return NS_ERROR_FAILURE;
 -- 
-2.37.2
+2.37.3
 

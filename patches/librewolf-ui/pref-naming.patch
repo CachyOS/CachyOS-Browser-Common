@@ -1,6 +1,8 @@
+diff --git a/browser/locales/en-US/browser/preferences/preferences.ftl b/browser/locales/en-US/browser/preferences/preferences.ftl
+index a1e414697e71..b69052923385 100644
 --- a/browser/locales/en-US/browser/preferences/preferences.ftl
 +++ b/browser/locales/en-US/browser/preferences/preferences.ftl
-@@ -128,6 +128,8 @@
+@@ -128,6 +128,8 @@ search-results-help-link = Need help? Visit <a data-l10n-name="url">{ -brand-sho
  
  startup-header = Startup
  
@@ -9,7 +11,7 @@
  always-check-default =
      .label = Always check if { -brand-short-name } is your default browser
      .accesskey = y
-@@ -409,13 +409,13 @@
+@@ -469,13 +471,13 @@ play-drm-content =
      .label = Play DRM-controlled content
      .accesskey = P
  
@@ -25,27 +27,27 @@
  
  update-history =
      .label = Show Update History…
-@@ -568,7 +568,7 @@
- # "Firefox" should be treated as a brand and kept in English,
- # while "Home" and "(Default)" can be localized.
- home-mode-choice-default =
--    .label = Firefox Home (Default)
+@@ -634,7 +636,7 @@ home-restore-defaults =
+     .accesskey = R
+ 
+ home-mode-choice-default-fx =
+-    .label = { -firefox-home-brand-name } (Default)
 +    .label = Homepage (Default)
  
  home-mode-choice-custom =
      .label = Custom URLs…
-@@ -597,8 +597,8 @@
+@@ -663,8 +665,8 @@ choose-bookmark =
  
  ## Home Section - Firefox Home Content Customization
  
--home-prefs-content-header = Firefox Home Content
--home-prefs-content-description = Choose what content you want on your Firefox Home screen.
-+home-prefs-content-header = Homepage Content
-+home-prefs-content-description = Choose what content you want on your Homepage screen.
+-home-prefs-content-header2 = { -firefox-home-brand-name } Content
+-home-prefs-content-description2 = Choose what content you want on your { -firefox-home-brand-name } screen.
++home-prefs-content-header2 = Homepage Content
++home-prefs-content-description2 = Choose what content you want on your Homepage screen.
  
  home-prefs-search-header =
      .label = Web Search
-@@ -650,7 +650,7 @@
+@@ -709,7 +711,7 @@ home-prefs-recent-activity-description = A selection of recent sites and content
  home-prefs-snippets-header =
      .label = Snippets
  
@@ -54,4 +56,6 @@
  
  home-prefs-sections-rows-option =
      .label =
+-- 
+2.37.3
 

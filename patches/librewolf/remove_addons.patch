@@ -1,12 +1,8 @@
 diff --git a/browser/extensions/moz.build b/browser/extensions/moz.build
-index 0d4b9c3..d923333 100644
+index 3c6e7eb88689..d923333aa100 100644
 --- a/browser/extensions/moz.build
 +++ b/browser/extensions/moz.build
-@@ -5,11 +5,9 @@
- # file, You can obtain one at http://mozilla.org/MPL/2.0/.
- 
- DIRS += [
--    "doh-rollout",
+@@ -8,7 +8,6 @@ DIRS += [
      "formautofill",
      "screenshots",
      "webcompat",
@@ -15,10 +11,10 @@ index 0d4b9c3..d923333 100644
      "search-detection",
  ]
 diff --git a/browser/locales/Makefile.in b/browser/locales/Makefile.in
-index e4b60a0..c38fdd2 100644
+index 7296ca447757..1278582e79d7 100644
 --- a/browser/locales/Makefile.in
 +++ b/browser/locales/Makefile.in
-@@ -55,7 +55,6 @@ l10n-%:
+@@ -56,7 +56,6 @@ l10n-%:
  ifneq (,$(wildcard ../extensions/formautofill/locales))
  	@$(MAKE) -C ../extensions/formautofill/locales AB_CD=$* XPI_NAME=locale-$*
  endif
@@ -26,7 +22,7 @@ index e4b60a0..c38fdd2 100644
  	@$(MAKE) -C ../../devtools/client/locales AB_CD=$* XPI_NAME=locale-$* XPI_ROOT_APPID='$(XPI_ROOT_APPID)'
  	@$(MAKE) -C ../../devtools/startup/locales AB_CD=$* XPI_NAME=locale-$* XPI_ROOT_APPID='$(XPI_ROOT_APPID)'
  	@$(MAKE) l10n AB_CD=$* XPI_NAME=locale-$* PREF_DIR=$(PREF_DIR)
-@@ -76,7 +75,6 @@ endif
+@@ -78,7 +77,6 @@ endif
  	@$(MAKE) -C ../../devtools/startup/locales chrome AB_CD=$*
  	@$(MAKE) chrome AB_CD=$*
  	@$(MAKE) -C $(DEPTH)/$(MOZ_BRANDING_DIRECTORY)/locales chrome AB_CD=$*
@@ -35,7 +31,7 @@ index e4b60a0..c38fdd2 100644
  package-win32-installer: $(SUBMAKEFILES)
  	$(MAKE) -C ../installer/windows CONFIG_DIR=l10ngen ZIP_IN='$(ZIP_OUT)' installer
 diff --git a/browser/locales/filter.py b/browser/locales/filter.py
-index 22eb5cb..5e1f09f 100644
+index 22eb5cbdb177..5e1f09ff383e 100644
 --- a/browser/locales/filter.py
 +++ b/browser/locales/filter.py
 @@ -17,7 +17,6 @@ def test(mod, path, entity=None):
@@ -47,7 +43,7 @@ index 22eb5cb..5e1f09f 100644
          "other-licenses/branding/firefox",
          "browser/branding/official",
 diff --git a/browser/locales/l10n.ini b/browser/locales/l10n.ini
-index 7a65997..7f97667 100644
+index 7a6599740b20..7f976679eefc 100644
 --- a/browser/locales/l10n.ini
 +++ b/browser/locales/l10n.ini
 @@ -13,7 +13,6 @@ dirs = browser
@@ -59,7 +55,7 @@ index 7a65997..7f97667 100644
  [includes]
  # non-central apps might want to use %(topsrcdir)s here, or other vars
 diff --git a/browser/locales/l10n.toml b/browser/locales/l10n.toml
-index e9d5010..914a2f1 100644
+index e9d50107cb10..914a2f1a6310 100644
 --- a/browser/locales/l10n.toml
 +++ b/browser/locales/l10n.toml
 @@ -133,10 +133,6 @@ locales = [
@@ -73,3 +69,6 @@ index e9d5010..914a2f1 100644
  [[paths]]
      reference = "services/sync/locales/en-US/**"
      l10n = "{l}services/sync/**"
+-- 
+2.37.3
+
