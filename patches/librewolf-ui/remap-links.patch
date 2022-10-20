@@ -79,7 +79,7 @@
    let contentBlockingWarningUrl =
      Services.urlFormatter.formatURLPref("app.support.baseURL") +
 -    "turn-off-etp-desktop";
-+    "what-is-mozilla-tracking-protection";
++    "what-is-enhanced-tracking-protection";
    for (let link of links) {
      link.setAttribute("href", contentBlockingWarningUrl);
    }
