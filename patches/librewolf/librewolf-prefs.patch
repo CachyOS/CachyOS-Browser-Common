@@ -1,0 +1,9 @@
+--- a/browser/app/profile/firefox.js
++++ b/browser/app/profile/firefox.js
+@@ -21,0 +21,4 @@
++
++pref("cachy-browser.firefoxView.hideTabPickup", false);
++pref("cachy-browser.firefoxView.hideColorways", true);
++pref("cachy-browser.uBO.assetsBootstrapLocation, "");
++pref("cachy-browser.aboutMenu.checkVersion", false);
++

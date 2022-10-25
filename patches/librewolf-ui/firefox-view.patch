@@ -1,0 +1,141 @@
+diff --git a/browser/components/customizableui/CustomizableUI.jsm b/browser/components/customizableui/CustomizableUI.jsm
+--- a/browser/components/customizableui/CustomizableUI.jsm
++++ b/browser/components/customizableui/CustomizableUI.jsm
+@@ -277,7 +277,6 @@ var CustomizableUIInternal = {
+       {
+         type: CustomizableUI.TYPE_TOOLBAR,
+         defaultPlacements: [
+-          "firefox-view-button",
+           "tabbrowser-tabs",
+           "new-tab-button",
+           "alltabs-button",
+@@ -605,18 +604,6 @@ var CustomizableUIInternal = {
+         navbarPlacements.splice(newPosition, 0, "save-to-pocket-button");
+       }
+     }
+-
+-    // Add firefox-view if not present
+-    if (currentVersion < 18) {
+-      let tabstripPlacements =
+-        gSavedState.placements[CustomizableUI.AREA_TABSTRIP];
+-      if (
+-        tabstripPlacements &&
+-        !tabstripPlacements.includes("firefox-view-button")
+-      ) {
+-        tabstripPlacements.unshift("firefox-view-button");
+-      }
+-    }
+   },
+ 
+   _updateForNewProtonVersion() {
+diff --git a/browser/components/firefoxview/firefoxview.html b/browser/components/firefoxview/firefoxview.html
+--- a/browser/components/firefoxview/firefoxview.html
++++ b/browser/components/firefoxview/firefoxview.html
+@@ -113,7 +113,7 @@
+         </div>
+       </template>
+ 
+-      <details class="content-container" is="tab-pickup-container" id="tab-pickup-container" open>
++      <details class="content-container" is="tab-pickup-container" id="tab-pickup-container" open hidden="true">
+         <summary class="page-section-header">
+           <h1 id="collapsible-synced-tabs-header" data-l10n-id="firefoxview-tabpickup-header"></h1>
+           <span class="twisty icon" data-l10n-id="firefoxview-collapse-button-hide" aria-role="presentation"></span>
+@@ -141,7 +141,7 @@
+         </div>
+       </details>
+ 
+-      <aside class="content-container" is="colorways-card">
++      <aside id="colorway-landmark" class="content-container" is="colorways-card" hidden="true">
+         <template id="colorways-no-collection-template">
+           <div class="content-container">
+             <div id="no-current-colorway-collection-notice" data-l10n-id="firefoxview-no-current-colorway-collection"></div>
+diff --git a/browser/components/firefoxview/firefoxview.mjs b/browser/components/firefoxview/firefoxview.mjs
+--- a/browser/components/firefoxview/firefoxview.mjs
++++ b/browser/components/firefoxview/firefoxview.mjs
+@@ -28,7 +28,26 @@ const MediaQueryDOMSorting = {
+   },
+ };
+ 
++function onPrefChange() {
++  document.getElementById("tab-pickup-container").hidden =
++    Services.prefs.getBoolPref("identity.fxaccounts.enabled") &&
++    !Services.prefs.getBoolPref("cachy-browser.firefoxView.hideTabPickup", false)
++      ? false
++      : true;
++  document.getElementById("colorway-landmark").hidden =
++    !Services.prefs.getBoolPref("cachy-browser.firefoxView.hideColorways", true)
++      ? false
++      : true;
++}
++
++[
++  "cachy-browser.firefoxView.hideTabPickup",
++  "cachy-browser.firefoxView.hideColorways",
++  "identity.fxaccounts.enabled",
++].forEach((pref) => Services.prefs.addObserver(pref, onPrefChange));
++
+ window.addEventListener("DOMContentLoaded", () => {
++  onPrefChange();
+   Services.telemetry.setEventRecordingEnabled("firefoxview", true);
+   Services.telemetry.recordEvent("firefoxview", "entered", "firefoxview", null);
+   document.getElementById("recently-closed-tabs-container").onLoad();
+diff --git a/browser/components/newtab/lib/OnboardingMessageProvider.jsm b/browser/components/newtab/lib/OnboardingMessageProvider.jsm
+--- a/browser/components/newtab/lib/OnboardingMessageProvider.jsm
++++ b/browser/components/newtab/lib/OnboardingMessageProvider.jsm
+@@ -82,56 +82,6 @@ const BASE_MESSAGES = () => [
+     trigger: { id: "protectionsPanelOpen" },
+   },
+   {
+-    id: "CFR_FIREFOX_VIEW",
+-    groups: ["cfr"],
+-    template: "cfr_doorhanger",
+-    content: {
+-      bucket_id: "CFR_FIREFOX_VIEW",
+-      anchor_id: "firefox-view-button",
+-      layout: "icon_and_message",
+-      icon: "chrome://browser/content/cfr-lightning.svg",
+-      icon_dark_theme: "chrome://browser/content/cfr-lightning-dark.svg",
+-      icon_class: "cfr-doorhanger-small-icon",
+-      heading_text: {
+-        string_id: "firefoxview-cfr-header",
+-      },
+-      text: {
+-        string_id: "firefoxview-cfr-body",
+-      },
+-      buttons: {
+-        primary: {
+-          label: {
+-            string_id: "firefoxview-cfr-primarybutton",
+-          },
+-          action: {
+-            type: "OPEN_FIREFOX_VIEW",
+-            navigate: true,
+-          },
+-        },
+-        secondary: [
+-          {
+-            label: {
+-              string_id: "firefoxview-cfr-secondarybutton",
+-            },
+-            action: {
+-              type: "CANCEL",
+-            },
+-          },
+-        ],
+-      },
+-      skip_address_bar_notifier: true,
+-    },
+-    frequency: {
+-      lifetime: 1,
+-    },
+-    trigger: {
+-      id: "nthTabClosed",
+-    },
+-    // Avoid breaking existing tests that close tabs for now.
+-    targeting:
+-      "!inMr2022Holdback && (currentDate|date - profileAgeCreated) / 86400000 >= 2 && tabsClosedCount >= 3 && 'browser.firefox-view.view-count'|preferenceValue == 0 && !'browser.newtabpage.activity-stream.asrouter.providers.cfr'|preferenceIsUserSet",
+-  },
+-  {
+     id: "FX_MR_106_UPGRADE",
+     template: "spotlight",
+     targeting: "true",
