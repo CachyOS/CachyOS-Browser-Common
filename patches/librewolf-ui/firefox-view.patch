@@ -1,7 +1,8 @@
 diff --git a/browser/components/customizableui/CustomizableUI.jsm b/browser/components/customizableui/CustomizableUI.jsm
+index 30c9145..5e0eda8 100644
 --- a/browser/components/customizableui/CustomizableUI.jsm
 +++ b/browser/components/customizableui/CustomizableUI.jsm
-@@ -277,7 +277,6 @@ var CustomizableUIInternal = {
+@@ -274,7 +274,6 @@ var CustomizableUIInternal = {
        {
          type: CustomizableUI.TYPE_TOOLBAR,
          defaultPlacements: [
@@ -9,7 +10,7 @@ diff --git a/browser/components/customizableui/CustomizableUI.jsm b/browser/comp
            "tabbrowser-tabs",
            "new-tab-button",
            "alltabs-button",
-@@ -605,18 +604,6 @@ var CustomizableUIInternal = {
+@@ -602,18 +601,6 @@ var CustomizableUIInternal = {
          navbarPlacements.splice(newPosition, 0, "save-to-pocket-button");
        }
      }
@@ -29,6 +30,7 @@ diff --git a/browser/components/customizableui/CustomizableUI.jsm b/browser/comp
  
    _updateForNewProtonVersion() {
 diff --git a/browser/components/firefoxview/firefoxview.html b/browser/components/firefoxview/firefoxview.html
+index 2fe5208..057481b 100644
 --- a/browser/components/firefoxview/firefoxview.html
 +++ b/browser/components/firefoxview/firefoxview.html
 @@ -113,7 +113,7 @@
@@ -50,11 +52,12 @@ diff --git a/browser/components/firefoxview/firefoxview.html b/browser/component
            <div class="content-container">
              <div id="no-current-colorway-collection-notice" data-l10n-id="firefoxview-no-current-colorway-collection"></div>
 diff --git a/browser/components/firefoxview/firefoxview.mjs b/browser/components/firefoxview/firefoxview.mjs
+index 520c092..c0b2669 100644
 --- a/browser/components/firefoxview/firefoxview.mjs
 +++ b/browser/components/firefoxview/firefoxview.mjs
-@@ -28,7 +28,26 @@ const MediaQueryDOMSorting = {
-   },
- };
+@@ -4,7 +4,26 @@
+ 
+ "use strict";
  
 +function onPrefChange() {
 +  document.getElementById("tab-pickup-container").hidden =
@@ -74,18 +77,20 @@ diff --git a/browser/components/firefoxview/firefoxview.mjs b/browser/components
 +  "identity.fxaccounts.enabled",
 +].forEach((pref) => Services.prefs.addObserver(pref, onPrefChange));
 +
- window.addEventListener("DOMContentLoaded", () => {
+ window.addEventListener("DOMContentLoaded", async () => {
 +  onPrefChange();
    Services.telemetry.setEventRecordingEnabled("firefoxview", true);
    Services.telemetry.recordEvent("firefoxview", "entered", "firefoxview", null);
    document.getElementById("recently-closed-tabs-container").onLoad();
 diff --git a/browser/components/newtab/lib/OnboardingMessageProvider.jsm b/browser/components/newtab/lib/OnboardingMessageProvider.jsm
+index 616839d..f849f60 100644
 --- a/browser/components/newtab/lib/OnboardingMessageProvider.jsm
 +++ b/browser/components/newtab/lib/OnboardingMessageProvider.jsm
-@@ -82,56 +82,6 @@ const BASE_MESSAGES = () => [
+@@ -78,56 +78,6 @@ const BASE_MESSAGES = () => [
+     },
      trigger: { id: "protectionsPanelOpen" },
    },
-   {
+-  {
 -    id: "CFR_FIREFOX_VIEW",
 -    groups: ["cfr"],
 -    template: "cfr_doorhanger",
@@ -135,7 +140,6 @@ diff --git a/browser/components/newtab/lib/OnboardingMessageProvider.jsm b/brows
 -    targeting:
 -      "!inMr2022Holdback && (currentDate|date - profileAgeCreated) / 86400000 >= 2 && tabsClosedCount >= 3 && 'browser.firefox-view.view-count'|preferenceValue == 0 && !'browser.newtabpage.activity-stream.asrouter.providers.cfr'|preferenceIsUserSet",
 -  },
--  {
+   {
      id: "FX_MR_106_UPGRADE",
      template: "spotlight",
-     targeting: "true",
