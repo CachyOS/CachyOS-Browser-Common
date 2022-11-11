@@ -143,3 +143,17 @@ index 616839d..f849f60 100644
    {
      id: "FX_MR_106_UPGRADE",
      template: "spotlight",
+diff --git a/toolkit/components/nimbus/FeatureManifest.yaml b/toolkit/components/nimbus/FeatureManifest.yaml
+--- a/toolkit/components/nimbus/FeatureManifest.yaml
++++ b/toolkit/components/nimbus/FeatureManifest.yaml
+@@ -638,10 +638,6 @@ majorRelease2022:
+       type: boolean
+       fallbackPref: "browser.theme.colorway-closet"
+       description: "Whether or not to show the colorway closet modal"
+-    firefoxView:
+-      type: boolean
+-      fallbackPref: "browser.tabs.firefox-view"
+-      description: "Whether or not to show the firefox view tab"
+     onboarding:
+       type: boolean
+       fallbackPref: "browser.majorrelease.onboarding"
