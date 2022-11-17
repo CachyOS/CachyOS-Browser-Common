@@ -46,7 +46,7 @@ index 2fe5208..057481b 100644
          </div>
        </details>
  
--      <aside class="content-container" is="colorways-card">
+-      <aside id="colorway-landmark" class="content-container" is="colorways-card">
 +      <aside id="colorway-landmark" class="content-container" is="colorways-card" hidden="true">
          <template id="colorways-no-collection-template">
            <div class="content-container">
