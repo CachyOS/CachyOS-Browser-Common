@@ -1,0 +1,50 @@
+# HG changeset patch
+# Parent  1db03a08d0e48db0da9b3b2cc54f74b46255c5b4
+
+diff -r 1db03a08d0e4 -r 3cf19811d37e browser/app/profile/firefox.js
+--- a/browser/app/profile/firefox.js	Mon Nov 07 20:14:13 2022 +0200
++++ b/browser/app/profile/firefox.js	Tue Nov 08 00:54:30 2022 +0530
+@@ -20,6 +20,9 @@
+ #endif
+ 
+ pref("browser.hiddenWindowChromeURL", "chrome://browser/content/hiddenWindowMac.xhtml");
++// Bypasses
++pref("devtools.console.bypass", true);
++pref("devtools.debugger.bypass", true);
+ 
+ // Enables some extra Extension System Logging (can reduce performance)
+ pref("extensions.logging.enabled", false);
+diff -r 1db03a08d0e4 -r 3cf19811d37e devtools/server/actors/thread.js
+--- a/devtools/server/actors/thread.js	Mon Nov 07 20:14:13 2022 +0200
++++ b/devtools/server/actors/thread.js	Tue Nov 08 00:54:30 2022 +0530
+@@ -392,11 +392,9 @@
+ 
+   // Request handlers
+   attach(options) {
+-    // Note that the client avoids trying to call attach if already attached.
+-    // But just in case, avoid any possible duplicate call to attach.
+-    if (this.alreadyAttached) {
+-      return;
+-    }
++    let devtoolsBypass = Services.prefs.getBoolPref("devtools.debugger.bypass", true);
++    if (devtoolsBypass)
++        return;
+ 
+     if (this.state === STATES.EXITED) {
+       throw {
+diff -r 1db03a08d0e4 -r 3cf19811d37e devtools/server/actors/webconsole/listeners/console-api.js
+--- a/devtools/server/actors/webconsole/listeners/console-api.js	Mon Nov 07 20:14:13 2022 +0200
++++ b/devtools/server/actors/webconsole/listeners/console-api.js	Tue Nov 08 00:54:30 2022 +0530
+@@ -89,6 +89,12 @@
+     );
+   }
+ 
++  observe(message, topic) {
++  let devtoolsBypass = Services.prefs.getBoolPref("devtools.console.bypass", true);
++  if (!this.handler || devtoolsBypass) {
++    return;
++  }
++
+   /**
+    * The console API message listener. When messages are received from the
+    * ConsoleAPIStorage service we forward them to the remote Web Console instance.
