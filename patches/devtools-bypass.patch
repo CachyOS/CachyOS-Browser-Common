@@ -9,8 +9,8 @@ diff -r 1db03a08d0e4 -r 3cf19811d37e browser/app/profile/firefox.js
  
  pref("browser.hiddenWindowChromeURL", "chrome://browser/content/hiddenWindowMac.xhtml");
 +// Bypasses
-+pref("devtools.console.bypass", true);
-+pref("devtools.debugger.bypass", true);
++pref("devtools.console.bypass", false);
++pref("devtools.debugger.bypass", false);
  
  // Enables some extra Extension System Logging (can reduce performance)
  pref("extensions.logging.enabled", false);

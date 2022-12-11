@@ -1,8 +1,6 @@
-diff --git a/python/mozboot/mozboot/bootstrap.py b/python/mozboot/mozboot/bootstrap.py
-index 0c5ecbf..d9a6d9d 100644
 --- a/python/mozboot/mozboot/bootstrap.py
 +++ b/python/mozboot/mozboot/bootstrap.py
-@@ -550,10 +550,7 @@ def current_firefox_checkout(env, hg: Optional[Path] = None):
+@@ -619,10 +619,7 @@ def current_firefox_checkout(env, hg: Op
              break
          path = path.parent
  
@@ -14,8 +12,6 @@ index 0c5ecbf..d9a6d9d 100644
  
  
  def update_git_tools(git: Optional[Path], root_state_dir: Path):
-diff --git a/python/mozversioncontrol/mozversioncontrol/__init__.py b/python/mozversioncontrol/mozversioncontrol/__init__.py
-index dd31f53..6f0087a 100644
 --- a/python/mozversioncontrol/mozversioncontrol/__init__.py
 +++ b/python/mozversioncontrol/mozversioncontrol/__init__.py
 @@ -684,6 +684,29 @@ class GitRepository(Repository):
@@ -48,7 +44,7 @@ index dd31f53..6f0087a 100644
  def get_repository_object(path: Optional[Union[str, Path]], hg="hg", git="git"):
      """Get a repository object for the repository at `path`.
      If `path` is not a known VCS repository, raise an exception.
-@@ -697,7 +720,7 @@ def get_repository_object(path: Optional[Union[str, Path]], hg="hg", git="git"):
+@@ -697,7 +720,7 @@ def get_repository_object(path: Optional
      elif (path / ".git").exists():
          return GitRepository(path, git=git)
      else:
@@ -57,7 +53,7 @@ index dd31f53..6f0087a 100644
  
  
  def get_repository_from_build_config(config):
-@@ -721,6 +744,8 @@ def get_repository_from_build_config(config):
+@@ -721,6 +744,8 @@ def get_repository_from_build_config(con
          return HgRepository(Path(config.topsrcdir), hg=config.substs["HG"])
      elif flavor == "git":
          return GitRepository(Path(config.topsrcdir), git=config.substs["GIT"])
@@ -66,12 +62,10 @@ index dd31f53..6f0087a 100644
      else:
          raise MissingVCSInfo("unknown VCS_CHECKOUT_TYPE value: %s" % flavor)
  
-diff --git a/third_party/python/taskcluster_taskgraph/taskgraph/util/vcs.py b/third_party/python/taskcluster_taskgraph/taskgraph/util/vcs.py
-index 016578b..7525139 100644
 --- a/third_party/python/taskcluster_taskgraph/taskgraph/util/vcs.py
 +++ b/third_party/python/taskcluster_taskgraph/taskgraph/util/vcs.py
-@@ -168,6 +168,43 @@ class GitRepository(Repository):
-         self.run("checkout", ref)
+@@ -495,6 +495,43 @@ class GitRepository(Repository):
+             raise
  
  
 +class LocalRepository(Repository):
@@ -114,7 +108,7 @@ index 016578b..7525139 100644
  def get_repository(path):
      """Get a repository object for the repository at `path`.
      If `path` is not a known VCS repository, raise an exception.
-@@ -178,7 +215,7 @@ def get_repository(path):
+@@ -505,7 +542,7 @@ def get_repository(path):
          elif os.path.exists(os.path.join(path, ".git")):
              return GitRepository(path)
  
@@ -123,3 +117,14 @@ index 016578b..7525139 100644
  
  
  def find_hg_revision_push_info(repository, revision):
+--- a/third_party/python/mozilla_repo_urls/mozilla_repo_urls/parser.py
++++ b/third_party/python/mozilla_repo_urls/mozilla_repo_urls/parser.py
+@@ -9,7 +9,7 @@ for i, platform in enumerate(ADDITIONAL_PLATFORMS):
+     giturlparse.platforms.PLATFORMS.insert(i, platform)
+ 
+ 
+-_SUPPORTED_PLAFORMS = ("hgmo", "github")
++_SUPPORTED_PLAFORMS = ("hgmo", "github", "gitlab")
+ 
+ 
+ def parse(url_string):

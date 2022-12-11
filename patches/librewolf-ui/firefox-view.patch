@@ -1,8 +1,6 @@
-diff --git a/browser/components/customizableui/CustomizableUI.jsm b/browser/components/customizableui/CustomizableUI.jsm
-index 30c9145..5e0eda8 100644
 --- a/browser/components/customizableui/CustomizableUI.jsm
 +++ b/browser/components/customizableui/CustomizableUI.jsm
-@@ -274,7 +274,6 @@ var CustomizableUIInternal = {
+@@ -277,7 +277,6 @@ var CustomizableUIInternal = {
        {
          type: CustomizableUI.TYPE_TOOLBAR,
          defaultPlacements: [
@@ -10,7 +8,7 @@ index 30c9145..5e0eda8 100644
            "tabbrowser-tabs",
            "new-tab-button",
            "alltabs-button",
-@@ -602,18 +601,6 @@ var CustomizableUIInternal = {
+@@ -605,18 +604,6 @@ var CustomizableUIInternal = {
          navbarPlacements.splice(newPosition, 0, "save-to-pocket-button");
        }
      }
@@ -29,8 +27,6 @@ index 30c9145..5e0eda8 100644
    },
  
    _updateForNewProtonVersion() {
-diff --git a/browser/components/firefoxview/firefoxview.html b/browser/components/firefoxview/firefoxview.html
-index 2fe5208..057481b 100644
 --- a/browser/components/firefoxview/firefoxview.html
 +++ b/browser/components/firefoxview/firefoxview.html
 @@ -113,7 +113,7 @@
@@ -51,13 +47,11 @@ index 2fe5208..057481b 100644
          <template id="colorways-no-collection-template">
            <div class="content-container">
              <div id="no-current-colorway-collection-notice" data-l10n-id="firefoxview-no-current-colorway-collection"></div>
-diff --git a/browser/components/firefoxview/firefoxview.mjs b/browser/components/firefoxview/firefoxview.mjs
-index 520c092..c0b2669 100644
 --- a/browser/components/firefoxview/firefoxview.mjs
 +++ b/browser/components/firefoxview/firefoxview.mjs
-@@ -4,7 +4,26 @@
- 
- "use strict";
+@@ -28,7 +28,26 @@ const MediaQueryDOMSorting = {
+   },
+ };
  
 +function onPrefChange() {
 +  document.getElementById("tab-pickup-container").hidden =
@@ -82,15 +76,12 @@ index 520c092..c0b2669 100644
    Services.telemetry.setEventRecordingEnabled("firefoxview", true);
    Services.telemetry.recordEvent("firefoxview", "entered", "firefoxview", null);
    document.getElementById("recently-closed-tabs-container").onLoad();
-diff --git a/browser/components/newtab/lib/OnboardingMessageProvider.jsm b/browser/components/newtab/lib/OnboardingMessageProvider.jsm
-index 616839d..f849f60 100644
 --- a/browser/components/newtab/lib/OnboardingMessageProvider.jsm
 +++ b/browser/components/newtab/lib/OnboardingMessageProvider.jsm
-@@ -78,56 +78,6 @@ const BASE_MESSAGES = () => [
-     },
+@@ -82,56 +82,6 @@ const BASE_MESSAGES = () => [
      trigger: { id: "protectionsPanelOpen" },
    },
--  {
+   {
 -    id: "CFR_FIREFOX_VIEW",
 -    groups: ["cfr"],
 -    template: "cfr_doorhanger",
@@ -140,13 +131,13 @@ index 616839d..f849f60 100644
 -    targeting:
 -      "!inMr2022Holdback && (currentDate|date - profileAgeCreated) / 86400000 >= 2 && tabsClosedCount >= 3 && 'browser.firefox-view.view-count'|preferenceValue == 0 && !'browser.newtabpage.activity-stream.asrouter.providers.cfr'|preferenceIsUserSet",
 -  },
-   {
+-  {
      id: "FX_MR_106_UPGRADE",
      template: "spotlight",
-diff --git a/toolkit/components/nimbus/FeatureManifest.yaml b/toolkit/components/nimbus/FeatureManifest.yaml
+     targeting: "true",
 --- a/toolkit/components/nimbus/FeatureManifest.yaml
 +++ b/toolkit/components/nimbus/FeatureManifest.yaml
-@@ -638,10 +638,6 @@ majorRelease2022:
+@@ -663,10 +663,6 @@ majorRelease2022:
        type: boolean
        fallbackPref: "browser.theme.colorway-closet"
        description: "Whether or not to show the colorway closet modal"

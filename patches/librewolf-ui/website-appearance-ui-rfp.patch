@@ -1,22 +1,22 @@
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -3737,6 +3737,7 @@ const AppearanceChooser = {
+@@ -3713,6 +3713,7 @@
+ 
      FORCED_COLORS_QUERY.addEventListener("change", this);
-     SYSTEM_DARK_MODE_QUERY.addEventListener("change", this);
      Services.prefs.addObserver(PREF_USE_SYSTEM_COLORS, this);
 +    Services.prefs.addObserver("privacy.resistFingerprinting", this);
      Services.obs.addObserver(this, "look-and-feel-changed");
      this._update();
    },
-@@ -3756,6 +3757,7 @@ const AppearanceChooser = {
+@@ -3732,6 +3733,7 @@
  
    destroy() {
      Services.prefs.removeObserver(PREF_USE_SYSTEM_COLORS, this);
 +    Services.prefs.removeObserver("privacy.resistFingerprinting", this);
      Services.obs.removeObserver(this, "look-and-feel-changed");
      FORCED_COLORS_QUERY.removeEventListener("change", this);
-     SYSTEM_DARK_MODE_QUERY.removeEventListener("change", this);
-@@ -3798,5 +3800,33 @@ const AppearanceChooser = {
+   },
+@@ -3771,5 +3773,33 @@
        (AppConstants.platform == "win" ||
          !Services.prefs.getBoolPref(PREF_USE_SYSTEM_COLORS));
      this.warning.hidden = !forcingColorsAndNoColorSchemeSupport;

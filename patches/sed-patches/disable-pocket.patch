@@ -27,9 +27,9 @@ diff --git a/browser/components/moz.build b/browser/components/moz.build
 index 71a1b85..ed3b6d1 100644
 --- a/browser/components/moz.build
 +++ b/browser/components/moz.build
-@@ -42,7 +42,6 @@ DIRS += [
+@@ -44,7 +44,6 @@
      "originattributes",
-     "ion",
+     "pagedata",
      "places",
 -    "pocket",
      "preferences",
