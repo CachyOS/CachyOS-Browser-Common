@@ -1,16 +1,3 @@
-diff --git a/browser/base/content/browser.js b/browser/base/content/browser.js
-index f59f732..07a9a60 100644
---- a/browser/base/content/browser.js
-+++ b/browser/base/content/browser.js
-@@ -5445,8 +5445,6 @@ var XULBrowserWindow = {
- 
-     SafeBrowsingNotificationBox.onLocationChange(aLocationURI);
- 
--    SaveToPocket.onLocationChange(window);
--
-     UrlbarProviderSearchTips.onLocationChange(
-       window,
-       aLocationURI,
 diff --git a/browser/components/BrowserGlue.jsm b/browser/components/BrowserGlue.jsm
 index 64ac529..8cf69c1 100644
 --- a/browser/components/BrowserGlue.jsm

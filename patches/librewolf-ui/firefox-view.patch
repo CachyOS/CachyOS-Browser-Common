@@ -76,75 +76,39 @@
    Services.telemetry.setEventRecordingEnabled("firefoxview", true);
    Services.telemetry.recordEvent("firefoxview", "entered", "firefoxview", null);
    document.getElementById("recently-closed-tabs-container").onLoad();
---- a/browser/components/newtab/lib/OnboardingMessageProvider.jsm
-+++ b/browser/components/newtab/lib/OnboardingMessageProvider.jsm
-@@ -82,56 +82,6 @@ const BASE_MESSAGES = () => [
-     trigger: { id: "protectionsPanelOpen" },
-   },
-   {
--    id: "CFR_FIREFOX_VIEW",
--    groups: ["cfr"],
--    template: "cfr_doorhanger",
--    content: {
--      bucket_id: "CFR_FIREFOX_VIEW",
--      anchor_id: "firefox-view-button",
--      layout: "icon_and_message",
--      icon: "chrome://browser/content/cfr-lightning.svg",
--      icon_dark_theme: "chrome://browser/content/cfr-lightning-dark.svg",
--      icon_class: "cfr-doorhanger-small-icon",
--      heading_text: {
--        string_id: "firefoxview-cfr-header",
--      },
--      text: {
--        string_id: "firefoxview-cfr-body",
--      },
--      buttons: {
--        primary: {
--          label: {
--            string_id: "firefoxview-cfr-primarybutton",
--          },
--          action: {
--            type: "OPEN_FIREFOX_VIEW",
--            navigate: true,
--          },
--        },
--        secondary: [
--          {
--            label: {
--              string_id: "firefoxview-cfr-secondarybutton",
--            },
--            action: {
--              type: "CANCEL",
--            },
--          },
--        ],
--      },
--      skip_address_bar_notifier: true,
--    },
--    frequency: {
--      lifetime: 1,
--    },
--    trigger: {
--      id: "nthTabClosed",
--    },
--    // Avoid breaking existing tests that close tabs for now.
--    targeting:
--      "!inMr2022Holdback && (currentDate|date - profileAgeCreated) / 86400000 >= 2 && tabsClosedCount >= 3 && 'browser.firefox-view.view-count'|preferenceValue == 0 && !'browser.newtabpage.activity-stream.asrouter.providers.cfr'|preferenceIsUserSet",
--  },
--  {
-     id: "FX_MR_106_UPGRADE",
-     template: "spotlight",
-     targeting: "true",
---- a/toolkit/components/nimbus/FeatureManifest.yaml
-+++ b/toolkit/components/nimbus/FeatureManifest.yaml
-@@ -663,10 +663,6 @@ majorRelease2022:
-       type: boolean
-       fallbackPref: "browser.theme.colorway-closet"
-       description: "Whether or not to show the colorway closet modal"
--    firefoxView:
--      type: boolean
--      fallbackPref: "browser.tabs.firefox-view"
--      description: "Whether or not to show the firefox view tab"
-     onboarding:
-       type: boolean
-       fallbackPref: "browser.majorrelease.onboarding"
+--- a/browser/base/content/navigator-toolbox.inc.xhtml
++++ b/browser/base/content/navigator-toolbox.inc.xhtml
+@@ -41,16 +41,6 @@
+       <hbox flex="1" align="end" class="toolbar-items">
+         <toolbartabstop/>
+         <hbox id="TabsToolbar-customization-target" flex="1">
+-          <toolbarbutton id="firefox-view-button"
+-                         class="toolbarbutton-1 chromeclass-toolbar-additional"
+-                         data-l10n-id="toolbar-button-firefox-view"
+-                         role="button"
+-                         aria-pressed="false"
+-                         oncommand="FirefoxViewHandler.openTab(event);"
+-                         onmousedown="FirefoxViewHandler.openTab(event);"
+-                         cui-areatype="toolbar"
+-                         removable="true"/>
+-
+           <tabs id="tabbrowser-tabs"
+                 is="tabbrowser-tabs"
+                 flex="1"
+@@ -689,6 +679,16 @@
+                    closemenu="none"
+                    cui-areatype="toolbar"
+                    data-l10n-id="navbar-library"/>
++
++    <toolbarbutton id="firefox-view-button"
++                   class="toolbarbutton-1 chromeclass-toolbar-additional"
++                   data-l10n-id="toolbar-button-firefox-view"
++                   role="button"
++                   aria-pressed="false"
++                   oncommand="FirefoxViewHandler.openTab(event);"
++                   onmousedown="FirefoxViewHandler.openTab(event);"
++                   cui-areatype="toolbar"
++                   removable="true"/>
+   </html:template>
+ </toolbox>
+ </box>
