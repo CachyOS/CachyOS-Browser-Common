@@ -1,6 +1,46 @@
+diff --git a/browser/base/content/navigator-toolbox.inc.xhtml b/browser/base/content/navigator-toolbox.inc.xhtml
+index 3329e01..bb2561c 100644
+--- a/browser/base/content/navigator-toolbox.inc.xhtml
++++ b/browser/base/content/navigator-toolbox.inc.xhtml
+@@ -41,16 +41,6 @@
+       <hbox flex="1" align="end" class="toolbar-items">
+         <toolbartabstop/>
+         <hbox id="TabsToolbar-customization-target" flex="1">
+-          <toolbarbutton id="firefox-view-button"
+-                         class="toolbarbutton-1 chromeclass-toolbar-additional"
+-                         data-l10n-id="toolbar-button-firefox-view"
+-                         role="button"
+-                         aria-pressed="false"
+-                         oncommand="FirefoxViewHandler.openTab(event);"
+-                         onmousedown="FirefoxViewHandler.openTab(event);"
+-                         cui-areatype="toolbar"
+-                         removable="true"/>
+-
+           <tabs id="tabbrowser-tabs"
+                 is="tabbrowser-tabs"
+                 flex="1"
+@@ -703,6 +693,16 @@
+                    closemenu="none"
+                    cui-areatype="toolbar"
+                    data-l10n-id="navbar-library"/>
++
++    <toolbarbutton id="firefox-view-button"
++                   class="toolbarbutton-1 chromeclass-toolbar-additional"
++                   data-l10n-id="toolbar-button-firefox-view"
++                   role="button"
++                   aria-pressed="false"
++                   oncommand="FirefoxViewHandler.openTab(event);"
++                   onmousedown="FirefoxViewHandler.openTab(event);"
++                   cui-areatype="toolbar"
++                   removable="true"/>
+   </html:template>
+ </toolbox>
+ </box>
+diff --git a/browser/components/customizableui/CustomizableUI.jsm b/browser/components/customizableui/CustomizableUI.jsm
+index e97c979..1f0a0ce 100644
 --- a/browser/components/customizableui/CustomizableUI.jsm
 +++ b/browser/components/customizableui/CustomizableUI.jsm
-@@ -277,7 +277,6 @@ var CustomizableUIInternal = {
+@@ -297,7 +297,6 @@ var CustomizableUIInternal = {
        {
          type: CustomizableUI.TYPE_TOOLBAR,
          defaultPlacements: [
@@ -8,7 +48,7 @@
            "tabbrowser-tabs",
            "new-tab-button",
            "alltabs-button",
-@@ -605,18 +604,6 @@ var CustomizableUIInternal = {
+@@ -626,18 +625,6 @@ var CustomizableUIInternal = {
          navbarPlacements.splice(newPosition, 0, "save-to-pocket-button");
        }
      }
@@ -27,18 +67,20 @@
    },
  
    _updateForNewProtonVersion() {
+diff --git a/browser/components/firefoxview/firefoxview.html b/browser/components/firefoxview/firefoxview.html
+index 403891d..f7a9027 100644
 --- a/browser/components/firefoxview/firefoxview.html
 +++ b/browser/components/firefoxview/firefoxview.html
-@@ -113,7 +113,7 @@
+@@ -117,7 +117,7 @@
          </div>
        </template>
  
 -      <details class="content-container" is="tab-pickup-container" id="tab-pickup-container" open>
 +      <details class="content-container" is="tab-pickup-container" id="tab-pickup-container" open hidden="true">
          <summary class="page-section-header">
-           <h1 id="collapsible-synced-tabs-header" data-l10n-id="firefoxview-tabpickup-header"></h1>
            <span class="twisty icon" data-l10n-id="firefoxview-collapse-button-hide" aria-role="presentation"></span>
-@@ -141,7 +141,7 @@
+           <h1 id="collapsible-synced-tabs-header" data-l10n-id="firefoxview-tabpickup-header"></h1>
+@@ -145,7 +145,7 @@
          </div>
        </details>
  
@@ -47,6 +89,8 @@
          <template id="colorways-no-collection-template">
            <div class="content-container">
              <div id="no-current-colorway-collection-notice" data-l10n-id="firefoxview-no-current-colorway-collection"></div>
+diff --git a/browser/components/firefoxview/firefoxview.mjs b/browser/components/firefoxview/firefoxview.mjs
+index bee8589..985c91c 100644
 --- a/browser/components/firefoxview/firefoxview.mjs
 +++ b/browser/components/firefoxview/firefoxview.mjs
 @@ -28,7 +28,26 @@ const MediaQueryDOMSorting = {
@@ -76,39 +120,65 @@
    Services.telemetry.setEventRecordingEnabled("firefoxview", true);
    Services.telemetry.recordEvent("firefoxview", "entered", "firefoxview", null);
    document.getElementById("recently-closed-tabs-container").onLoad();
---- a/browser/base/content/navigator-toolbox.inc.xhtml
-+++ b/browser/base/content/navigator-toolbox.inc.xhtml
-@@ -41,16 +41,6 @@
-       <hbox flex="1" align="end" class="toolbar-items">
-         <toolbartabstop/>
-         <hbox id="TabsToolbar-customization-target" flex="1">
--          <toolbarbutton id="firefox-view-button"
--                         class="toolbarbutton-1 chromeclass-toolbar-additional"
--                         data-l10n-id="toolbar-button-firefox-view"
--                         role="button"
--                         aria-pressed="false"
--                         oncommand="FirefoxViewHandler.openTab(event);"
--                         onmousedown="FirefoxViewHandler.openTab(event);"
--                         cui-areatype="toolbar"
--                         removable="true"/>
--
-           <tabs id="tabbrowser-tabs"
-                 is="tabbrowser-tabs"
-                 flex="1"
-@@ -689,6 +679,16 @@
-                    closemenu="none"
-                    cui-areatype="toolbar"
-                    data-l10n-id="navbar-library"/>
-+
-+    <toolbarbutton id="firefox-view-button"
-+                   class="toolbarbutton-1 chromeclass-toolbar-additional"
-+                   data-l10n-id="toolbar-button-firefox-view"
-+                   role="button"
-+                   aria-pressed="false"
-+                   oncommand="FirefoxViewHandler.openTab(event);"
-+                   onmousedown="FirefoxViewHandler.openTab(event);"
-+                   cui-areatype="toolbar"
-+                   removable="true"/>
-   </html:template>
- </toolbox>
- </box>
+diff --git a/browser/components/newtab/lib/OnboardingMessageProvider.jsm b/browser/components/newtab/lib/OnboardingMessageProvider.jsm
+index 17c5f96..aff9c0b 100644
+--- a/browser/components/newtab/lib/OnboardingMessageProvider.jsm
++++ b/browser/components/newtab/lib/OnboardingMessageProvider.jsm
+@@ -81,57 +81,6 @@ const BASE_MESSAGES = () => [
+     },
+     trigger: { id: "protectionsPanelOpen" },
+   },
+-  {
+-    id: "CFR_FIREFOX_VIEW",
+-    groups: ["cfr"],
+-    template: "cfr_doorhanger",
+-    //If Firefox View button has been moved to the overflow menu, we want to change the anchor element
+-    content: {
+-      bucket_id: "CFR_FIREFOX_VIEW",
+-      anchor_id: "firefox-view-button",
+-      alt_anchor_id: "nav-bar-overflow-button",
+-      layout: "icon_and_message",
+-      icon: "chrome://browser/content/cfr-lightning.svg",
+-      icon_dark_theme: "chrome://browser/content/cfr-lightning-dark.svg",
+-      icon_class: "cfr-doorhanger-small-icon",
+-      heading_text: {
+-        string_id: "firefoxview-cfr-header",
+-      },
+-      text: {
+-        string_id: "firefoxview-cfr-body",
+-      },
+-      buttons: {
+-        primary: {
+-          label: {
+-            string_id: "firefoxview-cfr-primarybutton",
+-          },
+-          action: {
+-            type: "OPEN_FIREFOX_VIEW",
+-            navigate: true,
+-          },
+-        },
+-        secondary: [
+-          {
+-            label: {
+-              string_id: "firefoxview-cfr-secondarybutton",
+-            },
+-            action: {
+-              type: "CANCEL",
+-            },
+-          },
+-        ],
+-      },
+-      skip_address_bar_notifier: true,
+-    },
+-    frequency: {
+-      lifetime: 1,
+-    },
+-    trigger: {
+-      id: "nthTabClosed",
+-    },
+-    // Avoid breaking existing tests that close tabs for now.
+-    targeting: `!inMr2022Holdback && fxViewButtonAreaType != null && (currentDate|date - profileAgeCreated) / 86400000 >= 2 && tabsClosedCount >= 3 && 'browser.firefox-view.view-count'|preferenceValue == 0 && !'browser.newtabpage.activity-stream.asrouter.providers.cfr'|preferenceIsUserSet`,
+-  },
+   {
+     id: "FX_MR_106_UPGRADE",
+     template: "spotlight",

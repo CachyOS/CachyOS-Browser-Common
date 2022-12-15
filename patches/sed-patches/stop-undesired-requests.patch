@@ -41,16 +41,3 @@ index a3100fa..c7bf03b 100644
      "stage-main":
        "https://settings.stage.mozaws.net/v1/buckets/main/collections/search-config/records",
      "stage-preview":
-diff --git a/toolkit/modules/AppConstants.jsm b/toolkit/modules/AppConstants.jsm
-index 9311d06..eb6cda1 100644
---- a/toolkit/modules/AppConstants.jsm
-+++ b/toolkit/modules/AppConstants.jsm
-@@ -425,7 +425,7 @@ var AppConstants = Object.freeze({
- #ifdef MOZ_THUNDERBIRD
-     "https://thunderbird-settings.thunderbird.net/v1",
- #else
--    "https://firefox.settings.services.mozilla.com/v1",
-+    "https://%.invalid",
- #endif
- 
-   REMOTE_SETTINGS_VERIFY_SIGNATURE:
