@@ -1,6 +1,6 @@
-From 870d6c8f9b8086c5953300cfa7234dac3db1fcb7 Mon Sep 17 00:00:00 2001
+From af61c9942b1fbfb85cd7cc4950a44804ed6d800b Mon Sep 17 00:00:00 2001
 From: ohfp <1813007-ohfp@users.noreply.gitlab.com>
-Date: Wed, 16 Nov 2022 10:54:47 +0100
+Date: Thu, 15 Dec 2022 14:00:55 +0100
 Subject: [PATCH] kde
 
 ---
@@ -37,7 +37,7 @@ Subject: [PATCH] kde
  create mode 100644 uriloader/exthandler/unix/nsKDERegistry.h
 
 diff --git a/modules/libpref/Preferences.cpp b/modules/libpref/Preferences.cpp
-index 338a54cc7c6f..178a6cdcdcc2 100644
+index 418daa983069..76ece13df80a 100644
 --- a/modules/libpref/Preferences.cpp
 +++ b/modules/libpref/Preferences.cpp
 @@ -94,6 +94,7 @@
@@ -48,7 +48,7 @@ index 338a54cc7c6f..178a6cdcdcc2 100644
  
  #ifdef DEBUG
  #  include <map>
-@@ -4854,6 +4855,17 @@ nsresult Preferences::InitInitialObjects(bool aIsStartup) {
+@@ -4852,6 +4853,17 @@ nsresult Preferences::InitInitialObjects(bool aIsStartup) {
  #endif
    };
  
@@ -66,7 +66,7 @@ index 338a54cc7c6f..178a6cdcdcc2 100644
    rv = pref_LoadPrefsInDir(defaultPrefDir, specialFiles,
                             ArrayLength(specialFiles));
    if (NS_FAILED(rv)) {
-@@ -4928,7 +4940,7 @@ nsresult Preferences::InitInitialObjects(bool aIsStartup) {
+@@ -4943,7 +4955,7 @@ nsresult Preferences::InitInitialObjects(bool aIsStartup) {
        }
  
        // Do we care if a file provided by this process fails to load?
@@ -76,10 +76,10 @@ index 338a54cc7c6f..178a6cdcdcc2 100644
    }
  
 diff --git a/modules/libpref/moz.build b/modules/libpref/moz.build
-index 8ed2ca5db2d1..4f9923f28a4a 100644
+index e22baa09b420..1fc915ac3ae7 100644
 --- a/modules/libpref/moz.build
 +++ b/modules/libpref/moz.build
-@@ -128,6 +128,10 @@ UNIFIED_SOURCES += [
+@@ -127,6 +127,10 @@ UNIFIED_SOURCES += [
      "SharedPrefMap.cpp",
  ]
  
@@ -115,7 +115,7 @@ index a733685f95a3..f64b17fb7b17 100644
  
      def __init__(self, base, *flags):
 diff --git a/toolkit/components/downloads/moz.build b/toolkit/components/downloads/moz.build
-index d4172e2d73ad..8bd0577bc535 100644
+index 3818e8c0db1e..b70986db8111 100644
 --- a/toolkit/components/downloads/moz.build
 +++ b/toolkit/components/downloads/moz.build
 @@ -51,5 +51,9 @@ if CONFIG["MOZ_PLACES"]:
@@ -129,7 +129,7 @@ index d4172e2d73ad..8bd0577bc535 100644
  with Files("**"):
      BUG_COMPONENT = ("Toolkit", "Downloads API")
 diff --git a/toolkit/mozapps/downloads/HelperAppDlg.jsm b/toolkit/mozapps/downloads/HelperAppDlg.jsm
-index 1b8a7ead51b0..fb0191b50abe 100644
+index a161ee4445c9..d4508a73fdd8 100644
 --- a/toolkit/mozapps/downloads/HelperAppDlg.jsm
 +++ b/toolkit/mozapps/downloads/HelperAppDlg.jsm
 @@ -1244,26 +1244,56 @@ nsUnknownContentTypeDialog.prototype = {
@@ -210,19 +210,19 @@ index 1b8a7ead51b0..fb0191b50abe 100644
        var nsIFilePicker = Ci.nsIFilePicker;
        var fp = Cc["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
 diff --git a/toolkit/system/unixproxy/nsUnixSystemProxySettings.cpp b/toolkit/system/unixproxy/nsUnixSystemProxySettings.cpp
-index ef110b1287bf..e29e8a5b62de 100644
+index 982faf7d7968..71acbf61b151 100644
 --- a/toolkit/system/unixproxy/nsUnixSystemProxySettings.cpp
 +++ b/toolkit/system/unixproxy/nsUnixSystemProxySettings.cpp
-@@ -15,6 +15,8 @@
- #include "nsNetUtil.h"
+@@ -16,6 +16,8 @@
  #include "nsISupportsPrimitives.h"
  #include "nsIGSettingsService.h"
+ #include "nsReadableUtils.h"
 +#include "nsPrintfCString.h"
 +#include "nsKDEUtils.h"
  
  using namespace mozilla;
  
-@@ -38,6 +40,8 @@ class nsUnixSystemProxySettings final : public nsISystemProxySettings {
+@@ -39,6 +41,8 @@ class nsUnixSystemProxySettings final : public nsISystemProxySettings {
                                   nsACString& aResult);
    nsresult SetProxyResultFromGSettings(const char* aKeyBase, const char* aType,
                                         nsACString& aResult);
@@ -231,7 +231,7 @@ index ef110b1287bf..e29e8a5b62de 100644
  };
  
  NS_IMPL_ISUPPORTS(nsUnixSystemProxySettings, nsISystemProxySettings)
-@@ -379,6 +383,9 @@ nsresult nsUnixSystemProxySettings::GetProxyForURI(const nsACString& aSpec,
+@@ -393,6 +397,9 @@ nsresult nsUnixSystemProxySettings::GetProxyForURI(const nsACString& aSpec,
                                                     const nsACString& aHost,
                                                     const int32_t aPort,
                                                     nsACString& aResult) {
@@ -241,7 +241,7 @@ index ef110b1287bf..e29e8a5b62de 100644
    if (mProxySettings) {
      nsresult rv = GetProxyFromGSettings(aScheme, aHost, aPort, aResult);
      if (NS_SUCCEEDED(rv)) return rv;
-@@ -387,6 +394,32 @@ nsresult nsUnixSystemProxySettings::GetProxyForURI(const nsACString& aSpec,
+@@ -401,6 +408,32 @@ nsresult nsUnixSystemProxySettings::GetProxyForURI(const nsACString& aSpec,
    return GetProxyFromEnvironment(aScheme, aHost, aPort, aResult);
  }
  
@@ -275,7 +275,7 @@ index ef110b1287bf..e29e8a5b62de 100644
    auto result = MakeRefPtr<nsUnixSystemProxySettings>();
    result->Init();
 diff --git a/toolkit/xre/moz.build b/toolkit/xre/moz.build
-index a3ea40edf0a3..96538442ccb3 100644
+index 970c10d243b8..81e9a05fce90 100644
 --- a/toolkit/xre/moz.build
 +++ b/toolkit/xre/moz.build
 @@ -97,7 +97,9 @@ elif CONFIG["MOZ_WIDGET_TOOLKIT"] == "uikit":
@@ -692,7 +692,7 @@ index 6eefb48f1316..08dfb1e0c7c7 100644
    *aHandlerExists = false;
  #endif
 diff --git a/uriloader/exthandler/moz.build b/uriloader/exthandler/moz.build
-index 260574f3905c..af549112883a 100644
+index 2d4c3de0ef67..a221e0cf4466 100644
 --- a/uriloader/exthandler/moz.build
 +++ b/uriloader/exthandler/moz.build
 @@ -83,7 +83,9 @@ else:
@@ -1465,7 +1465,7 @@ index 6f127896e334..b465ff529ce2 100644
          stTablet == eBad ||
  #endif
 diff --git a/xpcom/components/moz.build b/xpcom/components/moz.build
-index 779b75dbc495..7accda3776c6 100644
+index 95ee64e985ac..9af8f80497b7 100644
 --- a/xpcom/components/moz.build
 +++ b/xpcom/components/moz.build
 @@ -71,6 +71,7 @@ LOCAL_INCLUDES += [
@@ -1477,7 +1477,7 @@ index 779b75dbc495..7accda3776c6 100644
  
  if CONFIG["MOZ_WIDGET_TOOLKIT"] == "gtk":
 diff --git a/xpcom/io/nsLocalFileUnix.cpp b/xpcom/io/nsLocalFileUnix.cpp
-index 321f3a1ff9e7..4483248e1dab 100644
+index b420f2a1fb1a..c2bc77cb0ad6 100644
 --- a/xpcom/io/nsLocalFileUnix.cpp
 +++ b/xpcom/io/nsLocalFileUnix.cpp
 @@ -51,6 +51,7 @@
@@ -1488,7 +1488,7 @@ index 321f3a1ff9e7..4483248e1dab 100644
  #endif
  
  #ifdef MOZ_WIDGET_COCOA
-@@ -2093,10 +2094,19 @@ nsLocalFile::Reveal() {
+@@ -2099,10 +2100,19 @@ nsLocalFile::Reveal() {
    }
  
  #ifdef MOZ_WIDGET_GTK
@@ -1510,7 +1510,7 @@ index 321f3a1ff9e7..4483248e1dab 100644
    return giovfs->RevealFile(this);
  #elif defined(MOZ_WIDGET_COCOA)
    CFURLRef url;
-@@ -2118,6 +2128,13 @@ nsLocalFile::Launch() {
+@@ -2124,6 +2134,13 @@ nsLocalFile::Launch() {
    }
  
  #ifdef MOZ_WIDGET_GTK
@@ -1525,5 +1525,5 @@ index 321f3a1ff9e7..4483248e1dab 100644
    if (!giovfs) {
      return NS_ERROR_FAILURE;
 -- 
-2.38.1
+2.39.0
 

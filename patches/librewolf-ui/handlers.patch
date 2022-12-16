@@ -1,5 +1,5 @@
---- a/uriloader/exthandler/HandlerList.jsm
-+++ b/uriloader/exthandler/HandlerList.jsm
+--- a/uriloader/exthandler/HandlerList.sys.mjs
++++ b/uriloader/exthandler/HandlerList.sys.mjs
 @@ -13,228 +13,7 @@ this.kHandlerList = {
      schemes: {
        mailto: {
