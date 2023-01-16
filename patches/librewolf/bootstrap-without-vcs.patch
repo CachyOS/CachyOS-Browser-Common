@@ -1,6 +1,6 @@
 --- a/python/mozboot/mozboot/bootstrap.py
 +++ b/python/mozboot/mozboot/bootstrap.py
-@@ -619,10 +619,7 @@ def current_firefox_checkout(env, hg: Op
+@@ -628,10 +628,7 @@ def current_firefox_checkout(env, hg: Op
              break
          path = path.parent
  
@@ -14,7 +14,7 @@
  def update_git_tools(git: Optional[Path], root_state_dir: Path):
 --- a/python/mozversioncontrol/mozversioncontrol/__init__.py
 +++ b/python/mozversioncontrol/mozversioncontrol/__init__.py
-@@ -684,6 +684,29 @@ class GitRepository(Repository):
+@@ -760,6 +760,29 @@ class GitRepository(Repository):
          self._run("config", name, value)
  
  
@@ -44,7 +44,7 @@
  def get_repository_object(path: Optional[Union[str, Path]], hg="hg", git="git"):
      """Get a repository object for the repository at `path`.
      If `path` is not a known VCS repository, raise an exception.
-@@ -697,7 +720,7 @@ def get_repository_object(path: Optional
+@@ -773,7 +796,7 @@ def get_repository_object(path: Optional
      elif (path / ".git").exists():
          return GitRepository(path, git=git)
      else:
@@ -53,7 +53,7 @@
  
  
  def get_repository_from_build_config(config):
-@@ -721,6 +744,8 @@ def get_repository_from_build_config(con
+@@ -797,6 +820,8 @@ def get_repository_from_build_config(con
          return HgRepository(Path(config.topsrcdir), hg=config.substs["HG"])
      elif flavor == "git":
          return GitRepository(Path(config.topsrcdir), git=config.substs["GIT"])
@@ -62,64 +62,9 @@
      else:
          raise MissingVCSInfo("unknown VCS_CHECKOUT_TYPE value: %s" % flavor)
  
---- a/third_party/python/taskcluster_taskgraph/taskgraph/util/vcs.py
-+++ b/third_party/python/taskcluster_taskgraph/taskgraph/util/vcs.py
-@@ -495,6 +495,43 @@ class GitRepository(Repository):
-             raise
- 
- 
-+class LocalRepository(Repository):
-+    tool = "true"
-+
-+    @property
-+    def head_ref(self):
-+        return ""
-+
-+    def get_outgoing_files(self):
-+        return []
-+
-+    def get_changed_files(self):
-+        return []
-+
-+    def base_ref(self):
-+        raise Exception("Unimplemented")
-+
-+    def branch(self):
-+        raise Exception("Unimplemented")
-+
-+    def get_commit_message(self):
-+        raise Exception("Unimplemented")
-+
-+    def get_url(self):
-+        return ""
-+
-+    def update(self):
-+        raise Exception("Unimplemented")
-+
-+    def working_directory_clean(self):
-+        raise Exception("Unimplemented")
-+
-+    def get_tracked_files_finder(self):
-+        files = [os.path.relpath(os.path.join(dp, f), self.path).replace("\\","/") for dp, dn, fn in os.walk(self.path) for f in fn]
-+        files.sort()
-+        return FileListFinder(files)
-+
-+
- def get_repository(path):
-     """Get a repository object for the repository at `path`.
-     If `path` is not a known VCS repository, raise an exception.
-@@ -505,7 +542,7 @@ def get_repository(path):
-         elif os.path.exists(os.path.join(path, ".git")):
-             return GitRepository(path)
- 
--    raise RuntimeError("Current directory is neither a git or hg repository")
-+    return LocalRepository(path)
- 
- 
- def find_hg_revision_push_info(repository, revision):
 --- a/third_party/python/mozilla_repo_urls/mozilla_repo_urls/parser.py
 +++ b/third_party/python/mozilla_repo_urls/mozilla_repo_urls/parser.py
-@@ -9,7 +9,7 @@ for i, platform in enumerate(ADDITIONAL_PLATFORMS):
+@@ -9,7 +9,7 @@ for i, platform in enumerate(ADDITIONAL_
      giturlparse.platforms.PLATFORMS.insert(i, platform)
  
  
@@ -128,3 +73,79 @@
  
  
  def parse(url_string):
+--- a/third_party/python/taskcluster_taskgraph/taskgraph/util/vcs.py
++++ b/third_party/python/taskcluster_taskgraph/taskgraph/util/vcs.py
+@@ -495,6 +495,64 @@ class GitRepository(Repository):
+             raise
+ 
+ 
++class LocalRepository(Repository):
++    @property
++    def tool(self):
++        return "true"
++
++    @property
++    def head_rev(self) -> str:
++        return ""
++
++    @property
++    def base_rev(self):
++        return ""
++
++    @property
++    def branch(self):
++        return ""
++
++    @property
++    def all_remote_names(self):
++        return ""
++
++    @property
++    def default_remote_name(self):
++        return ""
++
++    @property
++    def remote_name(self):
++        return ""
++
++    @property
++    def default_branch(self):
++        return ""
++
++    def get_url(self, remote=None):
++        return ""
++
++    def get_commit_message(self, revision=None):
++        raise Exception("Unimplemented")
++
++    def get_changed_files(self, diff_filter, mode="unstaged", rev=None, base_rev=None):
++        raise Exception("Unimplemented")
++
++    def get_outgoing_files(self, diff_filter, upstream):
++        raise Exception("Unimplemented")
++
++    def working_directory_clean(self, untracked=False, ignored=False):
++        raise Exception("Unimplemented")
++
++    def update(self, ref):
++        raise Exception("Unimplemented")
++
++    def find_latest_common_revision(self, base_ref_or_rev, head_rev):
++        raise Exception("Unimplemented")
++
++    def does_revision_exist_locally(self, revision):
++        raise Exception("Unimplemented")
++
++
+ def get_repository(path):
+     """Get a repository object for the repository at `path`.
+     If `path` is not a known VCS repository, raise an exception.
+@@ -505,7 +563,7 @@ def get_repository(path):
+         elif os.path.exists(os.path.join(path, ".git")):
+             return GitRepository(path)
+ 
+-    raise RuntimeError("Current directory is neither a git or hg repository")
++    return LocalRepository(path)
+ 
+ 
+ def find_hg_revision_push_info(repository, revision):
