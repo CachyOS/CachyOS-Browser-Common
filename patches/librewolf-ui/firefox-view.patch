@@ -1,5 +1,5 @@
 diff --git a/browser/base/content/navigator-toolbox.inc.xhtml b/browser/base/content/navigator-toolbox.inc.xhtml
-index 3329e01..bb2561c 100644
+index 46f1524..4473024 100644
 --- a/browser/base/content/navigator-toolbox.inc.xhtml
 +++ b/browser/base/content/navigator-toolbox.inc.xhtml
 @@ -41,16 +41,6 @@
@@ -19,7 +19,7 @@ index 3329e01..bb2561c 100644
            <tabs id="tabbrowser-tabs"
                  is="tabbrowser-tabs"
                  flex="1"
-@@ -703,6 +693,16 @@
+@@ -704,6 +694,16 @@
                     closemenu="none"
                     cui-areatype="toolbar"
                     data-l10n-id="navbar-library"/>
@@ -37,10 +37,10 @@ index 3329e01..bb2561c 100644
  </toolbox>
  </box>
 diff --git a/browser/components/customizableui/CustomizableUI.jsm b/browser/components/customizableui/CustomizableUI.jsm
-index e97c979..1f0a0ce 100644
+index d43758e..ed9849f 100644
 --- a/browser/components/customizableui/CustomizableUI.jsm
 +++ b/browser/components/customizableui/CustomizableUI.jsm
-@@ -297,7 +297,6 @@ var CustomizableUIInternal = {
+@@ -298,7 +298,6 @@ var CustomizableUIInternal = {
        {
          type: CustomizableUI.TYPE_TOOLBAR,
          defaultPlacements: [
@@ -48,7 +48,7 @@ index e97c979..1f0a0ce 100644
            "tabbrowser-tabs",
            "new-tab-button",
            "alltabs-button",
-@@ -626,18 +625,6 @@ var CustomizableUIInternal = {
+@@ -627,18 +626,6 @@ var CustomizableUIInternal = {
          navbarPlacements.splice(newPosition, 0, "save-to-pocket-button");
        }
      }
@@ -68,29 +68,20 @@ index e97c979..1f0a0ce 100644
  
    _updateForNewProtonVersion() {
 diff --git a/browser/components/firefoxview/firefoxview.html b/browser/components/firefoxview/firefoxview.html
-index 403891d..f7a9027 100644
+index 099c244..978a140 100644
 --- a/browser/components/firefoxview/firefoxview.html
 +++ b/browser/components/firefoxview/firefoxview.html
-@@ -117,7 +117,7 @@
-         </div>
-       </template>
- 
+@@ -35,7 +35,7 @@
+       </div>
+     </div>
+     <main>
 -      <details class="content-container" is="tab-pickup-container" id="tab-pickup-container" open>
-+      <details class="content-container" is="tab-pickup-container" id="tab-pickup-container" open hidden="true">
++      <details class="content-container" is="tab-pickup-container" id="tab-pickup-container" open hidden>
          <summary class="page-section-header">
            <span class="twisty icon" data-l10n-id="firefoxview-collapse-button-hide" aria-role="presentation"></span>
            <h1 id="collapsible-synced-tabs-header" data-l10n-id="firefoxview-tabpickup-header"></h1>
-@@ -145,7 +145,7 @@
-         </div>
-       </details>
- 
--      <aside id="colorway-landmark" class="content-container" is="colorways-card">
-+      <aside id="colorway-landmark" class="content-container" is="colorways-card" hidden="true">
-         <template id="colorways-no-collection-template">
-           <div class="content-container">
-             <div id="no-current-colorway-collection-notice" data-l10n-id="firefoxview-no-current-colorway-collection"></div>
 diff --git a/browser/components/firefoxview/firefoxview.mjs b/browser/components/firefoxview/firefoxview.mjs
-index bee8589..985c91c 100644
+index 7c05f87..fb1fda3 100644
 --- a/browser/components/firefoxview/firefoxview.mjs
 +++ b/browser/components/firefoxview/firefoxview.mjs
 @@ -28,7 +28,26 @@ const MediaQueryDOMSorting = {
@@ -103,7 +94,7 @@ index bee8589..985c91c 100644
 +    !Services.prefs.getBoolPref("cachy-browser.firefoxView.hideTabPickup", false)
 +      ? false
 +      : true;
-+  document.getElementById("colorway-landmark").hidden =
++  document.getElementById("colorways").hidden =
 +    !Services.prefs.getBoolPref("cachy-browser.firefoxView.hideColorways", true)
 +      ? false
 +      : true;
@@ -121,7 +112,7 @@ index bee8589..985c91c 100644
    Services.telemetry.recordEvent("firefoxview", "entered", "firefoxview", null);
    document.getElementById("recently-closed-tabs-container").onLoad();
 diff --git a/browser/components/newtab/lib/OnboardingMessageProvider.jsm b/browser/components/newtab/lib/OnboardingMessageProvider.jsm
-index 17c5f96..aff9c0b 100644
+index 78098ec..aff9c0b 100644
 --- a/browser/components/newtab/lib/OnboardingMessageProvider.jsm
 +++ b/browser/components/newtab/lib/OnboardingMessageProvider.jsm
 @@ -81,57 +81,6 @@ const BASE_MESSAGES = () => [
@@ -142,10 +133,10 @@ index 17c5f96..aff9c0b 100644
 -      icon_dark_theme: "chrome://browser/content/cfr-lightning-dark.svg",
 -      icon_class: "cfr-doorhanger-small-icon",
 -      heading_text: {
--        string_id: "firefoxview-cfr-header",
+-        string_id: "firefoxview-cfr-header-v2",
 -      },
 -      text: {
--        string_id: "firefoxview-cfr-body",
+-        string_id: "firefoxview-cfr-body-v2",
 -      },
 -      buttons: {
 -        primary: {
