@@ -1,3 +1,20 @@
+# Cachy firefox-view.patch
+#
+# Author:        Malte Jürgens <maltejur@dismail.de>
+# Description:   Hide "Firefox View" by default and make it work with Cachy
+# Last Updated:  2023-01-18
+# License:       MPL 2.0
+#
+# This patch removes the Firefox View from the toolbar by default. Users can
+# enable it again by using the "Customize Toolbar" mode and dragging it back to
+# the titlebar.
+#
+# Colorways are hidden by default and can be enabled again by setting
+# `cachy-browser.firefoxView.hideColorways` to `false`.
+#
+# The tab pickup feature is hidden if Firefox Sync is disabled. It can also
+# be forced to always be disabled by setting `cachy-browser.firefoxView.hideTabPickup`
+# to `true`.
 diff --git a/browser/base/content/navigator-toolbox.inc.xhtml b/browser/base/content/navigator-toolbox.inc.xhtml
 index 46f1524..4473024 100644
 --- a/browser/base/content/navigator-toolbox.inc.xhtml

@@ -1,3 +1,9 @@
+# Cachy lw-logo-devtools.patch
+#
+# Author:        Malte Jürgens <maltejur@dismail.de>
+# Description:   Replaces Firefox logo with Cachy logo in `about:debugging`
+# Last Updated:  2023-01-18
+# License:       MPL 2.0
 --- a/devtools/client/aboutdebugging/src/actions/runtimes.js
 +++ b/devtools/client/aboutdebugging/src/actions/runtimes.js
 @@ -71,9 +71,7 @@ async function getRuntimeIcon(runtime, channel) {

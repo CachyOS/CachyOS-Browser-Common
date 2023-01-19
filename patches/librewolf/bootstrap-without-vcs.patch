@@ -1,3 +1,15 @@
+# Cachy bootstrap-without-vcs.patch
+#
+# Author:        Malte Jürgens <maltejur@dismail.de>
+# Description:   Allow mach bootstrapping without a VCS checkout
+# Last Updated:  2023-01-18
+# License:       MPL 2.0
+#
+# This patch allows you to use `./mach bootstrap` without a VCS checkout.
+# You can use that command to bootstrap a Firefox build environment.
+# This patch works by adding a stub `LocalRepository`, which suprisingly
+# is enough to make the bootstrapping process work. This may break other
+# things in mach, but we don't use those.
 --- a/python/mozboot/mozboot/bootstrap.py
 +++ b/python/mozboot/mozboot/bootstrap.py
 @@ -628,10 +628,7 @@ def current_firefox_checkout(env, hg: Op

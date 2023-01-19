@@ -1,3 +1,12 @@
+# Cachy cachy-browser-prefs.patch
+#
+# Author:        Malte Jürgens <maltejur@dismail.de>
+# Description:   Add custom Cachy pref defaults
+# Last Updated:  2023-01-18
+# License:       MPL 2.0
+#
+# The purpose of this patch is to show the defaults of our custom prefs
+# in `about:config`, making it easier to change them.
 --- a/browser/app/profile/firefox.js
 +++ b/browser/app/profile/firefox.js
 @@ -21,0 +21,5 @@
