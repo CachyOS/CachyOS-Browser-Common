@@ -42,3 +42,6 @@ rebrand "cachy-browser\.net" "librewolf.net"
 rebrand "#why-is-cachy-browser-forcing-light-theme" "#why-is-librewolf-forcing-light-theme"
 
 rebrand cachy-browser.cfg cachyos.cfg
+
+rebrand "cachy-browser\/cachy-browser-pref-pane.patch" "librewolf\/librewolf-pref-pane.patch"
+patch -Np1 -i cachybrowser-pane-logo.patch
