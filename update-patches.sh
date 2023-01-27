@@ -19,6 +19,7 @@ cd $UPPER/librewolf/patches
 
 for entry in "sed-patches/"*; do move "$entry" sed-patches; done;
 for entry in "ui-patches/"*; do move "$entry" librewolf-ui; done;
+for entry in "unity_kde/"*; do move "$entry" unity_kde; done;
 
 for entry in "./"*; do
     [[ -d "$entry" ]] || move "$entry" librewolf
