@@ -13,7 +13,7 @@
 +
 +pref("cachy-browser.firefoxView.hideTabPickup", false);
 +pref("cachy-browser.firefoxView.hideColorways", true);
-+pref("cachy-browser.uBO.assetsBootstrapLocation, "");
++pref("cachy-browser.uBO.assetsBootstrapLocation", "");
 +pref("cachy-browser.aboutMenu.checkVersion", false);
 +pref("cachy-browser.hidePasswdmgr", false);
 +
