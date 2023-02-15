@@ -10,10 +10,10 @@ index 43c84c3..4b4aad2 100644
  
      let originalURI;
      if (
-diff --git a/browser/components/BrowserGlue.jsm b/browser/components/BrowserGlue.jsm
+diff --git a/browser/components/BrowserGlue.jsm b/browser/components/BrowserGlue.sys.mjs
 index b2479db..7670f08 100644
---- a/browser/components/BrowserGlue.jsm
-+++ b/browser/components/BrowserGlue.jsm
+--- a/browser/components/BrowserGlue.sys.mjs
++++ b/browser/components/BrowserGlue.sys.mjs
 @@ -1274,7 +1274,6 @@ BrowserGlue.prototype = {
        lazy.Normandy.init();
      }

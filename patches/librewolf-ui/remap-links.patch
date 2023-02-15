@@ -1,6 +1,8 @@
+diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
+index d097209..0232988 100644
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -308,12 +308,19 @@
+@@ -308,12 +308,19 @@ var gMainPane = {
        "performanceSettingsLearnMore"
      );
      let performanceSettingsUrl =
@@ -22,7 +24,7 @@
      let defaultPerformancePref = Preferences.get(
        "browser.preferences.defaultPerformanceSettings.enabled"
      );
-@@ -326,8 +333,7 @@
+@@ -326,8 +333,7 @@ var gMainPane = {
        "connectionSettingsLearnMore"
      );
      let connectionSettingsUrl =
@@ -32,7 +34,7 @@
      connectionSettingsLink.setAttribute("href", connectionSettingsUrl);
      this.updateProxySettingsUI();
      initializeProxyUI(gMainPane);
-@@ -357,8 +363,7 @@
+@@ -357,8 +363,7 @@ var gMainPane = {
        document.getElementById("pictureInPictureBox").hidden = false;
  
        let pipLearnMoreUrl =
@@ -42,7 +44,7 @@
        let link = document.getElementById("pictureInPictureLearnMore");
        link.setAttribute("href", pipLearnMoreUrl);
      }
-@@ -509,8 +514,7 @@
+@@ -512,8 +517,7 @@ var gMainPane = {
      ) {
        document.getElementById("mediaControlBox").hidden = false;
        let mediaControlLearnMoreUrl =
@@ -52,7 +54,7 @@
        let link = document.getElementById("mediaControlLearnMore");
        link.setAttribute("href", mediaControlLearnMoreUrl);
      }
-@@ -543,7 +547,7 @@
+@@ -546,7 +550,7 @@ var gMainPane = {
  
      let drmInfoURL =
        Services.urlFormatter.formatURLPref("app.support.baseURL") +
@@ -61,7 +63,7 @@
      document
        .getElementById("playDRMContentLink")
        .setAttribute("href", drmInfoURL);
-@@ -870,7 +874,8 @@
+@@ -874,7 +878,8 @@ var gMainPane = {
  
      const link = document.getElementById("browserContainersLearnMore");
      link.href =
@@ -71,10 +73,11 @@
  
      document.getElementById("browserContainersbox").hidden = false;
      this.readBrowserContainersCheckbox();
-
+diff --git a/browser/components/preferences/privacy.js b/browser/components/preferences/privacy.js
+index 4a629a8..339255d 100644
 --- a/browser/components/preferences/privacy.js
 +++ b/browser/components/preferences/privacy.js
-@@ -283,7 +283,7 @@ function setUpContentBlockingWarnings() {
+@@ -277,7 +277,7 @@ function setUpContentBlockingWarnings() {
    let links = document.querySelectorAll(".contentBlockWarningLink");
    let contentBlockingWarningUrl =
      Services.urlFormatter.formatURLPref("app.support.baseURL") +
@@ -83,7 +86,7 @@
    for (let link of links) {
      link.setAttribute("href", contentBlockingWarningUrl);
    }
-@@ -478,7 +478,7 @@ var gPrivacyPane = {
+@@ -484,7 +484,7 @@ var gPrivacyPane = {
      let link = document.getElementById("httpsOnlyLearnMore");
      let httpsOnlyURL =
        Services.urlFormatter.formatURLPref("app.support.baseURL") +
@@ -92,7 +95,7 @@
      link.setAttribute("href", httpsOnlyURL);
  
      // Set radio-value based on the pref value
-@@ -644,7 +644,7 @@ var gPrivacyPane = {
+@@ -649,7 +649,7 @@ var gPrivacyPane = {
      );
      const breachAlertsLearnMoreUrl =
        Services.urlFormatter.formatURLPref("app.support.baseURL") +
@@ -101,7 +104,7 @@
      breachAlertsLearnMoreLink.setAttribute("href", breachAlertsLearnMoreUrl);
  
      this._initSafeBrowsing();
-@@ -751,11 +751,12 @@ var gPrivacyPane = {
+@@ -755,13 +755,14 @@ var gPrivacyPane = {
      );
      let url =
        Services.urlFormatter.formatURLPref("app.support.baseURL") +
@@ -109,14 +112,16 @@
 +      "how-do-i-stay-logged-into-specific-websites";
      document.getElementById("siteDataLearnMoreLink").setAttribute("href", url);
  
+     this.initCookieBannerHandling();
+ 
      let notificationInfoURL =
 -      Services.urlFormatter.formatURLPref("app.support.baseURL") + "push";
-+      Services.urlFormatter.formatURLPref("app.support.baseURL") +
-+      "how-do-i-enable-push-notifications";
++	Services.urlFormatter.formatURLPref("app.support.baseURL") +
++	"how-do-i-enable-push-notifications";
      document
        .getElementById("notificationPermissionsLearnMore")
        .setAttribute("href", notificationInfoURL);
-@@ -924,7 +925,7 @@ var gPrivacyPane = {
+@@ -930,7 +931,7 @@ var gPrivacyPane = {
      let link = document.getElementById("contentBlockingLearnMore");
      let contentBlockingUrl =
        Services.urlFormatter.formatURLPref("app.support.baseURL") +
@@ -125,7 +130,7 @@
      link.setAttribute("href", contentBlockingUrl);
  
      // Toggles the text "Cross-site and social media trackers" based on the
-@@ -2276,7 +2277,7 @@ var gPrivacyPane = {
+@@ -2402,7 +2403,7 @@ var gPrivacyPane = {
      let learnMoreLink = document.getElementById("primaryPasswordLearnMoreLink");
      let learnMoreURL =
        Services.urlFormatter.formatURLPref("app.support.baseURL") +
@@ -134,7 +139,7 @@
      learnMoreLink.setAttribute("href", learnMoreURL);
    },
  
-@@ -2474,7 +2475,7 @@ var gPrivacyPane = {
+@@ -2637,7 +2638,7 @@ var gPrivacyPane = {
      let learnMoreLink = document.getElementById("enableSafeBrowsingLearnMore");
      let phishingUrl =
        Services.urlFormatter.formatURLPref("app.support.baseURL") +
@@ -143,9 +148,11 @@
      learnMoreLink.setAttribute("href", phishingUrl);
  
      enableSafeBrowsing.addEventListener("command", function() {
+diff --git a/toolkit/mozapps/extensions/content/aboutaddons.js b/toolkit/mozapps/extensions/content/aboutaddons.js
+index be8a4f5..dee2e56 100644
 --- a/toolkit/mozapps/extensions/content/aboutaddons.js
 +++ b/toolkit/mozapps/extensions/content/aboutaddons.js
-@@ -1997,7 +1997,7 @@ class SidebarFooter extends HTMLElement
+@@ -1551,7 +1551,7 @@ class SidebarFooter extends HTMLElement {
        icon: "chrome://global/skin/icons/help.svg",
        createLinkElement: () => {
          let link = document.createElement("a", { is: "support-link" });
