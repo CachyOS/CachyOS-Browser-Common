@@ -3,7 +3,7 @@
 # Date 1559294891 -7200
 #      Fri May 31 11:28:11 2019 +0200
 # Node ID c2aa7198fb925e7fde96abf65b6f68b9b755f112
-# Parent  a6ee87356867ce6ed5b0be1ba2c2690a488beb55
+# Parent  191cd9e24a9e0812f74c808ceef611c8b10141e1
 Description: Add KDE integration to Firefox (toolkit parts)
 Author: Wolfgang Rosenauer <wolfgang@rosenauer.org>
 Author: Lubos Lunak <lunak@suse.com>
@@ -31,7 +31,7 @@ diff --git a/modules/libpref/Preferences.cpp b/modules/libpref/Preferences.cpp
  #ifdef MOZ_MEMORY
  #  include "mozmemory.h"
  #endif
-@@ -4878,16 +4879,27 @@ nsresult Preferences::InitInitialObjects
+@@ -4882,16 +4883,27 @@ nsresult Preferences::InitInitialObjects
      "unix.js"
  #  if defined(_AIX)
      ,
@@ -59,7 +59,7 @@ diff --git a/modules/libpref/Preferences.cpp b/modules/libpref/Preferences.cpp
  
  #if defined(MOZ_WIDGET_GTK)
    // Under Flatpak/Snap package, load /etc/firefox/defaults/pref/*.js.
-@@ -4969,17 +4981,17 @@ nsresult Preferences::InitInitialObjects
+@@ -4973,17 +4985,17 @@ nsresult Preferences::InitInitialObjects
        }
  
        nsCOMPtr<nsIFile> path = do_QueryInterface(elem);
@@ -105,7 +105,7 @@ diff --git a/modules/libpref/moz.build b/modules/libpref/moz.build
 diff --git a/python/mozbuild/mozpack/chrome/flags.py b/python/mozbuild/mozpack/chrome/flags.py
 --- a/python/mozbuild/mozpack/chrome/flags.py
 +++ b/python/mozbuild/mozpack/chrome/flags.py
-@@ -229,16 +229,17 @@ class Flags(OrderedDict):
+@@ -228,16 +228,17 @@ class Flags(OrderedDict):
          "os": StringFlag,
          "osversion": VersionFlag,
          "abi": StringFlag,
@@ -126,7 +126,7 @@ diff --git a/python/mozbuild/mozpack/chrome/flags.py b/python/mozbuild/mozpack/c
 diff --git a/python/mozbuild/mozpack/chrome/manifest.py b/python/mozbuild/mozpack/chrome/manifest.py
 --- a/python/mozbuild/mozpack/chrome/manifest.py
 +++ b/python/mozbuild/mozpack/chrome/manifest.py
-@@ -39,16 +39,17 @@ class ManifestEntry(object):
+@@ -37,16 +37,17 @@ class ManifestEntry(object):
          "os",
          "osversion",
          "abi",
@@ -165,7 +165,7 @@ diff --git a/toolkit/components/downloads/moz.build b/toolkit/components/downloa
 diff --git a/toolkit/mozapps/downloads/HelperAppDlg.jsm b/toolkit/mozapps/downloads/HelperAppDlg.jsm
 --- a/toolkit/mozapps/downloads/HelperAppDlg.jsm
 +++ b/toolkit/mozapps/downloads/HelperAppDlg.jsm
-@@ -1239,36 +1239,66 @@ nsUnknownContentTypeDialog.prototype = {
+@@ -1240,36 +1240,66 @@ nsUnknownContentTypeDialog.prototype = {
          params.handlerApp &&
          params.handlerApp.executable &&
          params.handlerApp.executable.isFile()
@@ -1635,17 +1635,32 @@ diff --git a/widget/gtk/nsFilePicker.h b/widget/gtk/nsFilePicker.h
                                gboolean modal);
  
 diff --git a/xpcom/components/ManifestParser.cpp b/xpcom/components/ManifestParser.cpp
----- a/xpcom/components/ManifestParser.cpp
--+++ b/xpcom/components/ManifestParser.cpp
-@@ -43,6 +43,7 @@
+--- a/xpcom/components/ManifestParser.cpp
++++ b/xpcom/components/ManifestParser.cpp
+@@ -38,16 +38,17 @@
+ #include "nsTextFormatter.h"
+ #include "nsVersionComparator.h"
+ #include "nsXPCOMCIDInternal.h"
+ 
+ #include "nsIConsoleService.h"
  #include "nsIScriptError.h"
  #include "nsIXULAppInfo.h"
  #include "nsIXULRuntime.h"
 +#include "nsKDEUtils.h"
-
+ 
  using namespace mozilla;
-
-@@ -394,6 +395,7 @@
+ 
+ struct ManifestDirective {
+   const char* directive;
+   int argc;
+ 
+   bool ischrome;
+@@ -389,16 +390,17 @@ void ParseManifest(NSLocationType aType,
+   constexpr auto kRemoteEnabled = u"remoteenabled"_ns;
+   constexpr auto kRemoteRequired = u"remoterequired"_ns;
+   constexpr auto kApplication = u"application"_ns;
+   constexpr auto kAppVersion = u"appversion"_ns;
+   constexpr auto kGeckoVersion = u"platformversion"_ns;
    constexpr auto kOs = u"os"_ns;
    constexpr auto kOsVersion = u"osversion"_ns;
    constexpr auto kABI = u"abi"_ns;
@@ -1653,15 +1668,26 @@ diff --git a/xpcom/components/ManifestParser.cpp b/xpcom/components/ManifestPars
    constexpr auto kProcess = u"process"_ns;
  #if defined(MOZ_WIDGET_ANDROID)
    constexpr auto kTablet = u"tablet"_ns;
-@@ -453,6 +455,7 @@
+ #endif
+   // You might expect this to be guarded by MOZ_BACKGROUNDTASKS, but it's not
+   // possible to have conditional manifest contents, so we need to recognize and
+   // discard these tokens even when MOZ_BACKGROUNDTASKS is not set.
+   constexpr auto kBackgroundTask = u"backgroundtask"_ns;
+@@ -448,39 +450,44 @@ void ParseManifest(NSLocationType aType,
+         CopyUTF8toUTF16(s, abi);
+         abi.Insert(char16_t('_'), 0);
+         abi.Insert(osTarget, 0);
+       }
+     }
    }
-
+ 
    nsAutoString osVersion;
 +  nsAutoString desktop;
  #if defined(XP_WIN)
  #  pragma warning(push)
  #  pragma warning(disable : 4996)  // VC12+ deprecates GetVersionEx
-@@ -461,14 +464,17 @@
+   OSVERSIONINFO info = {sizeof(OSVERSIONINFO)};
+   if (GetVersionEx(&info)) {
      nsTextFormatter::ssprintf(osVersion, u"%ld.%ld", info.dwMajorVersion,
                                info.dwMinorVersion);
    }
@@ -1679,23 +1705,35 @@ diff --git a/xpcom/components/ManifestParser.cpp b/xpcom/components/ManifestPars
  #elif defined(MOZ_WIDGET_ANDROID)
    bool isTablet = false;
    if (jni::IsAvailable()) {
-@@ -476,6 +482,7 @@
+     jni::String::LocalRef release = java::sdk::Build::VERSION::RELEASE();
      osVersion.Assign(release->ToString());
      isTablet = java::GeckoAppShell::IsTablet();
    }
 +  desktop = u"android"_ns;
  #endif
-
+ 
    if (XRE_IsContentProcess()) {
-@@ -576,6 +583,7 @@
+     process = kContent;
+   } else {
+     process = kMain;
+   }
+ 
+@@ -571,25 +578,27 @@ void ParseManifest(NSLocationType aType,
+     // When in background task mode, default to not registering
+     // category directivies unless backgroundtask=1 is specified.
+     TriState stBackgroundTask = (BackgroundTasks::IsBackgroundTaskMode() &&
+                                  strcmp("category", directive->directive) == 0)
+                                     ? eBad
                                      : eUnspecified;
  #endif
      int flags = 0;
 +    TriState stDesktop = eUnspecified;
-
+ 
      while ((token = nsCRT::strtok(whitespace, kWhitespace, &whitespace)) &&
             ok) {
-@@ -585,6 +593,7 @@
+       ToLowerCase(token);
+       NS_ConvertASCIItoUTF16 wtoken(token);
+ 
        if (CheckStringFlag(kApplication, wtoken, appID, stApp) ||
            CheckOsFlag(kOs, wtoken, osTarget, stOs) ||
            CheckStringFlag(kABI, wtoken, abi, stABI) ||
@@ -1703,15 +1741,30 @@ diff --git a/xpcom/components/ManifestParser.cpp b/xpcom/components/ManifestPars
            CheckStringFlag(kProcess, wtoken, process, stProcess) ||
            CheckVersionFlag(kOsVersion, wtoken, osVersion, stOsVersion) ||
            CheckVersionFlag(kAppVersion, wtoken, appVersion, stAppVersion) ||
-@@ -643,7 +652,7 @@
+           CheckVersionFlag(kGeckoVersion, wtoken, geckoVersion,
+                            stGeckoVersion)) {
+         continue;
+       }
+ 
+@@ -638,17 +647,17 @@ void ParseManifest(NSLocationType aType,
+       }
+ 
+       LogMessageWithContext(
+           aFile, line, "Unrecognized chrome manifest modifier '%s'.", token);
+       ok = false;
      }
-
+ 
      if (!ok || stApp == eBad || stAppVersion == eBad ||
 -        stGeckoVersion == eBad || stOs == eBad || stOsVersion == eBad ||
 +        stGeckoVersion == eBad || stOs == eBad || stOsVersion == eBad || stDesktop == eBad ||
  #ifdef MOZ_WIDGET_ANDROID
          stTablet == eBad ||
  #endif
+ #ifdef MOZ_BACKGROUNDTASKS
+         stBackgroundTask == eBad ||
+ #endif
+         stABI == eBad || stProcess == eBad) {
+       continue;
 diff --git a/xpcom/components/moz.build b/xpcom/components/moz.build
 --- a/xpcom/components/moz.build
 +++ b/xpcom/components/moz.build
