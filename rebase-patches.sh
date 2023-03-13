@@ -45,7 +45,16 @@ function rebase_patch {
 
 [[ -d "gecko-dev" ]] || git clone -b "${BRANCH_TO_BUILD}" --depth 1 --single-branch "https://github.com/mozilla/gecko-dev.git" gecko-dev
 
+LIBREWOLF_PATH="$PATCHSET_DIR/librewolf"
+LIBREWOLFUI_PATH="$PATCHSET_DIR/librewolf-ui"
+SEDPATCHES_PATH="$PATCHSET_DIR/sed-patches"
+UNITY_KDE_PATH="$PATCHSET_DIR/unity_kde"
 GENTOO_PATH="$PATCHSET_DIR/gentoo"
 cd "$UPPER/gecko-dev"
 git config commit.gpgsign false
+
 for entry in "$GENTOO_PATH/"*; do rebase_patch "$entry"; done;
+for entry in "$LIBREWOLF_PATH/"*; do rebase_patch "$entry"; done;
+for entry in "$LIBREWOLFUI_PATH/"*; do rebase_patch "$entry"; done;
+for entry in "$SEDPATCHES_PATH/"*; do rebase_patch "$entry"; done;
+for entry in "$UNITY_KDE_PATH/"*; do rebase_patch "$entry"; done;
