@@ -2,7 +2,7 @@
 #
 # Author:        Malte Jürgens <maltejur@dismail.de>
 # Description:   Allows us to build a msix for the Microsoft Store
-# Last Updated:  2023-02-26
+# Last Updated:  2023-03-11
 # License:       MPL 2.0
 --- a/browser/installer/windows/msix/AppxManifest.xml.in
 +++ b/browser/installer/windows/msix/AppxManifest.xml.in
@@ -179,3 +179,37 @@
  
      second = next(values)
      vendor = vendor or second
+--- a/python/mozbuild/mozbuild/repackaging/msix.py
++++ b/python/mozbuild/mozbuild/repackaging/msix.py
+@@ -193,9 +193,9 @@
+         yield value
+ 
+ 
+-def get_branding(use_official, build_app, finder, log=None):
++def get_branding(use_official, topsrcdir, build_app, finder, log=None):
+     """Figure out which branding directory to use."""
+-    conf_vars = mozpath.join(build_app, "confvars.sh")
++    conf_vars = mozpath.join(topsrcdir, build_app, "confvars.sh")
+ 
+     def conf_vars_value(key):
+         lines = open(conf_vars).readlines()
+@@ -254,7 +254,7 @@
+         },
+         "{branding_reason}; Using branding from '{branding}'.",
+     )
+-    return branding
++    return mozpath.join(topsrcdir, branding)
+ 
+ 
+ def unpack_msix(input_msix, output, log=None, verbose=False):
+@@ -471,8 +471,8 @@
+         # Release (official) and Beta share branding.  Differentiate Beta a little bit.
+         brandFullName += " Beta"
+ 
+-    branding = os.path.join(
+-        topsrcdir, get_branding(use_official_branding, build_app, unpack_finder, log)
++    branding = get_branding(
++        use_official_branding, topsrcdir, build_app, unpack_finder, log
+     )
+     if not os.path.isdir(branding):
+         raise Exception("branding dir {} does not exist".format(branding))
