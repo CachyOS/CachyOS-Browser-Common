@@ -14,15 +14,10 @@ How to apply this patch:
 diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -296,16 +296,23 @@ var gMainPane = {
-         }, backoffTimes[this._backoffIndex + 1 < backoffTimes.length ? this._backoffIndex++ : backoffTimes.length - 1]);
-       };
- 
-       window.setTimeout(() => {
-         window.requestIdleCallback(pollForDefaultBrowser);
+@@ -301,6 +301,13 @@
        }, backoffTimes[this._backoffIndex]);
      }
- 
+
 +    var env = Components.classes["@mozilla.org/process/environment;1"]
 +      .getService(Components.interfaces.nsIEnvironment);
 +    var kde_session = 0;
@@ -32,18 +27,8 @@ diff --git a/browser/components/preferences/main.js b/browser/components/prefere
 +
      this.initBrowserContainers();
      this.buildContentProcessCountMenuList();
- 
-     let performanceSettingsLink = document.getElementById(
-       "performanceSettingsLearnMore"
-     );
-     let performanceSettingsUrl =
-       Services.urlFormatter.formatURLPref("app.support.baseURL") +
-@@ -1333,16 +1340,27 @@ var gMainPane = {
-       this._backoffIndex = 0;
- 
-       let shellSvc = getShellService();
-       if (!shellSvc) {
-         return;
+
+@@ -1303,6 +1310,17 @@
        }
        try {
          shellSvc.setDefaultBrowser(true, false);
@@ -61,11 +46,7 @@ diff --git a/browser/components/preferences/main.js b/browser/components/prefere
        } catch (ex) {
          console.error(ex);
          return;
-       }
- 
-       let isDefault = shellSvc.isDefaultBrowser(false, true);
-       let setDefaultPane = document.getElementById("setDefaultPane");
-       setDefaultPane.classList.toggle("is-default", isDefault);
+
 diff --git a/browser/components/shell/moz.build b/browser/components/shell/moz.build
 --- a/browser/components/shell/moz.build
 +++ b/browser/components/shell/moz.build
