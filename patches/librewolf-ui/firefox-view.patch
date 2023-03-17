@@ -2,7 +2,7 @@
 #
 # Author:        Malte Jürgens <maltejur@dismail.de>
 # Description:   Hide "Firefox View" by default and make it work with Cachy
-# Last Updated:  2023-01-18
+# Last Updated:  2023-03-15
 # License:       MPL 2.0
 #
 # This patch removes the Firefox View from the toolbar by default. Users can
@@ -15,8 +15,6 @@
 # The tab pickup feature is hidden if Firefox Sync is disabled. It can also
 # be forced to always be disabled by setting `cachy-browser.firefoxView.hideTabPickup`
 # to `true`.
-diff --git a/browser/base/content/navigator-toolbox.inc.xhtml b/browser/base/content/navigator-toolbox.inc.xhtml
-index 46f1524..4473024 100644
 --- a/browser/base/content/navigator-toolbox.inc.xhtml
 +++ b/browser/base/content/navigator-toolbox.inc.xhtml
 @@ -41,16 +41,6 @@
@@ -36,7 +34,7 @@ index 46f1524..4473024 100644
            <tabs id="tabbrowser-tabs"
                  is="tabbrowser-tabs"
                  flex="1"
-@@ -704,6 +694,16 @@
+@@ -707,6 +697,16 @@
                     closemenu="none"
                     cui-areatype="toolbar"
                     data-l10n-id="navbar-library"/>
@@ -53,11 +51,9 @@ index 46f1524..4473024 100644
    </html:template>
  </toolbox>
  </box>
-diff --git a/browser/components/customizableui/CustomizableUI.jsm b/browser/components/customizableui/CustomizableUI.jsm
-index d43758e..ed9849f 100644
 --- a/browser/components/customizableui/CustomizableUI.jsm
 +++ b/browser/components/customizableui/CustomizableUI.jsm
-@@ -298,7 +298,6 @@ var CustomizableUIInternal = {
+@@ -289,7 +289,6 @@ var CustomizableUIInternal = {
        {
          type: CustomizableUI.TYPE_TOOLBAR,
          defaultPlacements: [
@@ -65,11 +61,10 @@ index d43758e..ed9849f 100644
            "tabbrowser-tabs",
            "new-tab-button",
            "alltabs-button",
-@@ -627,18 +626,6 @@ var CustomizableUIInternal = {
-         navbarPlacements.splice(newPosition, 0, "save-to-pocket-button");
+@@ -620,18 +619,6 @@ var CustomizableUIInternal = {
        }
      }
--
+ 
 -    // Add firefox-view if not present
 -    if (currentVersion < 18) {
 -      let tabstripPlacements =
@@ -81,14 +76,13 @@ index d43758e..ed9849f 100644
 -        tabstripPlacements.unshift("firefox-view-button");
 -      }
 -    }
-   },
- 
-   _updateForNewProtonVersion() {
-diff --git a/browser/components/firefoxview/firefoxview.html b/browser/components/firefoxview/firefoxview.html
-index 099c244..978a140 100644
+-
+     // Unified Extensions addon button migration, which puts any browser action
+     // buttons in the overflow menu into the addons panel instead.
+     if (currentVersion < 19) {
 --- a/browser/components/firefoxview/firefoxview.html
 +++ b/browser/components/firefoxview/firefoxview.html
-@@ -35,7 +35,7 @@
+@@ -34,7 +34,7 @@
        </div>
      </div>
      <main>
@@ -97,12 +91,10 @@ index 099c244..978a140 100644
          <summary class="page-section-header">
            <span class="twisty icon" data-l10n-id="firefoxview-collapse-button-hide" aria-role="presentation"></span>
            <h1 id="collapsible-synced-tabs-header" data-l10n-id="firefoxview-tabpickup-header"></h1>
-diff --git a/browser/components/firefoxview/firefoxview.mjs b/browser/components/firefoxview/firefoxview.mjs
-index 7c05f87..fb1fda3 100644
 --- a/browser/components/firefoxview/firefoxview.mjs
 +++ b/browser/components/firefoxview/firefoxview.mjs
-@@ -28,7 +28,26 @@ const MediaQueryDOMSorting = {
-   },
+@@ -41,7 +41,26 @@ const launchFeatureTour = () => {
+   callout.showFeatureCallout();
  };
  
 +function onPrefChange() {
@@ -128,11 +120,9 @@ index 7c05f87..fb1fda3 100644
    Services.telemetry.setEventRecordingEnabled("firefoxview", true);
    Services.telemetry.recordEvent("firefoxview", "entered", "firefoxview", null);
    document.getElementById("recently-closed-tabs-container").onLoad();
-diff --git a/browser/components/newtab/lib/OnboardingMessageProvider.jsm b/browser/components/newtab/lib/OnboardingMessageProvider.jsm
-index 78098ec..aff9c0b 100644
 --- a/browser/components/newtab/lib/OnboardingMessageProvider.jsm
 +++ b/browser/components/newtab/lib/OnboardingMessageProvider.jsm
-@@ -81,57 +81,6 @@ const BASE_MESSAGES = () => [
+@@ -92,57 +92,6 @@ const BASE_MESSAGES = () => [
      },
      trigger: { id: "protectionsPanelOpen" },
    },

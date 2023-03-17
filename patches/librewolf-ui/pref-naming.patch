@@ -1,5 +1,3 @@
-diff --git a/browser/locales/en-US/browser/preferences/preferences.ftl b/browser/locales/en-US/browser/preferences/preferences.ftl
-index a1e414697e71..b69052923385 100644
 --- a/browser/locales/en-US/browser/preferences/preferences.ftl
 +++ b/browser/locales/en-US/browser/preferences/preferences.ftl
 @@ -128,6 +128,8 @@ search-results-help-link = Need help? Visit <a data-l10n-name="url">{ -brand-sho
@@ -11,7 +9,7 @@ index a1e414697e71..b69052923385 100644
  always-check-default =
      .label = Always check if { -brand-short-name } is your default browser
      .accesskey = y
-@@ -469,13 +471,13 @@ play-drm-content =
+@@ -472,7 +474,7 @@ play-drm-content =
      .label = Play DRM-controlled content
      .accesskey = P
  
@@ -20,14 +18,16 @@ index a1e414697e71..b69052923385 100644
  
  update-application-title = { -brand-short-name } Updates
  
- update-application-description = Keep { -brand-short-name } up to date for the best performance, stability, and security.
+@@ -480,7 +482,7 @@ update-application-description = Keep { -brand-short-name } up to date for the b
  
+ # Variables:
+ # $version (string) - Firefox version
 -update-application-version = Version { $version } <a data-l10n-name="learn-more">What’s new</a>
 +update-application-version = Version { $version } <a data-l10n-name="learn-more">Visit the repositories</a>
  
  update-history =
      .label = Show Update History…
-@@ -634,7 +636,7 @@ home-restore-defaults =
+@@ -639,7 +641,7 @@ home-restore-defaults =
      .accesskey = R
  
  home-mode-choice-default-fx =
@@ -36,7 +36,7 @@ index a1e414697e71..b69052923385 100644
  
  home-mode-choice-custom =
      .label = Custom URLs…
-@@ -663,8 +665,8 @@ choose-bookmark =
+@@ -668,8 +670,8 @@ choose-bookmark =
  
  ## Home Section - Firefox Home Content Customization
  
@@ -47,15 +47,12 @@ index a1e414697e71..b69052923385 100644
  
  home-prefs-search-header =
      .label = Web Search
-@@ -709,7 +711,7 @@ home-prefs-recent-activity-description = A selection of recent sites and content
+@@ -714,7 +716,7 @@ home-prefs-recent-activity-description = A selection of recent sites and content
  home-prefs-snippets-header =
      .label = Snippets
  
 -home-prefs-snippets-description-new = Tips and news from { -vendor-short-name } and { -brand-product-name }
 +home-prefs-snippets-description-new = Tips and news from { -vendor-short-name }
  
- home-prefs-sections-rows-option =
-     .label =
--- 
-2.37.3
-
+ # Variables:
+ #   $num (number) - Number of rows displayed

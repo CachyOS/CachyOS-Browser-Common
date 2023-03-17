@@ -766,9 +766,9 @@ index 146764d56081..52326c00bdfe 100644
    skin/classic/browser/preferences/search.css                  (../shared/preferences/search.css)
    skin/classic/browser/preferences/siteDataSettings.css        (../shared/preferences/siteDataSettings.css)
 +  skin/classic/browser/preferences/cachy-browser.css               (../shared/preferences/cachy-browser.css)
-   skin/classic/browser/spotlight.css                           (../shared/spotlight.css)
-   skin/classic/browser/upgradeDialog/abstract.png              (../shared/upgradeDialog/abstract.png)
-   skin/classic/browser/upgradeDialog/cheers.png                (../shared/upgradeDialog/cheers.png)
+   skin/classic/browser/fxa/fxa-spinner.svg                     (../shared/fxa/fxa-spinner.svg)
+   skin/classic/browser/fxa/sync-illustration.svg               (../shared/fxa/sync-illustration.svg)
+   skin/classic/browser/fxa/sync-illustration-issue.svg         (../shared/fxa/sync-illustration-issue.svg)
 diff --git a/browser/themes/shared/preferences/category-cachy-browser.svg b/browser/themes/shared/preferences/category-cachy-browser.svg
 new file mode 100644
 index 000000000000..8ebf2ebe19a9
