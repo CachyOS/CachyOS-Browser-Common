@@ -2,7 +2,7 @@
 #
 # Author:        Malte Jürgens <maltejur@dismail.de>
 # Description:   Allows us to build a msix for the Microsoft Store
-# Last Updated:  2023-03-11
+# Last Updated:  2023-04-14
 # License:       MPL 2.0
 --- a/browser/installer/windows/msix/AppxManifest.xml.in
 +++ b/browser/installer/windows/msix/AppxManifest.xml.in
@@ -202,3 +202,20 @@
      )
      if not os.path.isdir(branding):
          raise Exception("branding dir {} does not exist".format(branding))
+@@ -520,16 +520,6 @@ def repackage_msix(
+             # In local builds and unpacked MSIX directories, `p` is like "firefox.exe" already.
+             pp = p
+ 
+-        if pp.startswith("distribution"):
+-            # Treat any existing distribution as a distribution directory,
+-            # potentially with language packs. This makes it easy to repack
+-            # unpacked MSIXes.
+-            distribution_dir = mozpath.join(dir_or_package, "distribution")
+-            if distribution_dir not in distribution_dirs:
+-                distribution_dirs.append(distribution_dir)
+-
+-            continue
+-
+         copier.add(mozpath.normsep(mozpath.join("VFS", "ProgramFiles", instdir, pp)), f)
+ 
+     # Locales to declare as supported in `AppxManifest.xml`.
