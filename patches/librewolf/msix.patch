@@ -56,7 +56,7 @@
  </Package>
 --- a/python/mozbuild/mozbuild/mach_commands.py
 +++ b/python/mozbuild/mozbuild/mach_commands.py
-@@ -2493,7 +2493,7 @@ def repackage_msi(
+@@ -2511,7 +2511,7 @@ def repackage_msi(
  @CommandArgument(
      "--vendor",
      type=str,
@@ -65,7 +65,7 @@
      required=False,
      help="The vendor to use in the Package/Identity/Name string to use in the App Manifest."
      + " Defaults to 'Mozilla'.",
-@@ -2630,7 +2630,7 @@ def repackage_msix(
+@@ -2648,7 +2648,7 @@ def repackage_msix(
          command_context.topsrcdir,
          channel=channel,
          arch=arch,
@@ -122,8 +122,7 @@
 -            raise ValueError(
 -                f"Alpha version not of the form X.0a1 is not supported: {version}"
 -            )
-+    [ver, rel] = version.split("-")
- 
+-
 -        # Last two digits only to save space.  Nightly builds in 2066 and 2099
 -        # will be impacted, but future us can deal with that.
 -        year = buildid[2:4]
@@ -136,12 +135,13 @@
 -            # Avoid leading zero, like `.0DHh`.
 -            day = day[1:]
 -        hour = buildid[8:10]
-+    ver_parts = ver.split(".")
-+    ver_parts += ["0"] * (3 - len(ver_parts))
++    [ver, rel] = version.split("-")
  
 -        components[1] = "".join((year, month))
 -        components[2] = "".join((day, hour))
--
++    ver_parts = ver.split(".")
++    ver_parts += ["0"] * (3 - len(ver_parts))
+ 
 -    version = "{}.{}.{}.0".format(*components)
 -
 -    return version
@@ -156,27 +156,6 @@
  
  
  def get_appconstants_sys_mjs_values(finder, *args):
-@@ -193,9 +144,9 @@ def get_appconstants_sys_mjs_values(finder, *args):
-         yield value
- 
- 
--def get_branding(use_official, build_app, finder, log=None):
-+def get_branding(use_official, topsrcdir, build_app, finder, log=None):
-     """Figure out which branding directory to use."""
--    conf_vars = mozpath.join(build_app, "confvars.sh")
-+    conf_vars = mozpath.join(topsrcdir, build_app, "confvars.sh")
- 
-     def conf_vars_value(key):
-         lines = open(conf_vars).readlines()
-@@ -254,7 +205,7 @@ def get_branding(use_official, build_app, finder, log=None):
-         },
-         "{branding_reason}; Using branding from '{branding}'.",
-     )
--    return branding
-+    return mozpath.join(topsrcdir, branding)
- 
- 
- def unpack_msix(input_msix, output, log=None, verbose=False):
 @@ -404,12 +355,7 @@ def repackage_msix(
      )
  
@@ -191,18 +170,7 @@
  
      second = next(values)
      vendor = vendor or second
-@@ -471,8 +417,8 @@ def repackage_msix(
-         # Release (official) and Beta share branding.  Differentiate Beta a little bit.
-         brandFullName += " Beta"
- 
--    branding = os.path.join(
--        topsrcdir, get_branding(use_official_branding, build_app, unpack_finder, log)
-+    branding = get_branding(
-+        use_official_branding, topsrcdir, build_app, unpack_finder, log
-     )
-     if not os.path.isdir(branding):
-         raise Exception("branding dir {} does not exist".format(branding))
-@@ -520,16 +520,6 @@ def repackage_msix(
+@@ -563,16 +509,6 @@ def repackage_msix(
              # In local builds and unpacked MSIX directories, `p` is like "firefox.exe" already.
              pp = p
  
