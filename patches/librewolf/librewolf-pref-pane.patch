@@ -750,10 +750,10 @@ index a1e414697e71..8eeb594ca17d 100644
 +cachy-browser-config-link = All advanced settings (about:config)
 +cachy-browser-open-profile = Open user profile directory
 diff --git a/browser/themes/shared/jar.inc.mn b/browser/themes/shared/jar.inc.mn
-index 146764d56081..52326c00bdfe 100644
+index c7fab5f54f80..dda1f1d27a58 100644
 --- a/browser/themes/shared/jar.inc.mn
 +++ b/browser/themes/shared/jar.inc.mn
-@@ -108,6 +108,7 @@
+@@ -111,6 +111,7 @@
    skin/classic/browser/preferences/android-menu.svg            (../shared/preferences/android-menu.svg)
    skin/classic/browser/preferences/category-general.svg        (../shared/preferences/category-general.svg)
    skin/classic/browser/preferences/category-privacy-security.svg    (../shared/preferences/category-privacy-security.svg)
@@ -761,14 +761,14 @@ index 146764d56081..52326c00bdfe 100644
    skin/classic/browser/preferences/category-search.svg         (../shared/preferences/category-search.svg)
    skin/classic/browser/preferences/category-sync.svg           (../shared/preferences/category-sync.svg)
    skin/classic/browser/preferences/containers.css              (../shared/preferences/containers.css)
-@@ -127,6 +128,7 @@
+@@ -128,6 +129,7 @@
    skin/classic/browser/preferences/vpn-logo.svg                (../shared/preferences/vpn-logo.svg)
    skin/classic/browser/preferences/search.css                  (../shared/preferences/search.css)
    skin/classic/browser/preferences/siteDataSettings.css        (../shared/preferences/siteDataSettings.css)
 +  skin/classic/browser/preferences/cachy-browser.css               (../shared/preferences/cachy-browser.css)
+   skin/classic/browser/translations/panel.css                  (../shared/translations/panel.css)
    skin/classic/browser/fxa/fxa-spinner.svg                     (../shared/fxa/fxa-spinner.svg)
    skin/classic/browser/fxa/sync-illustration.svg               (../shared/fxa/sync-illustration.svg)
-   skin/classic/browser/fxa/sync-illustration-issue.svg         (../shared/fxa/sync-illustration-issue.svg)
 diff --git a/browser/themes/shared/preferences/category-cachy-browser.svg b/browser/themes/shared/preferences/category-cachy-browser.svg
 new file mode 100644
 index 000000000000..8ebf2ebe19a9
