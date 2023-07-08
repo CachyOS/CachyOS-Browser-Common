@@ -1,7 +1,7 @@
 diff --git a/toolkit/components/extensions/Extension.jsm b/toolkit/components/extensions/Extension.jsm
 index 7281518..322dc09 100644
---- a/toolkit/components/extensions/Extension.jsm
-+++ b/toolkit/components/extensions/Extension.jsm
+--- a/toolkit/components/extensions/Extension.sys.mjs
++++ b/toolkit/components/extensions/Extension.sys.mjs
 @@ -3286,6 +3286,16 @@ class Extension extends ExtensionData {
        this.permissions.add(PRIVATE_ALLOWED_PERMISSION);
      }

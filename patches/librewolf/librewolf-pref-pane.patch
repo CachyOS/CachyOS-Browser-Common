@@ -750,10 +750,10 @@ index a1e414697e71..8eeb594ca17d 100644
 +cachy-browser-config-link = All advanced settings (about:config)
 +cachy-browser-open-profile = Open user profile directory
 diff --git a/browser/themes/shared/jar.inc.mn b/browser/themes/shared/jar.inc.mn
-index c7fab5f54f80..dda1f1d27a58 100644
+index 146764d56081..52326c00bdfe 100644
 --- a/browser/themes/shared/jar.inc.mn
 +++ b/browser/themes/shared/jar.inc.mn
-@@ -111,6 +111,7 @@
+@@ -108,6 +108,7 @@
    skin/classic/browser/preferences/android-menu.svg            (../shared/preferences/android-menu.svg)
    skin/classic/browser/preferences/category-general.svg        (../shared/preferences/category-general.svg)
    skin/classic/browser/preferences/category-privacy-security.svg    (../shared/preferences/category-privacy-security.svg)
@@ -761,7 +761,7 @@ index c7fab5f54f80..dda1f1d27a58 100644
    skin/classic/browser/preferences/category-search.svg         (../shared/preferences/category-search.svg)
    skin/classic/browser/preferences/category-sync.svg           (../shared/preferences/category-sync.svg)
    skin/classic/browser/preferences/containers.css              (../shared/preferences/containers.css)
-@@ -128,6 +129,7 @@
+@@ -127,6 +128,7 @@
    skin/classic/browser/preferences/vpn-logo.svg                (../shared/preferences/vpn-logo.svg)
    skin/classic/browser/preferences/search.css                  (../shared/preferences/search.css)
    skin/classic/browser/preferences/siteDataSettings.css        (../shared/preferences/siteDataSettings.css)

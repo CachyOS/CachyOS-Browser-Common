@@ -26,7 +26,7 @@
  def update_git_tools(git: Optional[Path], root_state_dir: Path):
 --- a/python/mozversioncontrol/mozversioncontrol/__init__.py
 +++ b/python/mozversioncontrol/mozversioncontrol/__init__.py
-@@ -744,6 +744,29 @@ class GitRepository(Repository):
+@@ -744,7 +744,30 @@ class GitRepository(Repository):
          self._run("config", name, value)
  
  
@@ -53,9 +53,10 @@
 +
 +        
 +
- def get_repository_object(path: Optional[Union[str, Path]], hg="hg", git="git"):
+ def get_repository_object(
+     path: Optional[Union[str, Path]], hg="hg", git="git", src="src"
+ ):
      """Get a repository object for the repository at `path`.
-     If `path` is not a known VCS repository, raise an exception.
 @@ -757,7 +780,7 @@ def get_repository_object(path: Optional[Union[str, Path]], hg="hg", git="git"):
      elif (path / ".git").exists():
          return GitRepository(path, git=git)
@@ -71,9 +72,9 @@
          return GitRepository(Path(config.topsrcdir), git=config.substs["GIT"])
 +    elif flavor == "local":
 +        return LocalRepository(config.topsrcdir)
+     elif flavor == "src":
+         return SrcRepository(Path(config.topsrcdir), src=config.substs["SRC"])
      else:
-         raise MissingVCSInfo("unknown VCS_CHECKOUT_TYPE value: %s" % flavor)
- 
 --- a/third_party/python/mozilla_repo_urls/mozilla_repo_urls/parser.py
 +++ b/third_party/python/mozilla_repo_urls/mozilla_repo_urls/parser.py
 @@ -9,22 +9,7 @@ for i, platform in enumerate(ADDITIONAL_PLATFORMS):

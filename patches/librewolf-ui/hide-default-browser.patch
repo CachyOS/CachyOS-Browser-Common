@@ -4,7 +4,7 @@
    <vbox id="startupPageBox">
      <checkbox id="browserRestoreSession"
                data-l10n-id="startup-restore-windows-and-tabs"/>
-+    <label id="sessionRestoreLearnMore" is="text-link" class="learnMore" data-l10n-id="session-restore-learn-more"/>
++    <html:a is="moz-support-link" support-page="session-restore" data-l10n-id="session-restore-learn-more" />
    </vbox>
  
  #ifdef HAVE_SHELL_SERVICE

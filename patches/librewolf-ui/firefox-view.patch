@@ -51,8 +51,8 @@
    </html:template>
  </toolbox>
  </box>
---- a/browser/components/customizableui/CustomizableUI.jsm
-+++ b/browser/components/customizableui/CustomizableUI.jsm
+--- a/browser/components/customizableui/CustomizableUI.sys.mjs
++++ b/browser/components/customizableui/CustomizableUI.sys.mjs
 @@ -289,7 +289,6 @@ var CustomizableUIInternal = {
        {
          type: CustomizableUI.TYPE_TOOLBAR,
@@ -82,15 +82,14 @@
      if (currentVersion < 19) {
 --- a/browser/components/firefoxview/firefoxview.html
 +++ b/browser/components/firefoxview/firefoxview.html
-@@ -34,7 +34,7 @@
-       </div>
-     </div>
-     <main>
--      <details class="content-container" is="tab-pickup-container" id="tab-pickup-container" open>
-+      <details class="content-container" is="tab-pickup-container" id="tab-pickup-container" open hidden>
+@@ -62,6 +62,7 @@
+         is="tab-pickup-container"
+         id="tab-pickup-container"
+         open
++	hidden
+       >
          <summary class="page-section-header">
-           <span class="twisty icon" data-l10n-id="firefoxview-collapse-button-hide" aria-role="presentation"></span>
-           <h1 id="collapsible-synced-tabs-header" data-l10n-id="firefoxview-tabpickup-header"></h1>
+           <span
 --- a/browser/components/firefoxview/firefoxview.mjs
 +++ b/browser/components/firefoxview/firefoxview.mjs
 @@ -41,7 +41,26 @@ const launchFeatureTour = () => {
