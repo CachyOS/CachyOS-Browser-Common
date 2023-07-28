@@ -1,0 +1,204 @@
+# Upstream Bug
+--- a/python/mozversioncontrol/mozversioncontrol/__init__.py
++++ b/python/mozversioncontrol/mozversioncontrol/__init__.py
+@@ -828,7 +828,7 @@ class SrcRepository(Repository):
+         """
+         res = []
+         # move away the .git or .hg folder from path to more easily test in a hg/git repo
+-        for root, dirs, files in os.walk("."):
++        for root, dirs, files in os.walk(path):
+             for name in files:
+                 res.append(os.path.join(root, name))
+         return res
+@@ -841,7 +841,9 @@ class SrcRepository(Repository):
+         import fnmatch
+ 
+         files = list(
+-            p.replace("\\", "/").replace("./", "") for p in self.get_files(path) if p
++            (os.path.relpath(p, path)).replace("\\", "/")
++            for p in self.get_files(path)
++            if p
+         )
+         files.sort()
+         ig = self.git_ignore(path)
+# These changes have accidentally been reverted upstream
+--- a/third_party/python/taskcluster_taskgraph/taskgraph/generator.py
++++ b/third_party/python/taskcluster_taskgraph/taskgraph/generator.py
+@@ -269,11 +269,11 @@
+ 
+         filters = parameters.get("filters", [])
+         # Always add legacy target tasks method until we deprecate that API.
+         if "target_tasks_method" not in filters:
+             filters.insert(0, "target_tasks_method")
+-        filters = [filter_tasks.filter_task_functions[f] for f in filters]
++        filters = [filter_tasks.filter_task_functions[f] for f in filters if f]
+ 
+         yield self.verify("parameters", parameters)
+ 
+         logger.info("Loading kinds")
+         # put the kinds into a graph and sort topologically so that kinds are loaded
+--- a/third_party/python/taskcluster_taskgraph/taskgraph/parameters.py
++++ b/third_party/python/taskcluster_taskgraph/taskgraph/parameters.py
+@@ -78,50 +78,80 @@
+ 
+ 
+ def _get_defaults(repo_root=None):
+     repo_path = repo_root or os.getcwd()
+     repo = get_repository(repo_path)
+-    try:
+-        repo_url = repo.get_url()
+-        parsed_url = mozilla_repo_urls.parse(repo_url)
+-        project = parsed_url.repo_name
+-    except (
+-        CalledProcessError,
+-        mozilla_repo_urls.errors.InvalidRepoUrlError,
+-        mozilla_repo_urls.errors.UnsupportedPlatformError,
+-    ):
+-        repo_url = ""
+-        project = ""
++    if repo:
++        try:
++            repo_url = repo.get_url()
++            parsed_url = mozilla_repo_urls.parse(repo_url)
++            project = parsed_url.repo_name
++        except (
++            CalledProcessError,
++            mozilla_repo_urls.errors.InvalidRepoUrlError,
++            mozilla_repo_urls.errors.UnsupportedPlatformError,
++        ):
++            repo_url = ""
++            project = ""
+ 
+-    return {
+-        "base_repository": repo_url,
+-        "base_ref": "",
+-        "base_rev": "",
+-        "build_date": int(time.time()),
+-        "build_number": 1,
+-        "do_not_optimize": [],
+-        "enable_always_target": True,
+-        "existing_tasks": {},
+-        "filters": ["target_tasks_method"],
+-        "head_ref": repo.branch or repo.head_rev,
+-        "head_repository": repo_url,
+-        "head_rev": repo.head_rev,
+-        "head_tag": "",
+-        "level": "3",
+-        "moz_build_date": datetime.now().strftime("%Y%m%d%H%M%S"),
+-        "next_version": None,
+-        "optimize_strategies": None,
+-        "optimize_target_tasks": True,
+-        "owner": "nobody@mozilla.com",
+-        "project": project,
+-        "pushdate": int(time.time()),
+-        "pushlog_id": "0",
+-        "repository_type": repo.tool,
+-        "target_tasks_method": "default",
+-        "tasks_for": "",
+-        "version": get_version(repo_path),
+-    }
++        return {
++            "base_repository": repo_url,
++            "base_ref": "",
++            "base_rev": "",
++            "build_date": int(time.time()),
++            "build_number": 1,
++            "do_not_optimize": [],
++            "enable_always_target": True,
++            "existing_tasks": {},
++            "filters": ["target_tasks_method"],
++            "head_ref": repo.branch or repo.head_rev,
++            "head_repository": repo_url,
++            "head_rev": repo.head_rev,
++            "head_tag": "",
++            "level": "3",
++            "moz_build_date": datetime.now().strftime("%Y%m%d%H%M%S"),
++            "next_version": None,
++            "optimize_strategies": None,
++            "optimize_target_tasks": True,
++            "owner": "nobody@mozilla.com",
++            "project": project,
++            "pushdate": int(time.time()),
++            "pushlog_id": "0",
++            "repository_type": repo.tool,
++            "target_tasks_method": "default",
++            "tasks_for": "",
++            "version": get_version(repo_path),
++        }
++    else:
++        return {
++            "base_repository": "SOURCE",
++            "base_ref": "",
++            "base_rev": "",
++            "build_date": int(time.time()),
++            "build_number": 1,
++            "do_not_optimize": [],
++            "enable_always_target": True,
++            "existing_tasks": {},
++            "filters": ["target_tasks_method"],
++            "head_ref": "",
++            "head_repository": "",
++            "head_rev": "",
++            "head_tag": "",
++            "level": "3",
++            "moz_build_date": datetime.now().strftime("%Y%m%d%H%M%S"),
++            "next_version": None,
++            "optimize_strategies": None,
++            "optimize_target_tasks": True,
++            "owner": "nobody@mozilla.com",
++            "project": "",
++            "pushdate": int(time.time()),
++            "pushlog_id": "0",
++            "repository_type": "",
++            "target_tasks_method": "default",
++            "tasks_for": "",
++            "version": "",
++        }
+ 
+ 
+ defaults_functions = [_get_defaults]
+ 
+ 
+@@ -193,17 +223,18 @@
+         return os.path.splitext(os.path.basename(spec))[0]
+ 
+     @staticmethod
+     def _fill_defaults(repo_root=None, **kwargs):
+         defaults = {}
+-        for fn in defaults_functions:
+-            defaults.update(fn(repo_root))
++        if repo_root != "SOURCE":
++            for fn in defaults_functions:
++                defaults.update(fn(repo_root))
+ 
+-        for name, default in defaults.items():
+-            if name not in kwargs:
+-                kwargs[name] = default
+-        return kwargs
++            for name, default in defaults.items():
++                if name not in kwargs:
++                    kwargs[name] = default
++            return kwargs
+ 
+     def check(self):
+         schema = (
+             base_schema if self.strict else base_schema.extend({}, extra=ALLOW_EXTRA)
+         )
+--- a/third_party/python/taskcluster_taskgraph/taskgraph/util/vcs.py
++++ b/third_party/python/taskcluster_taskgraph/taskgraph/util/vcs.py
+@@ -502,12 +502,14 @@
+     for path in ancestors(path):
+         if os.path.isdir(os.path.join(path, ".hg")):
+             return HgRepository(path)
+         elif os.path.exists(os.path.join(path, ".git")):
+             return GitRepository(path)
++        elif os.path.exists(os.path.join(path, "moz.configure")):
++            return None
+ 
+-    raise RuntimeError("Current directory is neither a git or hg repository")
++    raise RuntimeError("Current directory is neither a git or hg repository, nor a release source")
+ 
+ 
+ def find_hg_revision_push_info(repository, revision):
+     """Given the parameters for this action and a revision, find the
+     pushlog_id of the revision."""
