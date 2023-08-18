@@ -15,6 +15,7 @@
 -brand-shorter-name = Cachy
 -brand-short-name = Cachy Browser
 -brand-full-name = Cachy Browser
+-brand-shortcut-name = Cachy
 # This brand name can be used in messages where the product name needs to
 # remain unchanged across different versions (Nightly, Beta, etc.).
 -brand-product-name = Cachy
