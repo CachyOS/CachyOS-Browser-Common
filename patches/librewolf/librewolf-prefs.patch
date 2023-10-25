@@ -16,4 +16,6 @@
 +pref("cachy-browser.uBO.assetsBootstrapLocation", "");
 +pref("cachy-browser.aboutMenu.checkVersion", false);
 +pref("cachy-browser.hidePasswdmgr", false);
++pref("cachy-browser.debugger.force_detach", false);
++pref("cachy-browser.console.logging_disabled", false);
 +
