@@ -612,14 +612,14 @@ diff --git a/browser/components/preferences/preferences.xhtml b/browser/componen
 index 6ee14eec9b2e..a0d768dce307 100644
 --- a/browser/components/preferences/preferences.xhtml
 +++ b/browser/components/preferences/preferences.xhtml
-@@ -13,6 +13,7 @@
- <?xml-stylesheet href="chrome://browser/skin/preferences/search.css"?>
- <?xml-stylesheet href="chrome://browser/skin/preferences/containers.css"?>
- <?xml-stylesheet href="chrome://browser/skin/preferences/privacy.css"?>
-+<?xml-stylesheet href="chrome://browser/skin/preferences/cachy-browser.css"?>
- 
- <!DOCTYPE html>
- 
+@@ -38,6 +38,7 @@
+     href="chrome://browser/skin/preferences/containers.css"
+   />
+   <link rel="stylesheet" href="chrome://browser/skin/preferences/privacy.css" />
++  <link rel="stylesheet" href="chrome://browser/skin/preferences/cachy-browser.css" />
+
+   <link rel="localization" href="branding/brand.ftl"/>
+   <link rel="localization" href="browser/browser.ftl"/>
 @@ -129,6 +130,17 @@
            <label class="category-name" flex="1" data-l10n-id="pane-privacy-title"></label>
          </richlistitem>
