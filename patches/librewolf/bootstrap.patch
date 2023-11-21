@@ -39,12 +39,11 @@
          # put the kinds into a graph and sort topologically so that kinds are loaded
 --- a/third_party/python/taskcluster_taskgraph/taskgraph/parameters.py
 +++ b/third_party/python/taskcluster_taskgraph/taskgraph/parameters.py
-@@ -78,50 +78,80 @@
+@@ -78,49 +78,79 @@
+         # Use fake values if no repo is detected.
+         repo = Mock(branch="", head_rev="", tool="git")
+         repo.get_url.return_value = ""
  
- 
- def _get_defaults(repo_root=None):
-     repo_path = repo_root or os.getcwd()
-     repo = get_repository(repo_path)
 -    try:
 -        repo_url = repo.get_url()
 -        parsed_url = mozilla_repo_urls.parse(repo_url)

@@ -2,7 +2,7 @@
 #
 # Author:        Malte Jürgens <maltejur@dismail.de>
 # Description:   Add custom Cachy pref defaults
-# Last Updated:  2023-01-18
+# Last Updated:  2023-10-30
 # License:       MPL 2.0
 #
 # The purpose of this patch is to show the defaults of our custom prefs
@@ -11,8 +11,6 @@
 +++ b/browser/app/profile/firefox.js
 @@ -21,0 +21,5 @@
 +
-+pref("cachy-browser.firefoxView.hideTabPickup", false);
-+pref("cachy-browser.firefoxView.hideColorways", true);
 +pref("cachy-browser.uBO.assetsBootstrapLocation", "");
 +pref("cachy-browser.aboutMenu.checkVersion", false);
 +pref("cachy-browser.hidePasswdmgr", false);

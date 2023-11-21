@@ -1,29 +1,42 @@
 # Cachy firefox-view.patch
 #
 # Author:        Malte Jürgens <maltejur@dismail.de>
-# Description:   Hide "Firefox View" by default and make it work with Cachy
-# Last Updated:  2023-03-15
+# Description:   Hide "Firefox View" by default
+# Last Updated:  2023-11-04
 # License:       MPL 2.0
 #
 # This patch removes the Firefox View from the toolbar by default. Users can
 # enable it again by using the "Customize Toolbar" mode and dragging it back to
 # the titlebar.
-#
-# Colorways are hidden by default and can be enabled again by setting
-# `cachy-browser.firefoxView.hideColorways` to `false`.
-#
-# The tab pickup feature is hidden if Firefox Sync is disabled. It can also
-# be forced to always be disabled by setting `cachy-browser.firefoxView.hideTabPickup`
-# to `true`.
+diff --git a/browser/base/content/browser.js b/browser/base/content/browser.js
+--- a/browser/base/content/browser.js
++++ b/browser/base/content/browser.js
+@@ -9929,10 +9929,11 @@ var FirefoxViewHandler = {
+       !this._enabled
+     );
+     document.getElementById("menu_openFirefoxView").hidden = !this._enabled;
+-    document.getElementById("firefox-view-button").style.listStyleImage =
+-      NimbusFeatures.firefoxViewNext.getVariable("newIcon")
+-        ? ""
+-        : 'url("chrome://branding/content/about-logo.png")';
++    if (this.button)
++      this.button.style.listStyleImage =
++        NimbusFeatures.firefoxViewNext.getVariable("newIcon")
++          ? ""
++          : 'url("chrome://branding/content/about-logo.png")';
+   },
+   onWidgetRemoved(aWidgetId) {
+     if (aWidgetId == this.BUTTON_ID && this.tab) {
+diff --git a/browser/base/content/navigator-toolbox.inc.xhtml b/browser/base/content/navigator-toolbox.inc.xhtml
 --- a/browser/base/content/navigator-toolbox.inc.xhtml
 +++ b/browser/base/content/navigator-toolbox.inc.xhtml
-@@ -41,16 +41,6 @@
+@@ -35,16 +35,6 @@
        <hbox flex="1" align="end" class="toolbar-items">
          <toolbartabstop/>
          <hbox id="TabsToolbar-customization-target" flex="1">
 -          <toolbarbutton id="firefox-view-button"
 -                         class="toolbarbutton-1 chromeclass-toolbar-additional"
--                         data-l10n-id="toolbar-button-firefox-view"
+-                         data-l10n-id="toolbar-button-firefox-view-2"
 -                         role="button"
 -                         aria-pressed="false"
 -                         oncommand="FirefoxViewHandler.openTab(event);"
@@ -33,15 +46,15 @@
 -
            <tabs id="tabbrowser-tabs"
                  is="tabbrowser-tabs"
-                 flex="1"
-@@ -707,6 +697,16 @@
+                 aria-multiselectable="true"
+@@ -716,5 +706,15 @@
                     closemenu="none"
                     cui-areatype="toolbar"
                     data-l10n-id="navbar-library"/>
 +
 +    <toolbarbutton id="firefox-view-button"
 +                   class="toolbarbutton-1 chromeclass-toolbar-additional"
-+                   data-l10n-id="toolbar-button-firefox-view"
++                   data-l10n-id="toolbar-button-firefox-view-2"
 +                   role="button"
 +                   aria-pressed="false"
 +                   oncommand="FirefoxViewHandler.openTab(event);"
@@ -50,10 +63,10 @@
 +                   removable="true"/>
    </html:template>
  </toolbox>
- </box>
+diff --git a/browser/components/customizableui/CustomizableUI.sys.mjs b/browser/components/customizableui/CustomizableUI.sys.mjs
 --- a/browser/components/customizableui/CustomizableUI.sys.mjs
 +++ b/browser/components/customizableui/CustomizableUI.sys.mjs
-@@ -289,7 +289,6 @@ var CustomizableUIInternal = {
+@@ -287,7 +287,6 @@ var CustomizableUIInternal = {
        {
          type: CustomizableUI.TYPE_TOOLBAR,
          defaultPlacements: [
@@ -61,7 +74,7 @@
            "tabbrowser-tabs",
            "new-tab-button",
            "alltabs-button",
-@@ -620,18 +619,6 @@ var CustomizableUIInternal = {
+@@ -616,18 +615,6 @@ var CustomizableUIInternal = {
        }
      }
  
@@ -80,9 +93,10 @@
      // Unified Extensions addon button migration, which puts any browser action
      // buttons in the overflow menu into the addons panel instead.
      if (currentVersion < 19) {
+diff --git a/browser/components/firefoxview/firefoxview.html b/browser/components/firefoxview/firefoxview.html
 --- a/browser/components/firefoxview/firefoxview.html
 +++ b/browser/components/firefoxview/firefoxview.html
-@@ -62,6 +62,7 @@
+@@ -61,6 +61,7 @@
          is="tab-pickup-container"
          id="tab-pickup-container"
          open
@@ -90,42 +104,13 @@
        >
          <summary class="page-section-header">
            <span
---- a/browser/components/firefoxview/firefoxview.mjs
-+++ b/browser/components/firefoxview/firefoxview.mjs
-@@ -41,7 +41,26 @@ const launchFeatureTour = () => {
-   callout.showFeatureCallout();
- };
- 
-+function onPrefChange() {
-+  document.getElementById("tab-pickup-container").hidden =
-+    Services.prefs.getBoolPref("identity.fxaccounts.enabled") &&
-+    !Services.prefs.getBoolPref("cachy-browser.firefoxView.hideTabPickup", false)
-+      ? false
-+      : true;
-+  document.getElementById("colorways").hidden =
-+    !Services.prefs.getBoolPref("cachy-browser.firefoxView.hideColorways", true)
-+      ? false
-+      : true;
-+}
-+
-+[
-+  "cachy-browser.firefoxView.hideTabPickup",
-+  "cachy-browser.firefoxView.hideColorways",
-+  "identity.fxaccounts.enabled",
-+].forEach((pref) => Services.prefs.addObserver(pref, onPrefChange));
-+
- window.addEventListener("DOMContentLoaded", async () => {
-+  onPrefChange();
-   Services.telemetry.setEventRecordingEnabled("firefoxview", true);
-   Services.telemetry.recordEvent("firefoxview", "entered", "firefoxview", null);
-   document.getElementById("recently-closed-tabs-container").onLoad();
+diff --git a/browser/components/newtab/lib/OnboardingMessageProvider.jsm b/browser/components/newtab/lib/OnboardingMessageProvider.jsm
 --- a/browser/components/newtab/lib/OnboardingMessageProvider.jsm
 +++ b/browser/components/newtab/lib/OnboardingMessageProvider.jsm
-@@ -92,57 +92,6 @@ const BASE_MESSAGES = () => [
-     },
+@@ -78,57 +78,6 @@ const BASE_MESSAGES = () => [
      trigger: { id: "protectionsPanelOpen" },
    },
--  {
+   {
 -    id: "CFR_FIREFOX_VIEW",
 -    groups: ["cfr"],
 -    template: "cfr_doorhanger",
@@ -176,6 +161,7 @@
 -    // Avoid breaking existing tests that close tabs for now.
 -    targeting: `!inMr2022Holdback && fxViewButtonAreaType != null && (currentDate|date - profileAgeCreated) / 86400000 >= 2 && tabsClosedCount >= 3 && 'browser.firefox-view.view-count'|preferenceValue == 0 && !'browser.newtabpage.activity-stream.asrouter.providers.cfr'|preferenceIsUserSet`,
 -  },
-   {
+-  {
      id: "FX_MR_106_UPGRADE",
      template: "spotlight",
+     targeting: "true",

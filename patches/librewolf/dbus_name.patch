@@ -39,58 +39,31 @@ index 68c67c3482eb..914bae09a227 100644
    LOG("  DBus destination: %s\n", destinationName.get());
    LOG("  DBus path: %s\n", pathName.get());
 diff --git a/toolkit/components/remote/nsDBusRemoteServer.cpp b/toolkit/components/remote/nsDBusRemoteServer.cpp
-index 34167177d972..6b5c3e036b21 100644
+index a77f349..45e16d9 100644
 --- a/toolkit/components/remote/nsDBusRemoteServer.cpp
 +++ b/toolkit/components/remote/nsDBusRemoteServer.cpp
-@@ -30,7 +30,7 @@ static const char* introspect_template =
-     "     <arg name=\"data\" direction=\"out\" type=\"s\"/>\n"
-     "   </method>\n"
-     " </interface>\n"
+@@ -28,7 +28,7 @@ static const char* introspect_template =
+     "1.0//EN\"\n"
+     "\"http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd\">\n"
+     "<node>\n"
 -    " <interface name=\"org.mozilla.%s\">\n"
 +    " <interface name=\"org.cachyos.%s\">\n"
      "   <method name=\"OpenURL\">\n"
      "     <arg name=\"url\" direction=\"in\" type=\"ay\"/>\n"
      "   </method>\n"
-@@ -63,7 +63,7 @@ DBusHandlerResult nsDBusRemoteServer::OpenURL(DBusMessage* msg) {
-                              &commandLine, &length, DBUS_TYPE_INVALID) ||
-       length == 0) {
-     nsAutoCString errorMsg;
--    errorMsg = nsPrintfCString("org.mozilla.%s.Error", mAppName.get());
-+    errorMsg = nsPrintfCString("org.cachyos.%s.Error", mAppName.get());
-     reply = dbus_message_new_error(msg, errorMsg.get(), "Wrong argument");
-   } else {
-     guint32 timestamp = gtk_get_current_event_time();
-@@ -93,7 +93,7 @@ DBusHandlerResult nsDBusRemoteServer::HandleDBusMessage(
-   }
+@@ -38,7 +38,7 @@ static const char* introspect_template =
+ bool nsDBusRemoteServer::HandleOpenURL(const gchar* aInterfaceName,
+                                        const gchar* aMethodName,
+                                        const nsACString& aParam) {
+-  nsPrintfCString ourInterfaceName("org.mozilla.%s", mAppName.get());
++  nsPrintfCString ourInterfaceName("org.cachyos.%s", mAppName.get());
  
-   nsAutoCString ourInterfaceName;
--  ourInterfaceName = nsPrintfCString("org.mozilla.%s", mAppName.get());
-+  ourInterfaceName = nsPrintfCString("org.cachyos.%s", mAppName.get());
+   if ((strcmp("OpenURL", aMethodName) != 0) ||
+       (strcmp(ourInterfaceName.get(), aInterfaceName) != 0)) {
+@@ -129,7 +129,7 @@ static const GDBusInterfaceVTable gInterfaceVTable = {
+     HandleMethodCall, HandleGetProperty, HandleSetProperty};
  
-   if ((strcmp("OpenURL", method) == 0) &&
-       (strcmp(ourInterfaceName.get(), iface) == 0)) {
-@@ -154,7 +154,7 @@ nsresult nsDBusRemoteServer::Startup(const char* aAppName,
- 
-   mozilla::XREAppData::SanitizeNameForDBus(profileName);
- 
--  nsPrintfCString busName("org.mozilla.%s.%s", mAppName.get(),
-+  nsPrintfCString busName("org.cachyos.%s.%s", mAppName.get(),
-                           profileName.get());
-   if (busName.Length() > DBUS_MAXIMUM_NAME_LENGTH)
-     busName.Truncate(DBUS_MAXIMUM_NAME_LENGTH);
-@@ -167,7 +167,7 @@ nsresult nsDBusRemoteServer::Startup(const char* aAppName,
- 
-   // We don't have a valid busName yet - try to create a default one.
-   if (!sDBusValidateBusName(busName.get(), nullptr)) {
--    busName = nsPrintfCString("org.mozilla.%s.%s", mAppName.get(), "default");
-+    busName = nsPrintfCString("org.cachyos.%s.%s", mAppName.get(), "default");
-     if (!sDBusValidateBusName(busName.get(), nullptr)) {
-       // We failed completelly to get a valid bus name - just quit
-       // to prevent crash at dbus_bus_request_name().
-@@ -186,7 +186,7 @@ nsresult nsDBusRemoteServer::Startup(const char* aAppName,
-     return NS_ERROR_FAILURE;
-   }
- 
+ void nsDBusRemoteServer::OnBusAcquired(GDBusConnection* aConnection) {
 -  mPathName = nsPrintfCString("/org/mozilla/%s/Remote", mAppName.get());
 +  mPathName = nsPrintfCString("/org/cachyos/%s/Remote", mAppName.get());
    static auto sDBusValidatePathName = (bool (*)(const char*, DBusError*))dlsym(
