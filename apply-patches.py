@@ -75,7 +75,7 @@ def gentoo_patches(firefox_folder: str, common_srcdir: str):
 
     enter_srcdir(firefox_folder)
 
-    gentoo_path = join(common_srcdir, 'gentoo')
+    gentoo_path = join(common_srcdir, 'patches/gentoo')
     patch_files = [f for f in os.listdir(gentoo_path) if isfile(join(gentoo_path, f))]
 
     blacklist_patches = []
