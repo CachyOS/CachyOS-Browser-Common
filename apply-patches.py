@@ -150,7 +150,7 @@ def librewolf_patches(firefox_folder: str, common_srcdir: str, settings_srcdir: 
 #
 
 if len(args) != 3:
-    sys.stderr.write('error: please specify firefox folder and cachy-browser-common folder')
+    sys.stderr.write(f'Invalid usage! {sys.argv[0]} <firefox folder> <cachy-browser-common folder> <cachy-browser-settings folder>\n')
     sys.exit(1)
 
 firefox_folder = args[0]
@@ -158,7 +158,7 @@ cachy_common_folder = args[1]
 cachy_settings_folder = args[2]
 
 if not os.path.exists(join(firefox_folder, 'configure.py')):
-    sys.stderr.write('error: folder doesn\'t look like a Firefox folder.')
+    sys.stderr.write('error: folder doesn\'t look like a Firefox folder.\n')
     sys.exit(1)
 
 print('---- Gentoo patches')
