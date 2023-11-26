@@ -1,0 +1,108 @@
+diff --git a/browser/components/preferences/jar.mn b/browser/components/preferences/jar.mn
+index 2131a15ceef7..0b97dc14b42e 100644
+--- a/browser/components/preferences/jar.mn
++++ b/browser/components/preferences/jar.mn
+@@ -11,6 +11,7 @@ browser.jar:
+    content/browser/preferences/home.js
+    content/browser/preferences/search.js
+    content/browser/preferences/privacy.js
++   content/browser/preferences/cachy-browser.js
+    content/browser/preferences/containers.js
+    content/browser/preferences/sync.js
+    content/browser/preferences/experimental.js
+diff --git a/browser/components/preferences/preferences.js b/browser/components/preferences/preferences.js
+index 19dda7cf39eb..f5e67b637b49 100644
+--- a/browser/components/preferences/preferences.js
++++ b/browser/components/preferences/preferences.js
+@@ -8,6 +8,7 @@
+ /* import-globals-from search.js */
+ /* import-globals-from containers.js */
+ /* import-globals-from privacy.js */
++/* import-globals-from cachy-browser.js */
+ /* import-globals-from sync.js */
+ /* import-globals-from experimental.js */
+ /* import-globals-from moreFromMozilla.js */
+@@ -196,6 +197,7 @@ function init_all() {
+   register_module("paneHome", gHomePane);
+   register_module("paneSearch", gSearchPane);
+   register_module("panePrivacy", gPrivacyPane);
++  register_module("paneCachy", gCachyPane);
+   register_module("paneContainers", gContainersPane);
+   if (Services.prefs.getBoolPref("browser.preferences.experimental")) {
+     // Set hidden based on previous load's hidden value.
+diff --git a/browser/components/preferences/preferences.xhtml b/browser/components/preferences/preferences.xhtml
+index 378be0a..26caf49 100644
+--- a/browser/components/preferences/preferences.xhtml
++++ b/browser/components/preferences/preferences.xhtml
+@@ -38,6 +38,7 @@
+     href="chrome://browser/skin/preferences/containers.css"
+   />
+   <link rel="stylesheet" href="chrome://browser/skin/preferences/privacy.css" />
++  <link rel="stylesheet" href="chrome://browser/skin/preferences/cachy-browser.css" />
+ 
+   <link rel="localization" href="branding/brand.ftl"/>
+   <link rel="localization" href="browser/browser.ftl"/>
+@@ -129,6 +130,17 @@
+           <label class="category-name" flex="1" data-l10n-id="pane-privacy-title"></label>
+         </richlistitem>
+ 
++        <richlistitem id="category-cachy-browser"
++                      class="category"
++                      value="paneCachy"
++                      helpTopic="prefs-cachy-browser"
++                      data-l10n-id="category-cachy-browser"
++                      data-l10n-attrs="tooltiptext"
++                      align="center">
++          <image class="category-icon"/>
++          <label class="category-name" flex="1" data-l10n-id="pane-cachy-browser-title"></label>
++        </richlistitem>
++
+         <richlistitem id="category-sync"
+                       class="category"
+                       hidden="true"
+@@ -207,6 +219,7 @@
+ #include home.inc.xhtml
+ #include search.inc.xhtml
+ #include privacy.inc.xhtml
++#include cachy-browser.inc.xhtml
+ #include containers.inc.xhtml
+ #include sync.inc.xhtml
+ #include experimental.inc.xhtml
+diff --git a/browser/themes/shared/jar.inc.mn b/browser/themes/shared/jar.inc.mn
+index 146764d56081..52326c00bdfe 100644
+--- a/browser/themes/shared/jar.inc.mn
++++ b/browser/themes/shared/jar.inc.mn
+@@ -108,6 +108,7 @@
+   skin/classic/browser/preferences/android-menu.svg            (../shared/preferences/android-menu.svg)
+   skin/classic/browser/preferences/category-general.svg        (../shared/preferences/category-general.svg)
+   skin/classic/browser/preferences/category-privacy-security.svg    (../shared/preferences/category-privacy-security.svg)
++  skin/classic/browser/preferences/category-cachy-browser.svg    (../shared/preferences/category-cachy-browser.svg)
+   skin/classic/browser/preferences/category-search.svg         (../shared/preferences/category-search.svg)
+   skin/classic/browser/preferences/category-sync.svg           (../shared/preferences/category-sync.svg)
+   skin/classic/browser/preferences/containers.css              (../shared/preferences/containers.css)
+@@ -127,6 +128,7 @@
+   skin/classic/browser/preferences/vpn-logo.svg                (../shared/preferences/vpn-logo.svg)
+   skin/classic/browser/preferences/search.css                  (../shared/preferences/search.css)
+   skin/classic/browser/preferences/siteDataSettings.css        (../shared/preferences/siteDataSettings.css)
++  skin/classic/browser/preferences/cachy-browser.css               (../shared/preferences/cachy-browser.css)
+   skin/classic/browser/translations/panel.css                  (../shared/translations/panel.css)
+   skin/classic/browser/fxa/fxa-spinner.svg                     (../shared/fxa/fxa-spinner.svg)
+   skin/classic/browser/fxa/sync-illustration.svg               (../shared/fxa/sync-illustration.svg)
+diff --git a/browser/themes/shared/preferences/preferences.css b/browser/themes/shared/preferences/preferences.css
+index 1968b68a1245..d0da141868e2 100644
+--- a/browser/themes/shared/preferences/preferences.css
++++ b/browser/themes/shared/preferences/preferences.css
+@@ -206,6 +206,10 @@ checkbox {
+   list-style-image: url("chrome://browser/skin/preferences/category-privacy-security.svg");
+ }
+ 
++#category-cachy-browser > .category-icon {
++  list-style-image: url("chrome://browser/skin/preferences/category-cachy-browser.svg");
++}
++
+ #category-sync > .category-icon {
+   list-style-image: url("chrome://browser/skin/preferences/category-sync.svg");
+ }
+-- 
+2.37.3
+

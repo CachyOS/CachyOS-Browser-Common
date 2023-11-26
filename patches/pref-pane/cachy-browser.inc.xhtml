@@ -1,0 +1,254 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+<script src="chrome://browser/content/preferences/cachy-browser.js"/>
+
+<html:template id="template-paneCachy">
+
+<hbox class="subcategory" hidden="true" data-category="paneCachy">
+  <html:h1 data-l10n-id="cachy-browser-header"/>
+</hbox>
+
+<groupbox hidden="true" data-category="paneCachy">
+  <html:h2 data-l10n-id="cachy-browser-general-heading"/>
+
+  <!-- TEMPLATE FOR A NEW PREFERENCE
+  <hbox>
+    <checkbox id="cachy-browser-LABEL-checkbox" data-l10n-id="cachy-browser-LABEL-checkbox" preference="PREF" flex="1" />
+    <html:label for="cachy-browser-LABEL-collapse" class="sidebar-footer-link" pack="end"> <image class="sidebar-footer-icon help-icon"/> </html:label>
+  </hbox>
+  <vbox class="cachy-browser-collapse indent">
+    <html:input type="checkbox" id="cachy-browser-LABEL-collapse" />
+    <vbox class="cachy-browser-collapsed tracking-protection-ui content-blocking-category">
+      <label data-l10n-id="cachy-browser-LABEL-description" />
+      <html:div> <image src="chrome://browser/skin/warning.svg" /> <label data-l10n-id="cachy-browser-LABEL-warning1" class="cachy-browser-warning" /> </html:div>
+      <checkbox preference="PREF" label="PREF" />
+    </vbox>
+  </vbox>
+  -->
+
+  <hbox>
+    <checkbox id="cachy-browser-extension-update-checkbox" data-l10n-id="cachy-browser-extension-update-checkbox" preference="extensions.update.autoUpdateDefault" flex="1" />
+    <html:label for="cachy-browser-extension-update-collapse" class="sidebar-footer-link" pack="end"> <image class="sidebar-footer-icon help-icon"/> </html:label>
+  </hbox>
+  <vbox class="cachy-browser-collapse indent">
+    <html:input type="checkbox" id="cachy-browser-extension-update-collapse" />
+    <vbox class="cachy-browser-collapsed tracking-protection-ui content-blocking-category">
+      <label data-l10n-id="cachy-browser-extension-update-description" />
+      <html:div> <image src="chrome://browser/skin/warning.svg" /> <label data-l10n-id="cachy-browser-extension-update-warning1" class="cachy-browser-warning" /> </html:div>
+      <checkbox preference="extensions.update.autoUpdateDefault" label="extensions.update.autoUpdateDefault" />
+      <checkbox preference="extensions.update.enabled" label="extensions.update.enabled" />
+    </vbox>
+  </vbox>
+
+  <hbox>
+    <checkbox id="cachy-browser-sync-checkbox" data-l10n-id="cachy-browser-sync-checkbox" preference="identity.fxaccounts.enabled" flex="1" />
+    <html:label for="cachy-browser-sync-collapse" class="sidebar-footer-link" pack="end"> <image class="sidebar-footer-icon help-icon"/> </html:label>
+  </hbox>
+  <vbox class="cachy-browser-collapse indent">
+    <html:input type="checkbox" id="cachy-browser-sync-collapse" />
+    <vbox class="cachy-browser-collapsed tracking-protection-ui content-blocking-category">
+      <label data-l10n-id="cachy-browser-sync-description" />
+      <html:div> <image src="chrome://browser/skin/warning.svg" /> <label data-l10n-id="cachy-browser-sync-warning1" class="cachy-browser-warning" /> </html:div>
+      <checkbox preference="identity.fxaccounts.enabled" label="identity.fxaccounts.enabled" />
+    </vbox>
+  </vbox>
+  
+  <hbox>
+    <checkbox id="cachy-browser-autocopy-checkbox" data-l10n-id="cachy-browser-autocopy-checkbox" preference="clipboard.autocopy" flex="1" />
+    <html:label for="cachy-browser-autocopy-collapse" class="sidebar-footer-link" pack="end"> <image class="sidebar-footer-icon help-icon"/> </html:label>
+  </hbox>
+  <vbox class="cachy-browser-collapse indent">
+    <html:input type="checkbox" id="cachy-browser-autocopy-collapse" />
+    <vbox class="cachy-browser-collapsed tracking-protection-ui content-blocking-category">
+      <label data-l10n-id="cachy-browser-autocopy-description" />
+      <checkbox preference="clipboard.autocopy" label="clipboard.autocopy" />
+      <checkbox preference="middlemouse.paste" label="middlemouse.paste" />
+    </vbox>
+  </vbox>
+
+  <hbox>
+    <checkbox id="cachy-browser-styling-checkbox" data-l10n-id="cachy-browser-styling-checkbox" preference="toolkit.legacyUserProfileCustomizations.stylesheets" flex="1" />
+    <html:label for="cachy-browser-styling-collapse" class="sidebar-footer-link" pack="end"> <image class="sidebar-footer-icon help-icon"/> </html:label>
+  </hbox>
+  <vbox class="cachy-browser-collapse indent">
+    <html:input type="checkbox" id="cachy-browser-styling-collapse" />
+    <vbox class="cachy-browser-collapsed tracking-protection-ui content-blocking-category">
+      <label data-l10n-id="cachy-browser-styling-description" />
+      <html:div> <image src="chrome://browser/skin/warning.svg" /> <label data-l10n-id="cachy-browser-styling-warning1" class="cachy-browser-warning" /> </html:div>
+      <checkbox preference="toolkit.legacyUserProfileCustomizations.stylesheets" label="toolkit.legacyUserProfileCustomizations.stylesheets" />
+    </vbox>
+  </vbox>
+
+</groupbox>
+
+<groupbox hidden="true" data-category="paneCachy">
+  <html:h2 data-l10n-id="cachy-browser-network-heading" />
+
+  <hbox>
+    <checkbox id="cachy-browser-ipv6-checkbox" data-l10n-id="cachy-browser-ipv6-checkbox" preference="network.dns.disableIPv6" flex="1" />
+    <html:label for="cachy-browser-ipv6-collapse" class="sidebar-footer-link" pack="end"> <image class="sidebar-footer-icon help-icon"/> </html:label>
+  </hbox>
+  <vbox class="cachy-browser-collapse indent">
+    <html:input type="checkbox" id="cachy-browser-ipv6-collapse" />
+    <vbox class="cachy-browser-collapsed tracking-protection-ui content-blocking-category">
+      <label data-l10n-id="cachy-browser-ipv6-description" />
+      <html:div> <image src="chrome://browser/skin/warning.svg" /> <label data-l10n-id="cachy-browser-ipv6-warning1" class="cachy-browser-warning" /> </html:div>
+      <checkbox preference="network.dns.disableIPv6" label="network.dns.disableIPv6" />
+    </vbox>
+  </vbox>
+
+</groupbox>
+
+<groupbox hidden="true" data-category="paneCachy">
+  <html:h2 data-l10n-id="cachy-browser-privacy-heading" />
+
+  <hbox>
+    <checkbox id="cachy-browser-xorigin-ref-checkbox" data-l10n-id="cachy-browser-xorigin-ref-checkbox" preference="network.http.referer.XOriginPolicy" flex="1" />
+    <html:label for="cachy-browser-xorigin-ref-collapse" class="sidebar-footer-link" pack="end"> <image class="sidebar-footer-icon help-icon"/> </html:label>
+  </hbox>
+  <vbox class="cachy-browser-collapse indent">
+    <html:input type="checkbox" id="cachy-browser-xorigin-ref-collapse" />
+    <vbox class="cachy-browser-collapsed tracking-protection-ui content-blocking-category">
+      <label data-l10n-id="cachy-browser-xorigin-ref-description" />
+      <html:div> <image src="chrome://browser/skin/warning.svg" /> <label data-l10n-id="cachy-browser-xorigin-ref-warning1" class="cachy-browser-warning" /> </html:div>
+      <checkbox disabled="true" preference="network.http.referer.XOriginPolicy" label="network.http.referer.XOriginPolicy" />
+    </vbox>
+  </vbox>
+
+</groupbox>
+
+<groupbox hidden="true" data-category="paneCachy">
+  <html:h2 data-l10n-id="cachy-browser-broken-heading" />
+
+  <hbox>
+    <checkbox id="cachy-browser-rfp-checkbox" data-l10n-id="cachy-browser-rfp-checkbox" preference="privacy.resistFingerprinting" flex="1" />
+    <html:label for="cachy-browser-rfp-collapse" class="sidebar-footer-link" pack="end"> <image class="sidebar-footer-icon help-icon"/> </html:label>
+  </hbox>
+  <vbox class="cachy-browser-collapse indent">
+    <html:input type="checkbox" id="cachy-browser-rfp-collapse" />
+    <vbox class="cachy-browser-collapsed tracking-protection-ui content-blocking-category">
+      <label data-l10n-id="cachy-browser-rfp-description" />
+      <html:div> <image src="chrome://browser/skin/warning.svg" /> <label data-l10n-id="cachy-browser-rfp-warning1" class="cachy-browser-warning" /> </html:div>
+      <checkbox preference="privacy.resistFingerprinting" label="privacy.resistFingerprinting" />
+    </vbox>
+  </vbox>
+
+  <vbox class="indent">
+
+    <hbox>
+      <checkbox id="cachy-browser-letterboxing-checkbox" data-l10n-id="cachy-browser-letterboxing-checkbox" preference="privacy.resistFingerprinting.letterboxing" flex="1" />
+      <html:label for="cachy-browser-letterboxing-collapse" class="sidebar-footer-link" pack="end"> <image class="sidebar-footer-icon help-icon"/> </html:label>
+    </hbox>
+    <vbox class="cachy-browser-collapse indent">
+      <html:input type="checkbox" id="cachy-browser-letterboxing-collapse" />
+      <vbox class="cachy-browser-collapsed tracking-protection-ui content-blocking-category">
+        <label data-l10n-id="cachy-browser-letterboxing-description" />
+        <checkbox preference="privacy.resistFingerprinting.letterboxing" label="privacy.resistFingerprinting.letterboxing" />
+      </vbox>
+    </vbox>
+
+    <hbox>
+      <checkbox id="cachy-browser-auto-decline-canvas-checkbox" data-l10n-id="cachy-browser-auto-decline-canvas-checkbox" preference="privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts" flex="1" />
+      <html:label for="cachy-browser-auto-decline-canvas-collapse" class="sidebar-footer-link" pack="end"> <image class="sidebar-footer-icon help-icon"/> </html:label>
+    </hbox>
+    <vbox class="cachy-browser-collapse indent">
+      <html:input type="checkbox" id="cachy-browser-auto-decline-canvas-collapse" />
+      <vbox class="cachy-browser-collapsed tracking-protection-ui content-blocking-category">
+        <label data-l10n-id="cachy-browser-auto-decline-canvas-description" />
+        <html:div> <label data-l10n-id="cachy-browser-auto-decline-canvas-warning1" class="cachy-browser-warning" /> </html:div>
+        <checkbox preference="privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts" label="privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts" />
+      </vbox>
+    </vbox>
+
+  </vbox>
+
+  <hbox>
+    <checkbox id="cachy-browser-webgl-checkbox" data-l10n-id="cachy-browser-webgl-checkbox" preference="webgl.disabled" flex="1" />
+    <html:label for="cachy-browser-webgl-collapse" class="sidebar-footer-link" pack="end"> <image class="sidebar-footer-icon help-icon"/> </html:label>
+  </hbox>
+  <vbox class="cachy-browser-collapse indent">
+    <html:input type="checkbox" id="cachy-browser-webgl-collapse" />
+    <vbox class="cachy-browser-collapsed tracking-protection-ui content-blocking-category">
+      <label data-l10n-id="cachy-browser-webgl-description" />
+      <html:div> <image src="chrome://browser/skin/warning.svg" /> <label data-l10n-id="cachy-browser-webgl-warning1" class="cachy-browser-warning" /> </html:div>
+      <checkbox preference="webgl.disabled" label="webgl.disabled" />
+    </vbox>
+  </vbox>
+
+
+</groupbox>
+
+<groupbox hidden="true" data-category="paneCachy">
+  <html:h2 data-l10n-id="cachy-browser-security-heading" />
+
+  <hbox>
+    <checkbox id="cachy-browser-ocsp-checkbox" data-l10n-id="cachy-browser-ocsp-checkbox" preference="security.OCSP.require" flex="1" />
+    <html:label for="cachy-browser-ocsp-collapse" class="sidebar-footer-link" pack="end"> <image class="sidebar-footer-icon help-icon"/> </html:label>
+  </hbox>
+  <vbox class="cachy-browser-collapse indent">
+    <html:input type="checkbox" id="cachy-browser-ocsp-collapse" />
+    <vbox class="cachy-browser-collapsed tracking-protection-ui content-blocking-category">
+      <label data-l10n-id="cachy-browser-ocsp-description" />
+      <html:div> <image src="chrome://browser/skin/warning.svg" /> <label data-l10n-id="cachy-browser-ocsp-warning1" class="cachy-browser-warning" /> </html:div>
+      <checkbox preference="security.OCSP.require" label="security.OCSP.require" />
+    </vbox>
+  </vbox>
+
+  <hbox>
+    <checkbox id="cachy-browser-goog-safe-checkbox" data-l10n-id="cachy-browser-goog-safe-checkbox" preference="browser.safebrowsing.malware.enabled" flex="1" />
+    <html:label for="cachy-browser-goog-safe-collapse" class="sidebar-footer-link" pack="end"> <image class="sidebar-footer-icon help-icon"/> </html:label>
+  </hbox>
+  <vbox class="cachy-browser-collapse indent">
+    <html:input type="checkbox" id="cachy-browser-goog-safe-collapse" />
+    <vbox class="cachy-browser-collapsed tracking-protection-ui content-blocking-category">
+      <label data-l10n-id="cachy-browser-goog-safe-description" />
+      <html:div> <image src="chrome://browser/skin/warning.svg" /> <label data-l10n-id="cachy-browser-goog-safe-warning1" class="cachy-browser-warning" /> </html:div>
+      <checkbox preference="browser.safebrowsing.malware.enabled" label="browser.safebrowsing.malware.enabled" />
+      <checkbox preference="browser.safebrowsing.phishing.enabled" label="browser.safebrowsing.phishing.enabled" />
+      <checkbox preference="browser.safebrowsing.blockedURIs.enabled" label="browser.safebrowsing.blockedURIs.enabled" />
+      <checkbox preference="browser.safebrowsing.provider.google4.gethashURL" label="browser.safebrowsing.provider.google4.gethashURL" id="cachy-browser-goog-safe-hash4"/>
+      <checkbox preference="browser.safebrowsing.provider.google4.updateURL" label="browser.safebrowsing.provider.google4.updateURL" id="cachy-browser-goog-safe-up4"/>
+      <checkbox preference="browser.safebrowsing.provider.google.gethashURL" label="browser.safebrowsing.provider.google.gethashURL" id="cachy-browser-goog-safe-hash"/>
+      <checkbox preference="browser.safebrowsing.provider.google.updateURL" label="browser.safebrowsing.provider.google.updateURL" id="cachy-browser-goog-safe-up"/>
+    </vbox>
+  </vbox>
+
+  <vbox class="indent">
+    <hbox>
+      <checkbox id="cachy-browser-goog-safe-download-checkbox" data-l10n-id="cachy-browser-goog-safe-download-checkbox" preference="browser.safebrowsing.downloads.enabled" flex="1" />
+      <html:label for="cachy-browser-goog-safe-download-collapse" class="sidebar-footer-link" pack="end"> <image class="sidebar-footer-icon help-icon"/> </html:label>
+    </hbox>
+    <vbox class="cachy-browser-collapse indent">
+      <html:input type="checkbox" id="cachy-browser-goog-safe-download-collapse" />
+      <vbox class="cachy-browser-collapsed tracking-protection-ui content-blocking-category">
+        <label data-l10n-id="cachy-browser-goog-safe-download-description" />
+        <html:div> <image src="chrome://browser/skin/warning.svg" /> <label data-l10n-id="cachy-browser-goog-safe-download-warning1" class="cachy-browser-warning" /> </html:div>
+        <checkbox preference="browser.safebrowsing.downloads.enabled" label="browser.safebrowsing.downloads.enabled" />
+      </vbox>
+    </vbox>
+  </vbox>
+
+</groupbox>
+
+<hbox class="subcategory" hidden="true" data-category="paneCachy">
+    <html:h1 data-l10n-id="cachy-browser-footer"/>
+</hbox>
+
+<groupbox data-category="paneCachy" hidden="true">
+  <vbox align="start">
+    <hbox>
+      <button id="cachy-browser-config-link" is="highlightable-button" flex="1">
+        <image class="cachy-browser-button-icon" src="chrome://browser/skin/ion.svg" /> <!-- TODO not the typical way a picture is defined I think, and also we should copy the svg file in case they change it -->
+        <label data-l10n-id="cachy-browser-config-link"></label>
+      </button>
+      <button id="cachy-browser-open-profile" is="highlightable-button" flex="1">
+        <image class="cachy-browser-button-icon" src="chrome://browser/skin/open.svg" />
+        <label data-l10n-id="cachy-browser-open-profile"></label>
+      </button>
+    </hbox>
+  </vbox>
+</groupbox>
+
+</html:template>

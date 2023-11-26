@@ -1,0 +1,23 @@
+.cachy-browser-collapse > input {
+	display: none;
+}
+.cachy-browser-collapse > input ~ .cachy-browser-collapsed {
+	display: none;
+	/* max-height: 0; */
+	transition: max-height 0.25s ease-in-out;
+}
+.cachy-browser-collapse > input:checked ~ .cachy-browser-collapsed {
+	display: block;
+	/* max-height: 20rem; */
+}
+.cachy-browser-warning {
+	display: inline;
+	font-size: 0.8em;
+}
+.cachy-browser-button-icon {
+	width: 16px;
+	height: 16px;
+	margin-right: 8px;
+	-moz-context-properties: fill, fill-opacity;
+	fill: currentColor;
+}

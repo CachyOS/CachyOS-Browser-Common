@@ -1,0 +1,203 @@
+diff --git a/browser/base/content/main-popupset.inc.xhtml b/browser/base/content/main-popupset.inc.xhtml
+index 2633ccd..d2156e6 100644
+--- a/browser/base/content/main-popupset.inc.xhtml
++++ b/browser/base/content/main-popupset.inc.xhtml
+@@ -654,6 +654,8 @@
+               checked="false"
+               autocheck="false"
+               oncommand="TranslationsPanel.onNeverTranslateSite()"/>
++    <menuitem data-l10n-id="translations-panel-disable-translations"
++              oncommand="TranslationsPanel.openDisableTranslations()"/>
+     <menuseparator/>
+     <menuitem class="manage-languages-menuitem"
+               data-l10n-id="translations-panel-settings-manage-languages"
+diff --git a/browser/components/preferences/main.inc.xhtml b/browser/components/preferences/main.inc.xhtml
+index 30b9076..c338c45 100644
+--- a/browser/components/preferences/main.inc.xhtml
++++ b/browser/components/preferences/main.inc.xhtml
+@@ -384,27 +384,36 @@
+           preference="layout.spellcheckDefault"/>
+ 
+   <!-- Translations -->
+-  <vbox id="translationsGroup" hidden="true" data-subcategory="translations">
++  <vbox id="translationsGroup" data-subcategory="translations">
+     <label><html:h2 data-l10n-id="translations-manage-header"/></label>
+-    <hbox id="translations-manage-description" align="center">
+-      <description flex="1" data-l10n-id="translations-manage-intro"/>
+-      <button id="translations-manage-settings-button"
+-              is="highlightable-button"
+-              class="accessory-button"
+-              data-l10n-id="translations-manage-settings-button"/>
+-    </hbox>
+-    <vbox>
+-      <html:div id="translations-manage-install-list" hidden="true">
+-        <hbox class="translations-manage-language">
+-          <label data-l10n-id="translations-manage-install-description"></label>
+-          <button id="translations-manage-install-all"
+-                  data-l10n-id="translations-manage-language-install-all-button"></button>
+-          <button id="translations-manage-delete-all"
+-                  data-l10n-id="translations-manage-language-remove-all-button"></button>
+-        </hbox>
+-        <!-- The downloadable languages will be listed here. -->
+-      </html:div>
+-      <description id="translations-manage-error" hidden="true"></description>
++    <checkbox id="translations-manage-enable" 
++              data-l10n-id="translations-manage-enable" 
++              preference="browser.translations.enable"
++              data-subcategory="translations-enable" />
++    <vbox id="innerTranslationsGroup" hidden="true">
++      <checkbox id="translations-manage-autopopup" 
++                data-l10n-id="translations-manage-autopopup" 
++                preference="browser.translations.automaticallyPopup" />
++      <hbox id="translations-manage-description" align="center">
++        <description flex="1" data-l10n-id="translations-manage-intro"/>
++        <button id="translations-manage-settings-button"
++                is="highlightable-button"
++                class="accessory-button"
++                data-l10n-id="translations-manage-settings-button"/>
++      </hbox>
++      <vbox>
++        <html:div id="translations-manage-install-list" hidden="true">
++          <hbox class="translations-manage-language">
++            <label data-l10n-id="translations-manage-install-description"></label>
++            <button id="translations-manage-install-all"
++                    data-l10n-id="translations-manage-language-install-all-button"></button>
++            <button id="translations-manage-delete-all"
++                    data-l10n-id="translations-manage-language-remove-all-button"></button>
++          </hbox>
++          <!-- The downloadable languages will be listed here. -->
++        </html:div>
++        <description id="translations-manage-error" hidden="true"></description>
++      </vbox>
+     </vbox>
+   </vbox>
+ </groupbox>
+diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
+index 08c91c4..ef459f9 100644
+--- a/browser/components/preferences/main.js
++++ b/browser/components/preferences/main.js
+@@ -141,6 +141,10 @@ Preferences.addAll([
+   { id: "dom.ipc.processCount.web", type: "int" },
+   { id: "layers.acceleration.disabled", type: "bool", inverted: true },
+ 
++  /* Fullpage Translations */
++  { id: "browser.translations.enable", type: "bool" },
++  { id: "browser.translations.automaticallyPopup", type: "bool" },
++
+   // Files and Applications
+   { id: "pref.downloads.disable_button.edit_actions", type: "bool" },
+ 
+@@ -323,6 +327,22 @@ var gMainPane = {
+ 
+     gMainPane.initTranslations();
+ 
++    let inPrompt = false;
++    Preferences.get("browser.translations.enable").on("change", () => {
++      if(!Preferences.get("browser.translations.enable").value)
++      if(!inPrompt) {
++        inPrompt = true;
++        confirmRestartPrompt(false, 1, true, false).then(buttonIndex => {
++          inPrompt = false;
++          if (buttonIndex == CONFIRM_RESTART_PROMPT_RESTART_NOW) {
++            Services.startup.quit(
++              Ci.nsIAppStartup.eAttemptQuit | Ci.nsIAppStartup.eRestart
++            );
++          }
++        });
++      }
++    });
++
+     if (
+       Services.prefs.getBoolPref(
+         "media.videocontrols.picture-in-picture.enabled"
+@@ -783,6 +803,10 @@ var gMainPane = {
+       document.getElementById("checkSpelling"),
+       () => this.writeCheckSpelling()
+     );
++    Preferences.addSyncFromPrefListener(
++      document.getElementById("translations-manage-enable"),
++      () => this.readEnableTranslations()
++    );
+     Preferences.addSyncFromPrefListener(
+       document.getElementById("alwaysAsk"),
+       () => this.readUseDownloadDir()
+@@ -1010,24 +1034,33 @@ var gMainPane = {
+     document.getElementById("zoomBox").hidden = false;
+   },
+ 
++  readEnableTranslations(skipInit = false) {
++    const translationsEnabled = Preferences.get("browser.translations.enable").value;
++    document.getElementById("innerTranslationsGroup").hidden = !translationsEnabled;
++    if (!this._translationsInitialized && !skipInit)
++      this.initTranslations();
++  },
++
++  _translationsInitialized: false,
++
+   /**
+    * Initialize the translations view.
+    */
+   async initTranslations() {
++    this.readEnableTranslations(true);
++
+     if (!Services.prefs.getBoolPref("browser.translations.enable")) {
+       return;
+     }
+ 
++    this._translationsInitialized = true;
++
+     /**
+      * Which phase a language download is in.
+      *
+      * @typedef {"downloaded" | "loading" | "uninstalled"} DownloadPhase
+      */
+ 
+-    // Immediately show the group so that the async load of the component does
+-    // not cause the layout to jump. The group will be empty initially.
+-    document.getElementById("translationsGroup").hidden = false;
+-
+     class TranslationsState {
+       /**
+        * The fully initialized state.
+diff --git a/browser/components/translations/content/translationsPanel.js b/browser/components/translations/content/translationsPanel.js
+index b9916dc..1ff8d64 100644
+--- a/browser/components/translations/content/translationsPanel.js
++++ b/browser/components/translations/content/translationsPanel.js
+@@ -1318,6 +1318,12 @@ var TranslationsPanel = new (class {
+     );
+   }
+ 
++  openDisableTranslations() {
++    const window =
++      gBrowser.selectedBrowser.browsingContext.top.embedderElement.ownerGlobal;
++    window.openTrustedLinkIn("about:preferences#general-translations-enable", "tab");
++  }
++
+   /**
+    * Redirect the user to about:preferences
+    */
+diff --git a/browser/locales/en-US/browser/translations.ftl b/browser/locales/en-US/browser/translations.ftl
+index 8483a45..14478f4 100644
+--- a/browser/locales/en-US/browser/translations.ftl
++++ b/browser/locales/en-US/browser/translations.ftl
+@@ -58,6 +58,9 @@ translations-panel-settings-never-translate-unknown-language =
+ translations-panel-settings-never-translate-site =
+   .label = Never translate this site
+ 
++translations-panel-disable-translations =
++  .label = Disable translations completely
++
+ ## The translation panel appears from the url bar, and this view is the default
+ ## translation view.
+ 
+@@ -123,6 +126,10 @@ translations-manage-header = Translations
+ translations-manage-settings-button =
+     .label = Settings…
+     .accesskey = t
++translations-manage-enable = 
++  .label = Enable fullpage translations
++translations-manage-autopopup = 
++  .label = Prompt to translate pages that aren’t in the browser’s configured language
+ translations-manage-intro = Set your language and site translation preferences and manage languages installed for offline translation.
+ translations-manage-install-description = Install languages for offline translation
+ translations-manage-language-install-button =
