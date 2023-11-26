@@ -1,8 +1,6 @@
-diff --git a/toolkit/components/remote/nsDBusRemoteClient.cpp b/toolkit/components/remote/nsDBusRemoteClient.cpp
-index 68c67c3482eb..914bae09a227 100644
 --- a/toolkit/components/remote/nsDBusRemoteClient.cpp
 +++ b/toolkit/components/remote/nsDBusRemoteClient.cpp
-@@ -97,7 +97,7 @@ bool nsDBusRemoteClient::GetRemoteDestinationName(const char* aProgram,
+@@ -73,7 +73,7 @@ bool nsDBusRemoteClient::GetRemoteDestinationName(const char* aProgram,
    mozilla::XREAppData::SanitizeNameForDBus(profileName);
  
    aDestinationName =
@@ -11,7 +9,7 @@ index 68c67c3482eb..914bae09a227 100644
    if (aDestinationName.Length() > DBUS_MAXIMUM_NAME_LENGTH)
      aDestinationName.Truncate(DBUS_MAXIMUM_NAME_LENGTH);
  
-@@ -111,7 +111,7 @@ bool nsDBusRemoteClient::GetRemoteDestinationName(const char* aProgram,
+@@ -87,7 +87,7 @@ bool nsDBusRemoteClient::GetRemoteDestinationName(const char* aProgram,
    if (!sDBusValidateBusName(aDestinationName.get(), nullptr)) {
      // We don't have a valid busName yet - try to create a default one.
      aDestinationName =
@@ -20,7 +18,7 @@ index 68c67c3482eb..914bae09a227 100644
      if (!sDBusValidateBusName(aDestinationName.get(), nullptr)) {
        // We failed completelly to get a valid bus name - just quit
        // to prevent crash at dbus_bus_request_name().
-@@ -139,7 +139,7 @@ nsresult nsDBusRemoteClient::DoSendDBusCommandLine(const char* aProgram,
+@@ -115,7 +115,7 @@ nsresult nsDBusRemoteClient::DoSendDBusCommandLine(const char* aProgram,
    }
  
    nsAutoCString pathName;
@@ -29,7 +27,7 @@ index 68c67c3482eb..914bae09a227 100644
  
    static auto sDBusValidatePathName = (bool (*)(const char*, DBusError*))dlsym(
        RTLD_DEFAULT, "dbus_validate_path");
-@@ -150,7 +150,7 @@ nsresult nsDBusRemoteClient::DoSendDBusCommandLine(const char* aProgram,
+@@ -126,7 +126,7 @@ nsresult nsDBusRemoteClient::DoSendDBusCommandLine(const char* aProgram,
    }
  
    nsAutoCString remoteInterfaceName;
@@ -38,8 +36,6 @@ index 68c67c3482eb..914bae09a227 100644
  
    LOG("  DBus destination: %s\n", destinationName.get());
    LOG("  DBus path: %s\n", pathName.get());
-diff --git a/toolkit/components/remote/nsDBusRemoteServer.cpp b/toolkit/components/remote/nsDBusRemoteServer.cpp
-index a77f349..45e16d9 100644
 --- a/toolkit/components/remote/nsDBusRemoteServer.cpp
 +++ b/toolkit/components/remote/nsDBusRemoteServer.cpp
 @@ -28,7 +28,7 @@ static const char* introspect_template =
@@ -69,3 +65,22 @@ index a77f349..45e16d9 100644
    static auto sDBusValidatePathName = (bool (*)(const char*, DBusError*))dlsym(
        RTLD_DEFAULT, "dbus_validate_path");
    if (!sDBusValidatePathName ||
+@@ -202,8 +202,7 @@ nsresult nsDBusRemoteServer::Startup(const char* aAppName,
+ 
+   mozilla::XREAppData::SanitizeNameForDBus(profileName);
+ 
+-  nsPrintfCString busName("org.mozilla.%s.%s", mAppName.get(),
+-                          profileName.get());
++  nsPrintfCString busName("org.cachyos.%s.%s", mAppName.get(), profileName.get());
+   if (busName.Length() > DBUS_MAXIMUM_NAME_LENGTH) {
+     busName.Truncate(DBUS_MAXIMUM_NAME_LENGTH);
+   }
+@@ -217,7 +216,7 @@ nsresult nsDBusRemoteServer::Startup(const char* aAppName,
+ 
+   // We don't have a valid busName yet - try to create a default one.
+   if (!sDBusValidateBusName(busName.get(), nullptr)) {
+-    busName = nsPrintfCString("org.mozilla.%s.%s", mAppName.get(), "default");
++    busName = nsPrintfCString("org.cachyos.%s.%s", mAppName.get(), "default");
+     if (!sDBusValidateBusName(busName.get(), nullptr)) {
+       // We failed completelly to get a valid bus name - just quit
+       // to prevent crash at dbus_bus_request_name().

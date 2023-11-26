@@ -1,6 +1,6 @@
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -3713,6 +3713,7 @@
+@@ -4184,6 +4184,7 @@ const AppearanceChooser = {
  
      FORCED_COLORS_QUERY.addEventListener("change", this);
      Services.prefs.addObserver(PREF_USE_SYSTEM_COLORS, this);
@@ -8,7 +8,7 @@
      Services.obs.addObserver(this, "look-and-feel-changed");
      this._update();
    },
-@@ -3732,6 +3733,7 @@
+@@ -4203,6 +4204,7 @@ const AppearanceChooser = {
  
    destroy() {
      Services.prefs.removeObserver(PREF_USE_SYSTEM_COLORS, this);
@@ -16,11 +16,12 @@
      Services.obs.removeObserver(this, "look-and-feel-changed");
      FORCED_COLORS_QUERY.removeEventListener("change", this);
    },
-@@ -3771,5 +3773,33 @@
+@@ -4242,5 +4244,33 @@ const AppearanceChooser = {
        (AppConstants.platform == "win" ||
          !Services.prefs.getBoolPref(PREF_USE_SYSTEM_COLORS));
      this.warning.hidden = !forcingColorsAndNoColorSchemeSupport;
 +
++    document.getElementById("web-appearance-rfp-warning")?.remove();
 +    if (Services.prefs.getBoolPref("privacy.resistFingerprinting")) {
 +      document.getElementById("web-appearance-chooser").style.opacity = 0.3;
 +      document.getElementById("web-appearance-chooser").style.pointerEvents = "none";
@@ -44,7 +45,6 @@
 +      infoBox.appendChild(learnMore);
 +      document.getElementById("webAppearanceSettings").insertBefore(infoBox, document.getElementById("webAppearanceSettings").children[2]);
 +    } else {
-+      document.getElementById("web-appearance-rfp-warning")?.remove();
 +      document.getElementById("web-appearance-chooser").style.opacity = 1;
 +      document.getElementById("web-appearance-chooser").style.pointerEvents = "all";
 +    }
