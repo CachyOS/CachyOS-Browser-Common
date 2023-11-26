@@ -1,1 +1,2 @@
 0032-bmo-1773259-cbindgen-root_clip_chain-fix.patch
+0004-bmo-847568-Support-system-graphite2.patch
