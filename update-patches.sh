@@ -68,3 +68,8 @@ rebrand "cachy-browser\/cachy-browser-pref-pane.patch" "librewolf\/librewolf-pre
 
 # we do that after rebrand step is done
 $UPPER/manage-librewolf-patchlist.py --file="librewolf-patchset.txt" --exclude="windows-theming-bug,rust-gentoo-musl,flatpak-autoconf"
+
+cd $UPPER
+# patch our logo to devtools
+patch -Np1 -i lw-cachy-logo-devtools.patch
+
