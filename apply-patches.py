@@ -85,7 +85,7 @@ def gentoo_patches(firefox_folder: str, common_srcdir: str):
             blacklist_patches = f.read().splitlines()
 
     for patch_file in patch_files:
-        if any(denied_patch in patch_file for denied_patch in blacklist_filepath):
+        if any(denied_patch in patch_file for denied_patch in blacklist_patches):
             continue
         patch_filename = join(gentoo_path, patch_file)
         patch(patch_filename)
@@ -97,14 +97,14 @@ def librewolf_patches(firefox_folder: str, common_srcdir: str, settings_srcdir: 
     enter_srcdir(firefox_folder)
 
     # copy branding files..
-    exec(f'cp -r {0} .'.format(join(common_srcdir, 'source_files/browser')))
+    exec('cp -r {0} .'.format(join(common_srcdir, 'source_files/browser')))
 
     # copy the right search-config.json file
-    exec(f'cp -v {0} services/settings/dumps/main/search-config.json'.format(join(common_srcdir, 'source_files/search-config.json')))
+    exec('cp -v {0} services/settings/dumps/main/search-config.json'.format(join(common_srcdir, 'source_files/search-config.json')))
     
     # read lines of .txt file into 'patches'
     with open(join(common_srcdir, 'patches/librewolf-patchset.txt'), 'r') as f:
-        for line in f.readlines():
+        for line in f.read().splitlines():
             patch(join(common_srcdir, line))
 
     # apply xmas.patch seperately because not all builders use this repo the same way, and
@@ -118,9 +118,9 @@ def librewolf_patches(firefox_folder: str, common_srcdir: str, settings_srcdir: 
 
     exec('mkdir -p lw')
     enter_srcdir('lw')
-    exec(f'cp -v {0} .'.format(join(settings_srcdir, 'cachyos.cfg')))
-    exec(f'cp -v {0} .'.format(join(settings_srcdir, 'distribution/policies.json')))
-    exec(f'cp -v {0} .'.format(join(settings_srcdir, 'defaults/pref/local-settings.js')))
+    exec('cp -v {0} .'.format(join(settings_srcdir, 'cachyos.cfg')))
+    exec('cp -v {0} .'.format(join(settings_srcdir, 'distribution/policies.json')))
+    exec('cp -v {0} .'.format(join(settings_srcdir, 'defaults/pref/local-settings.js')))
     leave_srcdir();
 
 
@@ -132,12 +132,12 @@ def librewolf_patches(firefox_folder: str, common_srcdir: str, settings_srcdir: 
     # 1) patch it in
     patch(join(common_srcdir, 'patches/pref-pane/pref-pane-small.patch'))
     # 2) new files
-    exec(f'cp {0} browser/themes/shared/preferences/category-cachy-browser.svg'.format(join(common_srcdir, 'patches/pref-pane/category-cachy-browser.svg')))
-    exec(f'cp {0} browser/themes/shared/preferences/cachy-browser.css'.format(join(common_srcdir, 'patches/pref-pane/cachy-browser.css')))
-    exec(f'cp {0} browser/components/preferences/cachy-browser.inc.xhtml'.format(join(common_srcdir, 'patches/pref-pane/cachy-browser.inc.xhtml')))
-    exec(f'cp {0} browser/components/preferences/cachy-browser.js'.format(join(common_srcdir, 'patches/pref-pane/cachy-browser.js')))
+    exec('cp {0} browser/themes/shared/preferences/category-cachy-browser.svg'.format(join(common_srcdir, 'patches/pref-pane/category-cachy-browser.svg')))
+    exec('cp {0} browser/themes/shared/preferences/cachy-browser.css'.format(join(common_srcdir, 'patches/pref-pane/cachy-browser.css')))
+    exec('cp {0} browser/components/preferences/cachy-browser.inc.xhtml'.format(join(common_srcdir, 'patches/pref-pane/cachy-browser.inc.xhtml')))
+    exec('cp {0} browser/components/preferences/cachy-browser.js'.format(join(common_srcdir, 'patches/pref-pane/cachy-browser.js')))
     # 3) append our locale string values to preferences.ftl
-    exec(f'cat browser/locales/en-US/browser/preferences/preferences.ftl {0} > preferences.ftl'.format(join(common_srcdir, 'patches/pref-pane/preferences.ftl')))
+    exec('cat browser/locales/en-US/browser/preferences/preferences.ftl {0} > preferences.ftl'.format(join(common_srcdir, 'patches/pref-pane/preferences.ftl')))
     exec('mv preferences.ftl browser/locales/en-US/browser/preferences/preferences.ftl')
 
     # generate locales
