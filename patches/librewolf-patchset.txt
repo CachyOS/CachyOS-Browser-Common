@@ -6,8 +6,8 @@ patches/librewolf/custom-ubo-assets-bootstrap-location.patch
 patches/librewolf/dbus_name.patch
 patches/librewolf/devtools-bypass.patch
 patches/librewolf/disable-data-reporting-at-compile-time.patch
-patches/librewolf/fullpage-translations.patch
 patches/librewolf/fullpage-translations-customization.patch
+patches/librewolf/fullpage-translations.patch
 patches/librewolf/hide-passwordmgr.patch
 patches/librewolf/cachy-browser-prefs.patch
 patches/librewolf/mozilla_dirs.patch
@@ -16,6 +16,7 @@ patches/librewolf/remove_addons.patch
 patches/sed-patches/allow-searchengines-non-esr.patch
 patches/sed-patches/disable-pocket.patch
 patches/sed-patches/stop-undesired-requests.patch
+patches/librewolf-ui/allow_cookies_for_site.patch
 patches/librewolf-ui/firefox-view.patch
 patches/librewolf-ui/handlers.patch
 patches/librewolf-ui/hide-default-browser.patch
