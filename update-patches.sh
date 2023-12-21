@@ -2,12 +2,12 @@
 
 set -e
 
-cd "`dirname "$0"`"
+cd "$(dirname "$0")"
 
 UPPER="$PWD"
 
 function move {
-    mv -v $1 "$UPPER/patches/$2" || true
+    mv -v "$1" "$UPPER/patches/$2" || true
 }
 
 rebrand() {
@@ -18,7 +18,7 @@ rebrand() {
 rm -rf patches/{sed-patches,librewolf-ui,unity_kde,librewolf,pref-pane}/*
 
 [[ -d "librewolf" ]] || git clone --depth 1 -q "https://gitlab.com/librewolf-community/browser/source.git" librewolf
-cd $UPPER/librewolf/patches
+cd "$UPPER/librewolf/patches"
 
 for entry in "sed-patches/"*; do move "$entry" sed-patches; done;
 for entry in "ui-patches/"*; do move "$entry" librewolf-ui; done;
@@ -32,21 +32,21 @@ for entry in "./pref-pane/"*; do
     [[ -d "$entry" ]] || move "$entry" pref-pane
 done
 
-cd $UPPER
+cd "$UPPER"
 rm -rf librewolf
 
-cd $UPPER/patches
+cd "$UPPER/patches"
 
 # remove and rename files at pref-pane
 rm -f pref-pane/README.md
-$UPPER/rename-files.py pref-pane librewolf cachy-browser
-cp $UPPER/category-cachy-browser.svg pref-pane/category-cachy-browser.svg
+"$UPPER"/rename-files.py pref-pane librewolf cachy-browser
+cp "$UPPER"/category-cachy-browser.svg pref-pane/category-cachy-browser.svg
 
 # rename file names in librewolf patchset folders
-$UPPER/rename-files.py sed-patches librewolf cachy-browser
-$UPPER/rename-files.py librewolf-ui librewolf cachy-browser
-$UPPER/rename-files.py unity_kde librewolf cachy-browser
-$UPPER/rename-files.py librewolf librewolf cachy-browser
+"$UPPER"/rename-files.py sed-patches librewolf cachy-browser
+"$UPPER"/rename-files.py librewolf-ui librewolf cachy-browser
+"$UPPER"/rename-files.py unity_kde librewolf cachy-browser
+"$UPPER"/rename-files.py librewolf librewolf cachy-browser
 
 curl -o librewolf-patchset.txt 'https://gitlab.com/librewolf-community/browser/source/-/raw/main/assets/patches.txt'
 
@@ -67,9 +67,9 @@ rebrand cachy-browser.cfg cachyos.cfg
 rebrand "cachy-browser\/cachy-browser-pref-pane.patch" "librewolf\/librewolf-pref-pane.patch"
 
 # we do that after rebrand step is done
-$UPPER/manage-librewolf-patchlist.py --file="librewolf-patchset.txt" --exclude="windows-theming-bug,rust-gentoo-musl,flatpak-autoconf"
+"$UPPER"/manage-librewolf-patchlist.py --file="librewolf-patchset.txt" --exclude="windows-theming-bug,rust-gentoo-musl,flatpak-autoconf"
 
-cd $UPPER
+cd "$UPPER"
 # patch our logo to devtools
 patch -Np1 -i lw-cachy-logo-devtools.patch
 
