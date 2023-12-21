@@ -60,7 +60,7 @@ def enter_srcdir(directory: str):
     if not options.no_execute:
         try:
             os.chdir(directory)
-        except:
+        except Exception:
             print(f"fatal error: can't change to '{directory}' folder.")
             sys.stdout.flush()
             script_exit(1)
@@ -101,7 +101,7 @@ def librewolf_patches(firefox_folder: str, common_srcdir: str, settings_srcdir: 
 
     # copy the right search-config.json file
     exec('cp -v {0} services/settings/dumps/main/search-config.json'.format(join(common_srcdir, 'source_files/search-config.json')))
-    
+
     # read lines of .txt file into 'patches'
     with open(join(common_srcdir, 'patches/librewolf-patchset.txt'), 'r') as f:
         for line in f.read().splitlines():
@@ -121,10 +121,10 @@ def librewolf_patches(firefox_folder: str, common_srcdir: str, settings_srcdir: 
     exec('cp -v {0} .'.format(join(settings_srcdir, 'cachyos.cfg')))
     exec('cp -v {0} .'.format(join(settings_srcdir, 'distribution/policies.json')))
     exec('cp -v {0} .'.format(join(settings_srcdir, 'defaults/pref/local-settings.js')))
-    leave_srcdir();
+    leave_srcdir()
 
 
-    
+
     #
     # pref-pane patches
     #
@@ -142,7 +142,7 @@ def librewolf_patches(firefox_folder: str, common_srcdir: str, settings_srcdir: 
 
     # generate locales
     #exec("bash ../scripts/generate-locales.sh")
-    
+
     leave_srcdir()
 
 #

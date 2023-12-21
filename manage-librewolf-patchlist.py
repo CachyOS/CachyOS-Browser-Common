@@ -1,9 +1,7 @@
 #!/usr/bin/python
 
-import sys
-import os
 import optparse
-from os.path import isfile, join
+from os.path import join
 
 parser = optparse.OptionParser()
 parser.add_option("-f", "--file",
