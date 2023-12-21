@@ -8,10 +8,9 @@
 # This patch removes the Firefox View from the toolbar by default. Users can
 # enable it again by using the "Customize Toolbar" mode and dragging it back to
 # the titlebar.
-diff --git a/browser/base/content/browser.js b/browser/base/content/browser.js
 --- a/browser/base/content/browser.js
 +++ b/browser/base/content/browser.js
-@@ -9929,10 +9929,11 @@ var FirefoxViewHandler = {
+@@ -9940,10 +9940,11 @@ var FirefoxViewHandler = {
        !this._enabled
      );
      document.getElementById("menu_openFirefoxView").hidden = !this._enabled;
@@ -27,7 +26,6 @@ diff --git a/browser/base/content/browser.js b/browser/base/content/browser.js
    },
    onWidgetRemoved(aWidgetId) {
      if (aWidgetId == this.BUTTON_ID && this.tab) {
-diff --git a/browser/base/content/navigator-toolbox.inc.xhtml b/browser/base/content/navigator-toolbox.inc.xhtml
 --- a/browser/base/content/navigator-toolbox.inc.xhtml
 +++ b/browser/base/content/navigator-toolbox.inc.xhtml
 @@ -35,16 +35,6 @@
@@ -47,7 +45,7 @@ diff --git a/browser/base/content/navigator-toolbox.inc.xhtml b/browser/base/con
            <tabs id="tabbrowser-tabs"
                  is="tabbrowser-tabs"
                  aria-multiselectable="true"
-@@ -716,5 +706,15 @@
+@@ -712,5 +702,15 @@
                     closemenu="none"
                     cui-areatype="toolbar"
                     data-l10n-id="navbar-library"/>
@@ -63,7 +61,6 @@ diff --git a/browser/base/content/navigator-toolbox.inc.xhtml b/browser/base/con
 +                   removable="true"/>
    </html:template>
  </toolbox>
-diff --git a/browser/components/customizableui/CustomizableUI.sys.mjs b/browser/components/customizableui/CustomizableUI.sys.mjs
 --- a/browser/components/customizableui/CustomizableUI.sys.mjs
 +++ b/browser/components/customizableui/CustomizableUI.sys.mjs
 @@ -287,7 +287,6 @@ var CustomizableUIInternal = {
@@ -93,7 +90,6 @@ diff --git a/browser/components/customizableui/CustomizableUI.sys.mjs b/browser/
      // Unified Extensions addon button migration, which puts any browser action
      // buttons in the overflow menu into the addons panel instead.
      if (currentVersion < 19) {
-diff --git a/browser/components/firefoxview/firefoxview.html b/browser/components/firefoxview/firefoxview.html
 --- a/browser/components/firefoxview/firefoxview.html
 +++ b/browser/components/firefoxview/firefoxview.html
 @@ -61,6 +61,7 @@
@@ -104,64 +100,3 @@ diff --git a/browser/components/firefoxview/firefoxview.html b/browser/component
        >
          <summary class="page-section-header">
            <span
-diff --git a/browser/components/newtab/lib/OnboardingMessageProvider.jsm b/browser/components/newtab/lib/OnboardingMessageProvider.jsm
---- a/browser/components/newtab/lib/OnboardingMessageProvider.jsm
-+++ b/browser/components/newtab/lib/OnboardingMessageProvider.jsm
-@@ -78,57 +78,6 @@ const BASE_MESSAGES = () => [
-     trigger: { id: "protectionsPanelOpen" },
-   },
-   {
--    id: "CFR_FIREFOX_VIEW",
--    groups: ["cfr"],
--    template: "cfr_doorhanger",
--    //If Firefox View button has been moved to the overflow menu, we want to change the anchor element
--    content: {
--      bucket_id: "CFR_FIREFOX_VIEW",
--      anchor_id: "firefox-view-button",
--      alt_anchor_id: "nav-bar-overflow-button",
--      layout: "icon_and_message",
--      icon: "chrome://browser/content/cfr-lightning.svg",
--      icon_dark_theme: "chrome://browser/content/cfr-lightning-dark.svg",
--      icon_class: "cfr-doorhanger-small-icon",
--      heading_text: {
--        string_id: "firefoxview-cfr-header-v2",
--      },
--      text: {
--        string_id: "firefoxview-cfr-body-v2",
--      },
--      buttons: {
--        primary: {
--          label: {
--            string_id: "firefoxview-cfr-primarybutton",
--          },
--          action: {
--            type: "OPEN_FIREFOX_VIEW",
--            navigate: true,
--          },
--        },
--        secondary: [
--          {
--            label: {
--              string_id: "firefoxview-cfr-secondarybutton",
--            },
--            action: {
--              type: "CANCEL",
--            },
--          },
--        ],
--      },
--      skip_address_bar_notifier: true,
--    },
--    frequency: {
--      lifetime: 1,
--    },
--    trigger: {
--      id: "nthTabClosed",
--    },
--    // Avoid breaking existing tests that close tabs for now.
--    targeting: `!inMr2022Holdback && fxViewButtonAreaType != null && (currentDate|date - profileAgeCreated) / 86400000 >= 2 && tabsClosedCount >= 3 && 'browser.firefox-view.view-count'|preferenceValue == 0 && !'browser.newtabpage.activity-stream.asrouter.providers.cfr'|preferenceIsUserSet`,
--  },
--  {
-     id: "FX_MR_106_UPGRADE",
-     template: "spotlight",
-     targeting: "true",

@@ -1,4 +1,3 @@
-diff --git a/services/settings/Attachments.sys.mjs b/services/settings/Attachments.sys.mjs
 --- a/services/settings/Attachments.sys.mjs
 +++ b/services/settings/Attachments.sys.mjs
 @@ -133,6 +133,7 @@ export class Downloader {
@@ -73,10 +72,9 @@ diff --git a/services/settings/Attachments.sys.mjs b/services/settings/Attachmen
    }
  
    async _fetchAttachment(url) {
-diff --git a/services/settings/RemoteSettingsClient.sys.mjs b/services/settings/RemoteSettingsClient.sys.mjs
 --- a/services/settings/RemoteSettingsClient.sys.mjs
 +++ b/services/settings/RemoteSettingsClient.sys.mjs
-@@ -305,6 +305,7 @@ export class RemoteSettingsClient extend
+@@ -305,6 +305,7 @@ export class RemoteSettingsClient extends EventEmitter {
        localFields = [],
        keepAttachmentsIds = [],
        lastCheckTimePref,
@@ -84,7 +82,7 @@ diff --git a/services/settings/RemoteSettingsClient.sys.mjs b/services/settings/
      } = {}
    ) {
      // Remote Settings cannot be used in child processes (no access to disk,
-@@ -334,6 +335,7 @@ export class RemoteSettingsClient extend
+@@ -334,6 +335,7 @@ export class RemoteSettingsClient extends EventEmitter {
      this._lastCheckTimePref = lastCheckTimePref;
      this._verifier = null;
      this._syncRunning = false;
@@ -92,7 +90,7 @@ diff --git a/services/settings/RemoteSettingsClient.sys.mjs b/services/settings/
  
      // This attribute allows signature verification to be disabled, when running tests
      // or when pulling data from a dev server.
-@@ -375,9 +377,12 @@ export class RemoteSettingsClient extend
+@@ -375,9 +377,12 @@ export class RemoteSettingsClient extends EventEmitter {
    }
  
    httpClient() {
@@ -108,7 +106,7 @@ diff --git a/services/settings/RemoteSettingsClient.sys.mjs b/services/settings/
      return api.bucket(this.bucketName).collection(this.collectionName);
    }
  
-@@ -600,7 +605,7 @@ export class RemoteSettingsClient extend
+@@ -604,7 +609,7 @@ export class RemoteSettingsClient extends EventEmitter {
      // We want to know which timestamp we are expected to obtain in order to leverage
      // cache busting. We don't provide ETag because we don't want a 304.
      const { changes } = await lazy.Utils.fetchLatestChanges(
@@ -117,46 +115,9 @@ diff --git a/services/settings/RemoteSettingsClient.sys.mjs b/services/settings/
        {
          filters: {
            collection: this.collectionName,
-diff --git a/toolkit/components/translations/actors/TranslationsParent.sys.mjs b/toolkit/components/translations/actors/TranslationsParent.sys.mjs
 --- a/toolkit/components/translations/actors/TranslationsParent.sys.mjs
 +++ b/toolkit/components/translations/actors/TranslationsParent.sys.mjs
-@@ -854,9 +854,8 @@ export class TranslationsParent extends 
-       // Place the records into a promise to prevent any races.
-       TranslationsParent.#languageIdModelRecord = (async () => {
-         /** @type {LanguageIdModelRecord[]} */
--        let modelRecords = await TranslationsParent.getMaxVersionRecords(
--          client
--        );
-+        let modelRecords =
-+          await TranslationsParent.getMaxVersionRecords(client);
- 
-         if (modelRecords.length === 0) {
-           throw new Error(
-@@ -881,7 +880,10 @@ export class TranslationsParent extends 
-     try {
-       /** @type {{buffer: ArrayBuffer}} */
-       const { buffer } = await client.attachments.download(
--        await TranslationsParent.#languageIdModelRecord
-+        await TranslationsParent.#languageIdModelRecord,
-+        {
-+          serverUrl: "https://firefox.settings.services.mozilla.com/v1",
-+        }
-       );
- 
-       const duration = (Date.now() - now) / 1000;
-@@ -968,7 +970,10 @@ export class TranslationsParent extends 
- 
-       /** @type {{buffer: ArrayBuffer}} */
-       const { buffer } = await client.attachments.download(
--        await TranslationsParent.#languageIdWasmRecord
-+        await TranslationsParent.#languageIdWasmRecord,
-+        {
-+          serverUrl: "https://firefox.settings.services.mozilla.com/v1",
-+        }
-       );
- 
-       const duration = (Date.now() - start) / 1000;
-@@ -1147,7 +1152,9 @@ export class TranslationsParent extends 
+@@ -1143,7 +1143,9 @@ export class TranslationsParent extends JSWindowActorParent {
      }
  
      /** @type {RemoteSettingsClient} */
@@ -167,7 +128,7 @@ diff --git a/toolkit/components/translations/actors/TranslationsParent.sys.mjs b
      TranslationsParent.#translationModelsRemoteClient = client;
      client.on("sync", TranslationsParent.#handleTranslationsModelsSync);
      return client;
-@@ -1456,7 +1463,10 @@ export class TranslationsParent extends 
+@@ -1489,7 +1491,10 @@ export class TranslationsParent extends JSWindowActorParent {
  
        /** @type {{buffer: ArrayBuffer}} */
        const { buffer } = await client.attachments.download(
@@ -179,7 +140,7 @@ diff --git a/toolkit/components/translations/actors/TranslationsParent.sys.mjs b
        );
  
        const duration = Date.now() - start;
-@@ -1507,7 +1517,9 @@ export class TranslationsParent extends 
+@@ -1540,7 +1545,9 @@ export class TranslationsParent extends JSWindowActorParent {
      )) {
        const download = () => {
          lazy.console.log("Downloading record", record.name, record.id);
@@ -190,7 +151,7 @@ diff --git a/toolkit/components/translations/actors/TranslationsParent.sys.mjs b
        };
        queue.push({ download });
      }
-@@ -1531,7 +1543,10 @@ export class TranslationsParent extends 
+@@ -1564,7 +1571,10 @@ export class TranslationsParent extends JSWindowActorParent {
          onFailure: () => {
            console.error("Failed to download", record.name);
          },
@@ -202,7 +163,7 @@ diff --git a/toolkit/components/translations/actors/TranslationsParent.sys.mjs b
        });
      }
  
-@@ -1700,7 +1715,9 @@ export class TranslationsParent extends 
+@@ -1727,7 +1737,9 @@ export class TranslationsParent extends JSWindowActorParent {
          await chaosMode(1 / 3);
  
          /** @type {{buffer: ArrayBuffer }} */
