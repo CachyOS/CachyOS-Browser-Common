@@ -26,6 +26,5 @@ patches/librewolf-ui/privacy-preferences.patch
 patches/librewolf-ui/remove-branding-urlbar.patch
 patches/librewolf-ui/remove-cfrprefs.patch
 patches/librewolf-ui/remove-organization-policy-banner.patch
-patches/librewolf-ui/remove-snippets-from-home.patch
 patches/librewolf-ui/website-appearance-ui-rfp.patch
 patches/librewolf/urlbarprovider-interventions.patch

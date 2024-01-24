@@ -1,6 +1,6 @@
 --- a/browser/locales/en-US/browser/preferences/preferences.ftl
 +++ b/browser/locales/en-US/browser/preferences/preferences.ftl
-@@ -128,6 +128,8 @@ search-results-help-link = Need help? Visit <a data-l10n-name="url">{ -brand-sho
+@@ -142,6 +142,8 @@ search-results-help-link = Need help? Visit <a data-l10n-name="url">{ -brand-sho
  
  startup-header = Startup
  
@@ -9,7 +9,7 @@
  always-check-default =
      .label = Always check if { -brand-short-name } is your default browser
      .accesskey = y
-@@ -472,7 +474,7 @@ play-drm-content =
+@@ -489,7 +491,7 @@ play-drm-content =
      .label = Play DRM-controlled content
      .accesskey = P
  
@@ -18,7 +18,7 @@
  
  update-application-title = { -brand-short-name } Updates
  
-@@ -480,7 +482,7 @@ update-application-description = Keep { -brand-short-name } up to date for the b
+@@ -497,7 +499,7 @@ update-application-description = Keep { -brand-short-name } up to date for the b
  
  # Variables:
  # $version (string) - Firefox version
@@ -27,7 +27,7 @@
  
  update-history =
      .label = Show Update History…
-@@ -639,7 +641,7 @@ home-restore-defaults =
+@@ -664,7 +666,7 @@ home-restore-defaults =
      .accesskey = R
  
  home-mode-choice-default-fx =
@@ -36,7 +36,7 @@
  
  home-mode-choice-custom =
      .label = Custom URLs…
-@@ -668,8 +670,8 @@ choose-bookmark =
+@@ -693,8 +695,8 @@ choose-bookmark =
  
  ## Home Section - Firefox Home Content Customization
  
@@ -47,12 +47,3 @@
  
  home-prefs-search-header =
      .label = Web Search
-@@ -714,7 +716,7 @@ home-prefs-recent-activity-description = A selection of recent sites and content
- home-prefs-snippets-header =
-     .label = Snippets
- 
--home-prefs-snippets-description-new = Tips and news from { -vendor-short-name } and { -brand-product-name }
-+home-prefs-snippets-description-new = Tips and news from { -vendor-short-name }
- 
- # Variables:
- #   $num (number) - Number of rows displayed
