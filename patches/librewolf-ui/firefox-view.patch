@@ -2,30 +2,12 @@
 #
 # Author:        Malte Jürgens <maltejur@dismail.de>
 # Description:   Hide "Firefox View" by default
-# Last Updated:  2023-11-04
+# Last Updated:  2024-02-23
 # License:       MPL 2.0
 #
 # This patch removes the Firefox View from the toolbar by default. Users can
 # enable it again by using the "Customize Toolbar" mode and dragging it back to
 # the titlebar.
---- a/browser/base/content/browser.js
-+++ b/browser/base/content/browser.js
-@@ -9940,10 +9940,11 @@ var FirefoxViewHandler = {
-       !this._enabled
-     );
-     document.getElementById("menu_openFirefoxView").hidden = !this._enabled;
--    document.getElementById("firefox-view-button").style.listStyleImage =
--      NimbusFeatures.firefoxViewNext.getVariable("newIcon")
--        ? ""
--        : 'url("chrome://branding/content/about-logo.png")';
-+    if (this.button)
-+      this.button.style.listStyleImage =
-+        NimbusFeatures.firefoxViewNext.getVariable("newIcon")
-+          ? ""
-+          : 'url("chrome://branding/content/about-logo.png")';
-   },
-   onWidgetRemoved(aWidgetId) {
-     if (aWidgetId == this.BUTTON_ID && this.tab) {
 --- a/browser/base/content/navigator-toolbox.inc.xhtml
 +++ b/browser/base/content/navigator-toolbox.inc.xhtml
 @@ -35,16 +35,6 @@
@@ -37,15 +19,15 @@
 -                         data-l10n-id="toolbar-button-firefox-view-2"
 -                         role="button"
 -                         aria-pressed="false"
--                         oncommand="FirefoxViewHandler.openTab(event);"
--                         onmousedown="FirefoxViewHandler.openTab(event);"
+-                         oncommand="FirefoxViewHandler.openTab();"
+-                         onmousedown="FirefoxViewHandler.openToolbarMouseEvent(event);"
 -                         cui-areatype="toolbar"
 -                         removable="true"/>
 -
            <tabs id="tabbrowser-tabs"
                  is="tabbrowser-tabs"
                  aria-multiselectable="true"
-@@ -712,5 +702,15 @@
+@@ -718,5 +708,15 @@
                     closemenu="none"
                     cui-areatype="toolbar"
                     data-l10n-id="navbar-library"/>
@@ -55,8 +37,8 @@
 +                   data-l10n-id="toolbar-button-firefox-view-2"
 +                   role="button"
 +                   aria-pressed="false"
-+                   oncommand="FirefoxViewHandler.openTab(event);"
-+                   onmousedown="FirefoxViewHandler.openTab(event);"
++                   oncommand="FirefoxViewHandler.openTab();"
++                   onmousedown="FirefoxViewHandler.openToolbarMouseEvent(event);"
 +                   cui-areatype="toolbar"
 +                   removable="true"/>
    </html:template>
@@ -90,13 +72,3 @@
      // Unified Extensions addon button migration, which puts any browser action
      // buttons in the overflow menu into the addons panel instead.
      if (currentVersion < 19) {
---- a/browser/components/firefoxview/firefoxview.html
-+++ b/browser/components/firefoxview/firefoxview.html
-@@ -61,6 +61,7 @@
-         is="tab-pickup-container"
-         id="tab-pickup-container"
-         open
-+	hidden
-       >
-         <summary class="page-section-header">
-           <span
