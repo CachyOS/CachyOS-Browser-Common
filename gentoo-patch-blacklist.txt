@@ -1,5 +1,5 @@
 0032-bmo-1773259-cbindgen-root_clip_chain-fix.patch
 0004-bmo-847568-Support-system-graphite2.patch
-0028-bgo-919418-ppc64-flac-decoder-unsupported.patch
+0024-bgo-919418-ppc64-flac-decoder-unsupported.patch
 0027-bmo-1743144-add-wayland-proxy-cache.patch
 0029-bmo-1793001-switch-egrep-to-grepE.patch
