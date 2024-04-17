@@ -9,7 +9,6 @@ patches/librewolf/disable-data-reporting-at-compile-time.patch
 patches/librewolf/fullpage-translations-customization.patch
 patches/librewolf/hide-passwordmgr.patch
 patches/librewolf/cachy-browser-prefs.patch
-patches/librewolf/macos-14.4-sdk.patch
 patches/librewolf/mozilla_dirs.patch
 patches/librewolf/msix.patch
 patches/librewolf/remove_addons.patch
