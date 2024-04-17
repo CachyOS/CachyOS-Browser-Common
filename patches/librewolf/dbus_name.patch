@@ -50,7 +50,7 @@
 @@ -38,7 +38,7 @@ static const char* introspect_template =
  bool nsDBusRemoteServer::HandleOpenURL(const gchar* aInterfaceName,
                                         const gchar* aMethodName,
-                                        const nsACString& aParam) {
+                                        const gchar* aParam) {
 -  nsPrintfCString ourInterfaceName("org.mozilla.%s", mAppName.get());
 +  nsPrintfCString ourInterfaceName("org.cachyos.%s", mAppName.get());
  
