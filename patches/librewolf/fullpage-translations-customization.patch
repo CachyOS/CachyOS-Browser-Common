@@ -1,16 +1,3 @@
-diff --git a/browser/base/content/main-popupset.inc.xhtml b/browser/base/content/main-popupset.inc.xhtml
-index 2633ccd..d2156e6 100644
---- a/browser/base/content/main-popupset.inc.xhtml
-+++ b/browser/base/content/main-popupset.inc.xhtml
-@@ -654,6 +654,8 @@
-               checked="false"
-               autocheck="false"
-               oncommand="TranslationsPanel.onNeverTranslateSite()"/>
-+    <menuitem data-l10n-id="translations-panel-disable-translations"
-+              oncommand="TranslationsPanel.openDisableTranslations()"/>
-     <menuseparator/>
-     <menuitem class="manage-languages-menuitem"
-               data-l10n-id="translations-panel-settings-manage-languages"
 diff --git a/browser/components/preferences/main.inc.xhtml b/browser/components/preferences/main.inc.xhtml
 index 30b9076..c338c45 100644
 --- a/browser/components/preferences/main.inc.xhtml
@@ -159,23 +146,6 @@ index 08c91c4..ef459f9 100644
      class TranslationsState {
        /**
         * The fully initialized state.
-diff --git a/browser/components/translations/content/translationsPanel.js b/browser/components/translations/content/translationsPanel.js
-index b9916dc..1ff8d64 100644
---- a/browser/components/translations/content/translationsPanel.js
-+++ b/browser/components/translations/content/translationsPanel.js
-@@ -1318,6 +1318,12 @@ var TranslationsPanel = new (class {
-     );
-   }
- 
-+  openDisableTranslations() {
-+    const window =
-+      gBrowser.selectedBrowser.browsingContext.top.embedderElement.ownerGlobal;
-+    window.openTrustedLinkIn("about:preferences#general-translations-enable", "tab");
-+  }
-+
-   /**
-    * Redirect the user to about:preferences
-    */
 diff --git a/browser/locales/en-US/browser/translations.ftl b/browser/locales/en-US/browser/translations.ftl
 index 8483a45..14478f4 100644
 --- a/browser/locales/en-US/browser/translations.ftl
