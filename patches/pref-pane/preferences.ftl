@@ -64,7 +64,7 @@ cachy-browser-styling-description = Enable this if you want to customize the UI 
 cachy-browser-styling-warning1 = Make sure you trust the provider of the theme.
 
 cachy-browser-xorigin-ref-description = Send a referrer only on same-origin.
-cachy-browser-xorigin-ref-warning1 = This causes breakage. Additionally, even when sent referrers will still be trimmed.
+cachy-browser-xorigin-ref-warning1 = This may cause breakage. Additionally, even when sent referrers will still be trimmed.
 
 cachy-browser-webgl-description = WebGL is a strong fingerprinting vector.
 cachy-browser-webgl-warning1 = If you need to enable it, consider using an extension like Canvas Blocker.

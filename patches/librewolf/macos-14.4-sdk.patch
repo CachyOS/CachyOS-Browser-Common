@@ -1,0 +1,290 @@
+
+# HG changeset patch
+# User Mike Hommey <mh+mozilla@glandium.org>
+# Date 1711660976 0
+# Node ID 8be9ea6653df923855fd29cadc7a8bbc19b4d17a
+# Parent  ae692bd82987d08d9bb245af61e0ecd0e288b51a
+Bug 1887728 - Switch builds to macOS 14.4 SDK. r=spohl,firefox-build-system-reviewers,ahochheiden
+
+Differential Revision: https://phabricator.services.mozilla.com/D205627
+
+diff --git a/build/moz.configure/toolchain.configure b/build/moz.configure/toolchain.configure
+--- a/build/moz.configure/toolchain.configure
++++ b/build/moz.configure/toolchain.configure
+@@ -99,7 +99,7 @@ with only_when(host_is_osx | target_is_osx):
+         return Version(obj["Version"])
+ 
+     def sdk_min_version():
+-        return "14.2"
++        return "14.4"
+ 
+     @depends(
+         "--with-macos-sdk",
+diff --git a/python/mozbuild/mozbuild/test/configure/macos_fake_sdk/SDKSettings.plist b/python/mozbuild/mozbuild/test/configure/macos_fake_sdk/SDKSettings.plist
+--- a/python/mozbuild/mozbuild/test/configure/macos_fake_sdk/SDKSettings.plist
++++ b/python/mozbuild/mozbuild/test/configure/macos_fake_sdk/SDKSettings.plist
+@@ -1,8 +1,8 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+ <plist version="1.0">
+ <dict>
+         <key>Version</key>
+-        <string>14.2</string>
++        <string>14.4</string>
+ </dict>
+ </plist>
+diff --git a/taskcluster/ci/toolchain/macos-sdk.yml b/taskcluster/ci/toolchain/macos-sdk.yml
+--- a/taskcluster/ci/toolchain/macos-sdk.yml
++++ b/taskcluster/ci/toolchain/macos-sdk.yml
+@@ -32,17 +32,17 @@ macosx64-sdk-13.3:
+         toolchain-alias:
+             - MacOSX13.3.sdk
+ 
+-macosx64-sdk-14.2:
+-    description: "MacOSX14.2 SDK"
++macosx64-sdk-14.4:
++    description: "MacOSX14.4 SDK"
+     treeherder:
+-        symbol: TM(sdk14.2)
++        symbol: TM(sdk14.4)
+     run:
+         arguments:
+-            - https://swcdn.apple.com/content/downloads/35/47/042-23550-A_M34N50O9N3/sua6ev7bjcexvorh4709vsgk64zgvsl42p/CLTools_macOSNMOS_SDK.pkg
+-            - 22ce0acc9ab5c28845218b8c686d0208d6bf66bef64a369d3c0622247ba1258b438c9e44c64bb2bacf5e99eb398a6e7a337f2730cd4a969a7f0d2d5d3107306a
+-            - Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk
+-        toolchain-artifact: project/gecko/mac-sdk/MacOSX14.2.sdk.tar.zst
++            - https://swcdn.apple.com/content/downloads/14/48/052-59890-A_I0F5YGAY0Y/p9n40hio7892gou31o1v031ng6fnm9sb3c/CLTools_macOSNMOS_SDK.pkg
++            - a4e05d2a051027620c86f72694da126a2ceed59b8740270426c4ca3adb38e16fe981b536a373a7f0cdcc84bbe9d9149608ccd03967dbd94262548ccadbfa0f5d
++            - Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk
++        toolchain-artifact: project/gecko/mac-sdk/MacOSX14.4.sdk.tar.zst
+         toolchain-alias:
+             - macosx64-sdk
+             - macosx64-sdk-toolchain
+-            - MacOSX14.2.sdk
++            - MacOSX14.4.sdk
+diff --git a/taskcluster/ci/toolchain/misc.yml b/taskcluster/ci/toolchain/misc.yml
+--- a/taskcluster/ci/toolchain/misc.yml
++++ b/taskcluster/ci/toolchain/misc.yml
+@@ -226,17 +226,17 @@ macosx64-custom-car:
+             symbol_level=0,
+             target_cpu="x64",
+             use_v8_context_snapshot=false,
+             v8_symbol_level=0
+         ]
+         toolchain-artifact: public/build/car_macosx.tar.zst
+     fetches:
+         toolchain:
+-            - macosx64-sdk-14.2
++            - macosx64-sdk-14.4
+ 
+ macosx-arm64-custom-car:
+     description: "Custom chromium-as-release build for mac (apple silicon)"
+     worker-type: b-osx-1015
+     attributes:
+         cached_task: false
+     treeherder:
+         symbol: TM(custom-car-arm)
+@@ -262,17 +262,17 @@ macosx-arm64-custom-car:
+             symbol_level=0,
+             target_cpu="arm64",
+             use_v8_context_snapshot=false,
+             v8_symbol_level=0
+         ]
+         toolchain-artifact: public/build/car_macosx_arm.tar.zst
+     fetches:
+         toolchain:
+-            - macosx64-sdk-14.2
++            - macosx64-sdk-14.4
+ 
+ android-custom-car:
+     description: "Custom chromium-as-release build for Android"
+     attributes:
+         cached_task: false
+     treeherder:
+         symbol: TL(custom-car-android)
+     worker:
+diff --git a/taskcluster/scripts/misc/build-custom-car.sh b/taskcluster/scripts/misc/build-custom-car.sh
+--- a/taskcluster/scripts/misc/build-custom-car.sh
++++ b/taskcluster/scripts/misc/build-custom-car.sh
+@@ -50,17 +50,17 @@ if [ "$IS_ANDROID" = true ]; then
+   PGO_SUBSTR="android64"
+   FINAL_BIN_PATH="src/out/Default/apks"
+   FINAL_BIN=chrome_public_apk
+ fi
+ 
+ # Logic for macosx64
+ if [[ $(uname -s) == "Darwin" ]]; then
+   # Modify the config with fetched sdk path
+-  export MACOS_SYSROOT="$MOZ_FETCHES_DIR/MacOSX14.2.sdk"
++  export MACOS_SYSROOT="$MOZ_FETCHES_DIR/MacOSX14.4.sdk"
+ 
+   # Avoid mixing up the system python and toolchain python in the
+   # python path configuration
+   # https://bugs.python.org/issue22490
+   unset __PYVENV_LAUNCHER__
+ 
+   # Set the SDK path for build, which is technically a higher version
+   # than what is associated with the current OS version (10.15).
+diff --git a/taskcluster/scripts/misc/build-gn-macosx.sh b/taskcluster/scripts/misc/build-gn-macosx.sh
+--- a/taskcluster/scripts/misc/build-gn-macosx.sh
++++ b/taskcluster/scripts/misc/build-gn-macosx.sh
+@@ -1,16 +1,16 @@
+ #!/bin/bash
+ set -e -v
+ 
+ # This script is for building GN.
+ 
+ WORKSPACE=$HOME/workspace
+ 
+-CROSS_SYSROOT=$MOZ_FETCHES_DIR/MacOSX14.2.sdk
++CROSS_SYSROOT=$MOZ_FETCHES_DIR/MacOSX14.4.sdk
+ export MACOSX_DEPLOYMENT_TARGET=10.12
+ 
+ export CC=$MOZ_FETCHES_DIR/clang/bin/clang
+ export CXX=$MOZ_FETCHES_DIR/clang/bin/clang++
+ export AR=$MOZ_FETCHES_DIR/clang/bin/llvm-ar
+ export CFLAGS="-target x86_64-apple-darwin -isysroot ${CROSS_SYSROOT} -I${CROSS_SYSROOT}/usr/include -iframework ${CROSS_SYSROOT}/System/Library/Frameworks"
+ export CXXFLAGS="-stdlib=libc++ ${CFLAGS}"
+ export LDFLAGS="-fuse-ld=lld ${CXXFLAGS} -Wl,-syslibroot,${CROSS_SYSROOT} -Wl,-dead_strip"
+diff --git a/taskcluster/scripts/misc/build-llvm-common.sh b/taskcluster/scripts/misc/build-llvm-common.sh
+--- a/taskcluster/scripts/misc/build-llvm-common.sh
++++ b/taskcluster/scripts/misc/build-llvm-common.sh
+@@ -34,21 +34,21 @@ esac
+ case "$target" in
+ *-apple-darwin)
+   EXTRA_CMAKE_FLAGS="
+     $EXTRA_CMAKE_FLAGS
+     -DCMAKE_LINKER=$MOZ_FETCHES_DIR/clang/bin/ld64.lld
+     -DCMAKE_LIPO=$MOZ_FETCHES_DIR/clang/bin/llvm-lipo
+     -DCMAKE_SYSTEM_NAME=Darwin
+     -DCMAKE_SYSTEM_VERSION=$MACOSX_DEPLOYMENT_TARGET
+-    -DCMAKE_OSX_SYSROOT=$MOZ_FETCHES_DIR/MacOSX14.2.sdk
++    -DCMAKE_OSX_SYSROOT=$MOZ_FETCHES_DIR/MacOSX14.4.sdk
+     -DCMAKE_EXE_LINKER_FLAGS=-fuse-ld=lld
+     -DCMAKE_SHARED_LINKER_FLAGS=-fuse-ld=lld
+     -DDARWIN_osx_ARCHS=$arch
+-    -DDARWIN_osx_SYSROOT=$MOZ_FETCHES_DIR/MacOSX14.2.sdk
++    -DDARWIN_osx_SYSROOT=$MOZ_FETCHES_DIR/MacOSX14.4.sdk
+     -DDARWIN_macosx_OVERRIDE_SDK_VERSION=11.0
+     -DDARWIN_osx_BUILTIN_ARCHS=$arch
+     -DLLVM_DEFAULT_TARGET_TRIPLE=$target
+   "
+   # compiler-rt build script expects to find `codesign` in $PATH.
+   # Give it a fake one.
+   echo "#!/bin/sh" > codesign
+   chmod +x codesign
+diff --git a/taskcluster/scripts/misc/build-nasm.sh b/taskcluster/scripts/misc/build-nasm.sh
+--- a/taskcluster/scripts/misc/build-nasm.sh
++++ b/taskcluster/scripts/misc/build-nasm.sh
+@@ -33,23 +33,23 @@ case "$1" in
+     win64)
+         TARGET=x86_64-w64-mingw32
+         CC=x86_64-w64-mingw32-clang
+         EXE=.exe
+         ;;
+     macosx64)
+         export MACOSX_DEPLOYMENT_TARGET=10.12
+         TARGET=x86_64-apple-darwin
+-        CC="clang -fuse-ld=lld --target=$TARGET -isysroot $MOZ_FETCHES_DIR/MacOSX14.2.sdk"
++        CC="clang -fuse-ld=lld --target=$TARGET -isysroot $MOZ_FETCHES_DIR/MacOSX14.4.sdk"
+         EXE=
+ 	;;
+     macosx64-aarch64)
+         export MACOSX_DEPLOYMENT_TARGET=11.0
+         TARGET=aarch64-apple-darwin
+-        CC="clang -fuse-ld=lld --target=$TARGET -isysroot $MOZ_FETCHES_DIR/MacOSX14.2.sdk"
++        CC="clang -fuse-ld=lld --target=$TARGET -isysroot $MOZ_FETCHES_DIR/MacOSX14.4.sdk"
+         EXE=
+ 	;;
+     *)
+         CC="clang --sysroot=$MOZ_FETCHES_DIR/sysroot-x86_64-linux-gnu"
+         EXE=
+         ;;
+ esac
+ ./configure CC="$CC" AR=llvm-ar RANLIB=llvm-ranlib LDFLAGS=-fuse-ld=lld ${TARGET:+--host=$TARGET}
+diff --git a/taskcluster/scripts/misc/build-pkgconf.sh b/taskcluster/scripts/misc/build-pkgconf.sh
+--- a/taskcluster/scripts/misc/build-pkgconf.sh
++++ b/taskcluster/scripts/misc/build-pkgconf.sh
+@@ -11,23 +11,23 @@ export PATH="$MOZ_FETCHES_DIR/clang/bin:
+ case "$1" in
+ x86_64-unknown-linux-gnu)
+     CC="clang --sysroot=$MOZ_FETCHES_DIR/sysroot-x86_64-linux-gnu"
+     EXE=
+     ;;
+ x86_64-apple-darwin)
+     export MACOSX_DEPLOYMENT_TARGET=10.12
+     TARGET=$1
+-    CC="clang --target=$TARGET -isysroot $MOZ_FETCHES_DIR/MacOSX14.2.sdk"
++    CC="clang --target=$TARGET -isysroot $MOZ_FETCHES_DIR/MacOSX14.4.sdk"
+     EXE=
+     ;;
+ aarch64-apple-darwin)
+     export MACOSX_DEPLOYMENT_TARGET=11.0
+     TARGET=$1
+-    CC="clang --target=$TARGET -isysroot $MOZ_FETCHES_DIR/MacOSX14.2.sdk"
++    CC="clang --target=$TARGET -isysroot $MOZ_FETCHES_DIR/MacOSX14.4.sdk"
+     EXE=
+     ;;
+ x86_64-pc-windows-gnu)
+     TARGET=x86_64-w64-mingw32
+     CC="x86_64-w64-mingw32-clang -DPKGCONFIG_IS_STATIC=1"
+     EXE=.exe
+     ;;
+ esac
+diff --git a/taskcluster/scripts/misc/build-rust-based-toolchain.sh b/taskcluster/scripts/misc/build-rust-based-toolchain.sh
+--- a/taskcluster/scripts/misc/build-rust-based-toolchain.sh
++++ b/taskcluster/scripts/misc/build-rust-based-toolchain.sh
+@@ -26,18 +26,18 @@ x86_64-unknown-linux-gnu)
+     export RUSTFLAGS="-C linker=$GECKO_PATH/taskcluster/scripts/misc/osx-cross-linker"
+     if test "$TARGET" = "aarch64-apple-darwin"; then
+         export MACOSX_DEPLOYMENT_TARGET=11.0
+     else
+         export MACOSX_DEPLOYMENT_TARGET=10.12
+     fi
+     export CC="$MOZ_FETCHES_DIR/clang/bin/clang"
+     export CXX="$MOZ_FETCHES_DIR/clang/bin/clang++"
+-    export TARGET_CFLAGS="-isysroot $MOZ_FETCHES_DIR/MacOSX14.2.sdk"
+-    export TARGET_CXXFLAGS="-isysroot $MOZ_FETCHES_DIR/MacOSX14.2.sdk -stdlib=libc++"
++    export TARGET_CFLAGS="-isysroot $MOZ_FETCHES_DIR/MacOSX14.4.sdk"
++    export TARGET_CXXFLAGS="-isysroot $MOZ_FETCHES_DIR/MacOSX14.4.sdk -stdlib=libc++"
+     ;;
+ *-pc-windows-msvc)
+     # Cross-compiling for Windows on Linux.
+     export CC=$MOZ_FETCHES_DIR/clang/bin/clang-cl
+     export CXX=$MOZ_FETCHES_DIR/clang/bin/clang-cl
+     export TARGET_AR=$MOZ_FETCHES_DIR/clang/bin/llvm-lib
+ 
+     . $GECKO_PATH/taskcluster/scripts/misc/vs-setup.sh
+diff --git a/taskcluster/scripts/misc/osx-cross-linker b/taskcluster/scripts/misc/osx-cross-linker
+--- a/taskcluster/scripts/misc/osx-cross-linker
++++ b/taskcluster/scripts/misc/osx-cross-linker
+@@ -1,8 +1,8 @@
+ #!/bin/sh
+ 
+ exec $MOZ_FETCHES_DIR/clang/bin/clang -v \
+   -fuse-ld=lld \
+   -mmacosx-version-min=${MACOSX_DEPLOYMENT_TARGET:-10.12} \
+   -target $TARGET \
+-  -isysroot $MOZ_FETCHES_DIR/MacOSX14.2.sdk \
++  -isysroot $MOZ_FETCHES_DIR/MacOSX14.4.sdk \
+   "$@"
+diff --git a/taskcluster/scripts/misc/wr-macos-cross-build-setup.sh b/taskcluster/scripts/misc/wr-macos-cross-build-setup.sh
+--- a/taskcluster/scripts/misc/wr-macos-cross-build-setup.sh
++++ b/taskcluster/scripts/misc/wr-macos-cross-build-setup.sh
+@@ -1,14 +1,14 @@
+ #!/bin/bash
+ set -x -e -v
+ 
+ export TARGET_TRIPLE="x86_64-apple-darwin"
+ 
+-MACOS_SYSROOT="${MOZ_FETCHES_DIR}/MacOSX14.2.sdk"
++MACOS_SYSROOT="${MOZ_FETCHES_DIR}/MacOSX14.4.sdk"
+ CLANGDIR="${MOZ_FETCHES_DIR}/clang"
+ 
+ # Deploy the wrench dependencies
+ mv ${MOZ_FETCHES_DIR}/wrench-deps/{vendor,.cargo} "${GECKO_PATH}/gfx/wr/"
+ 
+ # Building wrench with the `headless` feature also builds the osmesa-src crate,
+ # which includes building C++ code. We have to do a bunch of shenanigans
+ # to make this cross-compile properly.
+
