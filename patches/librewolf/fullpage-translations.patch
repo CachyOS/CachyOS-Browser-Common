@@ -1,22 +1,22 @@
 --- a/services/settings/Attachments.sys.mjs
 +++ b/services/settings/Attachments.sys.mjs
-@@ -133,6 +133,7 @@ export class Downloader {
-    * @param {Boolean} options.fallbackToDump Use the remote settings dump as a
+@@ -144,6 +144,7 @@ export class Downloader {
+    * @param {Boolean} [options.fallbackToDump] Use the remote settings dump as a
     *                                         potential source of the attachment.
     *                                         (default: `false`)
 +   * @param {string} options.serverUrl
     * @throws {Downloader.DownloadError} if the file could not be fetched.
     * @throws {Downloader.BadContentError} if the downloaded content integrity is not valid.
     * @throws {Downloader.ServerInfoError} if the server response is not valid.
-@@ -149,6 +150,7 @@ export class Downloader {
-       attachmentId = record?.id,
+@@ -203,6 +204,7 @@ export class Downloader {
        fallbackToCache = false,
        fallbackToDump = false,
+       avoidDownload = false,
 +      serverUrl,
      } = options || {};
      if (!attachmentId) {
        // Check for pre-condition. This should not happen, but it is explicitly
-@@ -200,6 +202,7 @@ export class Downloader {
+@@ -254,6 +256,7 @@ export class Downloader {
          const newBuffer = await this.downloadAsBytes(record, {
            retries,
            checkHash,
@@ -24,7 +24,7 @@
          });
          const blob = new Blob([newBuffer]);
          // Store in cache but don't wait for it before returning.
-@@ -367,6 +370,7 @@ export class Downloader {
+@@ -424,6 +427,7 @@ export class Downloader {
     * @param {Object} options Some download options.
     * @param {Number} options.retries Number of times download should be retried (default: `3`)
     * @param {Boolean} options.checkHash Check content integrity (default: `true`)
@@ -32,7 +32,7 @@
     * @throws {Downloader.DownloadError} if the file could not be fetched.
     * @throws {Downloader.BadContentError} if the downloaded content integrity is not valid.
     * @returns {ArrayBuffer} the file content.
-@@ -375,10 +379,11 @@ export class Downloader {
+@@ -432,10 +436,11 @@ export class Downloader {
      const {
        attachment: { location, hash, size },
      } = record;
@@ -46,7 +46,7 @@
      let retried = 0;
      while (true) {
        try {
-@@ -427,9 +432,9 @@ export class Downloader {
+@@ -484,9 +489,9 @@ export class Downloader {
      await this._rmDirs();
    }
  
@@ -59,7 +59,7 @@
        let serverInfo;
        try {
          serverInfo = await resp.json();
-@@ -443,10 +448,9 @@ export class Downloader {
+@@ -500,10 +505,9 @@ export class Downloader {
          },
        } = serverInfo;
        // Make sure the URL always has a trailing slash.
@@ -117,7 +117,7 @@
            collection: this.collectionName,
 --- a/toolkit/components/translations/actors/TranslationsParent.sys.mjs
 +++ b/toolkit/components/translations/actors/TranslationsParent.sys.mjs
-@@ -1143,7 +1143,9 @@ export class TranslationsParent extends JSWindowActorParent {
+@@ -1034,7 +1034,9 @@ export class TranslationsParent extends JSWindowActorParent {
      }
  
      /** @type {RemoteSettingsClient} */
@@ -128,7 +128,7 @@
      TranslationsParent.#translationModelsRemoteClient = client;
      client.on("sync", TranslationsParent.#handleTranslationsModelsSync);
      return client;
-@@ -1489,7 +1491,10 @@ export class TranslationsParent extends JSWindowActorParent {
+@@ -1420,7 +1422,10 @@ export class TranslationsParent extends JSWindowActorParent {
  
        /** @type {{buffer: ArrayBuffer}} */
        const { buffer } = await client.attachments.download(
@@ -140,7 +140,7 @@
        );
  
        const duration = Date.now() - start;
-@@ -1540,7 +1545,9 @@ export class TranslationsParent extends JSWindowActorParent {
+@@ -1471,7 +1476,9 @@ export class TranslationsParent extends JSWindowActorParent {
      )) {
        const download = () => {
          lazy.console.log("Downloading record", record.name, record.id);
@@ -151,7 +151,7 @@
        };
        queue.push({ download });
      }
-@@ -1564,7 +1571,10 @@ export class TranslationsParent extends JSWindowActorParent {
+@@ -1495,7 +1502,10 @@ export class TranslationsParent extends JSWindowActorParent {
          onFailure: () => {
            console.error("Failed to download", record.name);
          },
@@ -163,7 +163,7 @@
        });
      }
  
-@@ -1727,7 +1737,9 @@ export class TranslationsParent extends JSWindowActorParent {
+@@ -1659,7 +1669,9 @@ export class TranslationsParent extends JSWindowActorParent {
          await chaosMode(1 / 3);
  
          /** @type {{buffer: ArrayBuffer }} */

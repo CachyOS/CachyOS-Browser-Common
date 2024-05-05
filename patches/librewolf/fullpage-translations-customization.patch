@@ -1,8 +1,17 @@
-diff --git a/browser/components/preferences/main.inc.xhtml b/browser/components/preferences/main.inc.xhtml
-index 30b9076..c338c45 100644
+--- a/browser/base/content/main-popupset.inc.xhtml
++++ b/browser/base/content/main-popupset.inc.xhtml
+@@ -652,6 +652,8 @@
+               checked="false"
+               autocheck="false"
+               oncommand="FullPageTranslationsPanel.onNeverTranslateSite()"/>
++    <menuitem data-l10n-id="translations-panel-disable-translations"
++              oncommand="FullPageTranslationsPanel.openDisableTranslations()"/>
+     <menuseparator/>
+     <menuitem class="manage-languages-menuitem"
+               data-l10n-id="translations-panel-settings-manage-languages"
 --- a/browser/components/preferences/main.inc.xhtml
 +++ b/browser/components/preferences/main.inc.xhtml
-@@ -384,27 +384,36 @@
+@@ -381,27 +381,36 @@
            preference="layout.spellcheckDefault"/>
  
    <!-- Translations -->
@@ -59,11 +68,9 @@ index 30b9076..c338c45 100644
      </vbox>
    </vbox>
  </groupbox>
-diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
-index 08c91c4..ef459f9 100644
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -141,6 +141,10 @@ Preferences.addAll([
+@@ -144,6 +144,10 @@ Preferences.addAll([
    { id: "dom.ipc.processCount.web", type: "int" },
    { id: "layers.acceleration.disabled", type: "bool", inverted: true },
  
@@ -74,7 +81,7 @@ index 08c91c4..ef459f9 100644
    // Files and Applications
    { id: "pref.downloads.disable_button.edit_actions", type: "bool" },
  
-@@ -323,6 +327,22 @@ var gMainPane = {
+@@ -325,6 +329,22 @@ var gMainPane = {
  
      gMainPane.initTranslations();
  
@@ -97,7 +104,7 @@ index 08c91c4..ef459f9 100644
      if (
        Services.prefs.getBoolPref(
          "media.videocontrols.picture-in-picture.enabled"
-@@ -783,6 +803,10 @@ var gMainPane = {
+@@ -771,6 +791,10 @@ var gMainPane = {
        document.getElementById("checkSpelling"),
        () => this.writeCheckSpelling()
      );
@@ -108,7 +115,7 @@ index 08c91c4..ef459f9 100644
      Preferences.addSyncFromPrefListener(
        document.getElementById("alwaysAsk"),
        () => this.readUseDownloadDir()
-@@ -1010,24 +1034,33 @@ var gMainPane = {
+@@ -1001,24 +1025,33 @@ var gMainPane = {
      document.getElementById("zoomBox").hidden = false;
    },
  
@@ -146,8 +153,24 @@ index 08c91c4..ef459f9 100644
      class TranslationsState {
        /**
         * The fully initialized state.
-diff --git a/browser/locales/en-US/browser/translations.ftl b/browser/locales/en-US/browser/translations.ftl
-index 8483a45..14478f4 100644
+--- a/browser/components/translations/content/fullPageTranslationsPanel.js
++++ b/browser/components/translations/content/fullPageTranslationsPanel.js
+@@ -1239,6 +1239,15 @@ var FullPageTranslationsPanel = new (class {
+     );
+   }
+ 
++  openDisableTranslations() {
++    const window =
++      gBrowser.selectedBrowser.browsingContext.top.embedderElement.ownerGlobal;
++    window.openTrustedLinkIn(
++      "about:preferences#general-translations-enable",
++      "tab"
++    );
++  }
++
+   /**
+    * Redirect the user to about:preferences
+    */
 --- a/browser/locales/en-US/browser/translations.ftl
 +++ b/browser/locales/en-US/browser/translations.ftl
 @@ -58,6 +58,9 @@ translations-panel-settings-never-translate-unknown-language =

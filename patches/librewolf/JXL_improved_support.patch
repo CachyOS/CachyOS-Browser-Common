@@ -14,12 +14,12 @@ diff --git a/image/DecoderFactory.cpp b/image/DecoderFactory.cpp
 index 5004b93eae09c..2f214a9c80a46 100644
 --- a/image/DecoderFactory.cpp
 +++ b/image/DecoderFactory.cpp
-@@ -217,7 +217,12 @@ nsresult DecoderFactory::CreateAnimationDecoder(
+@@ -234,7 +234,12 @@
    }
  
    MOZ_ASSERT(aType == DecoderType::GIF || aType == DecoderType::PNG ||
--                 aType == DecoderType::WEBP,
-+                 aType == DecoderType::WEBP
+-                 aType == DecoderType::WEBP || aType == DecoderType::AVIF,
++                 aType == DecoderType::WEBP || aType == DecoderType::AVIF
 +#ifdef MOZ_JXL
 +                 || aType == DecoderType::JXL,
 +#else
@@ -28,17 +28,18 @@ index 5004b93eae09c..2f214a9c80a46 100644
               "Calling CreateAnimationDecoder for non-animating DecoderType");
  
    // Create an anonymous decoder. Interaction with the SurfaceCache and the
-@@ -272,7 +277,12 @@ already_AddRefed<Decoder> DecoderFactory::CloneAnimationDecoder(
+@@ -289,7 +294,13 @@
    // rediscover it is animated).
    DecoderType type = aDecoder->GetType();
    MOZ_ASSERT(type == DecoderType::GIF || type == DecoderType::PNG ||
--                 type == DecoderType::WEBP,
-+                 type == DecoderType::WEBP
+-                 type == DecoderType::WEBP || type == DecoderType::AVIF,
++                 type == DecoderType::WEBP || type == DecoderType::AVIF
 +#ifdef MOZ_JXL
-+                 || type == DecoderType::JXL,
++                 || aType == DecoderType::JXL,
 +#else
 +             ,
 +#endif
++
               "Calling CloneAnimationDecoder for non-animating DecoderType");
  
    RefPtr<Decoder> decoder = GetDecoder(type, nullptr, /* aIsRedecode = */ true);
