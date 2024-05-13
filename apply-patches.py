@@ -109,7 +109,7 @@ def librewolf_patches(firefox_folder: str, common_srcdir: str, settings_srcdir: 
 
     # apply xmas.patch seperately because not all builders use this repo the same way, and
     # we don't want to disturbe those workflows.
-    patch(join(common_srcdir, 'patches/librewolf/xmas.patch'))
+    # patch(join(common_srcdir, 'patches/librewolf/xmas.patch'))
 
 
     #
