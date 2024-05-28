@@ -1,19 +1,19 @@
 diff --git a/browser/installer/package-manifest.in b/browser/installer/package-manifest.in
-index 4d7a481..4daacdb 100644
+index 725a639..2b88218 100644
 --- a/browser/installer/package-manifest.in
 +++ b/browser/installer/package-manifest.in
-@@ -282,6 +282,11 @@
- ; gre location for now.
- @RESPATH@/defaults/pref/channel-prefs.js
+@@ -251,6 +251,11 @@
+ ; Remote Settings JSON dumps
+ @RESPATH@/browser/defaults/settings
  
 +; Cachy specific files.
 +@RESPATH@/defaults/pref/local-settings.js
 +@RESPATH@/distribution/policies.json
 +@RESPATH@/cachyos.cfg
 +
+ # channel-prefs.js has been removed on macOS.
+ #ifndef XP_MACOSX
  ; Warning: changing the path to channel-prefs.js can cause bugs (Bug 756325)
- ; Technically this is an app pref file, but we are keeping it in the original
- ; gre location for now.
 diff --git a/lw/moz.build b/lw/moz.build
 index e69de29..8589aac 100644
 --- a/lw/moz.build

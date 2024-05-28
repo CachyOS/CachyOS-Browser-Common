@@ -6,6 +6,7 @@ patches/librewolf/custom-ubo-assets-bootstrap-location.patch
 patches/librewolf/dbus_name.patch
 patches/librewolf/devtools-bypass.patch
 patches/librewolf/disable-data-reporting-at-compile-time.patch
+patches/librewolf/encoding_rs.patch
 patches/librewolf/fullpage-translations-customization.patch
 patches/librewolf/fullpage-translations.patch
 patches/librewolf/hide-passwordmgr.patch
