@@ -1,5 +1,6 @@
 patches/librewolf/allow-JXL-in-non-nightly-browser.patch
 patches/librewolf/allow-ubo-private-mode.patch
+patches/librewolf/bootstrap.patch
 patches/librewolf/context-menu.patch
 patches/librewolf/custom-ubo-assets-bootstrap-location.patch
 patches/librewolf/dbus_name.patch
