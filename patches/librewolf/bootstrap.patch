@@ -1,19 +1,6 @@
 diff --git a/python/mozversioncontrol/mozversioncontrol/__init__.py b/python/mozversioncontrol/mozversioncontrol/__init__.py
 --- a/python/mozversioncontrol/mozversioncontrol/__init__.py
 +++ b/python/mozversioncontrol/mozversioncontrol/__init__.py
-@@ -959,10 +959,10 @@ class SrcRepository(Repository):
-         pass
- 
-     def get_changed_files(self, diff_filter="ADM", mode="unstaged", rev=None):
--        pass
-+        return []
- 
-     def get_outgoing_files(self, diff_filter="ADM", upstream=None):
--        pass
-+        return []
- 
-     def add_remove_files(self, *paths: Union[str, Path]):
-         pass
 @@ -993,9 +993,11 @@ class SrcRepository(Repository):
          """
          res = []
