@@ -1,3 +1,4 @@
 0003-bmo-847568-Support-system-graphite2.patch
 0032-bmo-1773259-cbindgen-root_clip_chain-fix.patch
 0023-bgo-919418-ppc64-flac-decoder-unsupported.patch
+0020-bmo-1862601-system-icu-74.patch
