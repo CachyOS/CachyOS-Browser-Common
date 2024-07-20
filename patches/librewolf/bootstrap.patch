@@ -1,7 +1,6 @@
-diff --git a/python/mozversioncontrol/mozversioncontrol/__init__.py b/python/mozversioncontrol/mozversioncontrol/__init__.py
 --- a/python/mozversioncontrol/mozversioncontrol/__init__.py
 +++ b/python/mozversioncontrol/mozversioncontrol/__init__.py
-@@ -993,9 +993,11 @@ class SrcRepository(Repository):
+@@ -1019,9 +1019,11 @@ class SrcRepository(Repository):
          """
          res = []
          # move away the .git or .hg folder from path to more easily test in a hg/git repo
