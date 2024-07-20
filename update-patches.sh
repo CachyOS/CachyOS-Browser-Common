@@ -17,7 +17,7 @@ rebrand() {
 # cleanup librewolf patches
 rm -rf patches/{sed-patches,librewolf-ui,unity_kde,librewolf,pref-pane}/*
 
-[[ -d "librewolf" ]] || git clone --depth 1 -q "https://gitlab.com/librewolf-community/browser/source.git" librewolf
+[[ -d "librewolf" ]] || git clone --depth 1 -q "https://codeberg.org/librewolf/source.git" librewolf
 cd "$UPPER/librewolf/patches"
 
 for entry in "sed-patches/"*; do move "$entry" sed-patches; done;
@@ -48,7 +48,7 @@ cp "$UPPER"/category-cachy-browser.svg pref-pane/category-cachy-browser.svg
 "$UPPER"/rename-files.py unity_kde librewolf cachy-browser
 "$UPPER"/rename-files.py librewolf librewolf cachy-browser
 
-curl -o librewolf-patchset.txt 'https://gitlab.com/librewolf-community/browser/source/-/raw/main/assets/patches.txt'
+curl -o librewolf-patchset.txt 'https://codeberg.org/librewolf/source/raw/branch/main/assets/patches.txt'
 
 sed -i 's/lib\/librewolf/lib\/cachy-browser/g' librewolf/mozilla_dirs.patch
 sed -i 's/lib64\/librewolf/lib64\/cachy-browser/g' librewolf/mozilla_dirs.patch
