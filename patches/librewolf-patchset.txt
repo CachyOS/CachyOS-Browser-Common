@@ -12,6 +12,10 @@ patches/librewolf/hide-passwordmgr.patch
 patches/librewolf/cachy-browser-prefs.patch
 patches/librewolf/mozilla_dirs.patch
 patches/librewolf/msix.patch
+patches/librewolf/nvidia-wayland-backported-fixes-0001-Bug-1898476-Wayland-Move-MozContainerSurfaceLock-fro.patch
+patches/librewolf/nvidia-wayland-backported-fixes-0002-Bug-1898476-Wayland-Provide-surface-lock-by-GtkCompo.patch
+patches/librewolf/nvidia-wayland-backported-fixes-0003-Bug-1898476-Wayland-Lock-Wayland-surface-before-Swap.patch
+patches/librewolf/privacy-security-settings-hotfix.patch
 patches/librewolf/remove_addons.patch
 patches/sed-patches/allow-searchengines-non-esr.patch
 patches/sed-patches/disable-pocket.patch
