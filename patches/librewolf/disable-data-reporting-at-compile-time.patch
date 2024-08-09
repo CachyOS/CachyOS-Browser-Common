@@ -13,7 +13,6 @@ diff --git a/browser/moz.configure b/browser/moz.configure
 -imply_option("MOZ_NORMANDY", True)
 +imply_option("MOZ_NORMANDY", False)
  imply_option("MOZ_PROFILE_MIGRATOR", True)
-
 diff --git a/python/mach/mach/telemetry.py b/python/mach/mach/telemetry.py
 --- a/python/mach/mach/telemetry.py
 +++ b/python/mach/mach/telemetry.py
