@@ -30,26 +30,7 @@ diff --git a/browser/components/preferences/privacy.js b/browser/components/pref
 +  Preferences.get(PREF_UPLOAD_ENABLED)?.on("change", updateCheckbox);
    updateCheckbox();
  }
- 
-@@ -1267,17 +1267,8 @@ var gPrivacyPane = {
-         this.initOptOutStudyCheckbox();
-       }
-       this.initAddonRecommendationsCheckbox();
-+      this.initPrivateAttributionCheckbox();
-     }
--    dataCollectionCheckboxHandler({
--      checkbox: document.getElementById("privateAttribution"),
--      pref: PREF_PRIVATE_ATTRIBUTION_ENABLED,
--      matchPref() {
--        return AppConstants.MOZ_TELEMETRY_REPORTING;
--      },
--      isDisabled() {
--        return !AppConstants.MOZ_TELEMETRY_REPORTING;
--      },
--    });
- 
-     let signonBundle = document.getElementById("signonBundle");
-     let pkiBundle = document.getElementById("pkiBundle");
+
 @@ -3568,6 +3559,19 @@ var gPrivacyPane = {
      });
    },
