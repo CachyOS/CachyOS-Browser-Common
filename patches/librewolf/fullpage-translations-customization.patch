@@ -1,14 +1,32 @@
+diff --git a/browser/base/content/main-popupset.inc.xhtml b/browser/base/content/main-popupset.inc.xhtml
+index 1fb595272a18..56c2c58e111c 100644
 --- a/browser/base/content/main-popupset.inc.xhtml
 +++ b/browser/base/content/main-popupset.inc.xhtml
-@@ -675,6 +675,8 @@
+@@ -607,6 +607,8 @@
                checked="false"
                autocheck="false"
-               oncommand="FullPageTranslationsPanel.onNeverTranslateSite()"/>
+               id="translations-panel-settings-never-translate-site"/>
 +    <menuitem data-l10n-id="translations-panel-disable-translations"
-+              oncommand="FullPageTranslationsPanel.openDisableTranslations()"/>
++              id="translations-panel-disable-translations"/>
      <menuseparator/>
      <menuitem class="manage-languages-menuitem"
                data-l10n-id="translations-panel-settings-manage-languages"
+diff --git a/browser/base/content/main-popupset.js b/browser/base/content/main-popupset.js
+index c403c914f27c..6338cbd92621 100644
+--- a/browser/base/content/main-popupset.js
++++ b/browser/base/content/main-popupset.js
+@@ -251,6 +251,9 @@ document.addEventListener(
+         case "translations-panel-settings-never-translate-site":
+           FullPageTranslationsPanel.onNeverTranslateSite();
+           break;
++        case "translations-panel-disable-translations":
++          FullPageTranslationsPanel.openDisableTranslations();
++          break;
+         case "translations-panel-manage-languages":
+           FullPageTranslationsPanel.openManageLanguages();
+           break;
+diff --git a/browser/components/preferences/main.inc.xhtml b/browser/components/preferences/main.inc.xhtml
+index 4c2637db10b7..846a538036d7 100644
 --- a/browser/components/preferences/main.inc.xhtml
 +++ b/browser/components/preferences/main.inc.xhtml
 @@ -389,8 +389,16 @@
@@ -37,9 +55,11 @@
  </groupbox>
  
  <!-- Files and Applications -->
+diff --git a/browser/components/preferences/main.js b/browser/components/preferences/main.js
+index fec5aa685ea7..92082d259903 100644
 --- a/browser/components/preferences/main.js
 +++ b/browser/components/preferences/main.js
-@@ -144,6 +144,10 @@ Preferences.addAll([
+@@ -145,6 +145,10 @@ Preferences.addAll([
    { id: "dom.ipc.processCount.web", type: "int" },
    { id: "layers.acceleration.disabled", type: "bool", inverted: true },
  
@@ -50,7 +70,7 @@
    // Files and Applications
    { id: "pref.downloads.disable_button.edit_actions", type: "bool" },
  
-@@ -325,6 +329,22 @@ var gMainPane = {
+@@ -326,6 +330,22 @@ var gMainPane = {
  
      gMainPane.initTranslations();
  
@@ -73,7 +93,7 @@
      if (
        Services.prefs.getBoolPref(
          "media.videocontrols.picture-in-picture.enabled"
-@@ -789,6 +809,10 @@ var gMainPane = {
+@@ -793,6 +813,10 @@ var gMainPane = {
        document.getElementById("checkSpelling"),
        () => this.writeCheckSpelling()
      );
@@ -84,7 +104,7 @@
      Preferences.addSyncFromPrefListener(
        document.getElementById("alwaysAsk"),
        () => this.readUseDownloadDir()
-@@ -1019,24 +1043,33 @@ var gMainPane = {
+@@ -1023,24 +1047,33 @@ var gMainPane = {
      document.getElementById("zoomBox").hidden = false;
    },
  
@@ -122,9 +142,11 @@
      class TranslationsState {
        /**
         * The fully initialized state.
+diff --git a/browser/components/translations/content/fullPageTranslationsPanel.js b/browser/components/translations/content/fullPageTranslationsPanel.js
+index 0c8288af9aca..05e49c06ff63 100644
 --- a/browser/components/translations/content/fullPageTranslationsPanel.js
 +++ b/browser/components/translations/content/fullPageTranslationsPanel.js
-@@ -1225,6 +1225,15 @@ var FullPageTranslationsPanel = new (class {
+@@ -1220,6 +1220,15 @@ var FullPageTranslationsPanel = new (class {
      );
    }
  
@@ -140,6 +162,8 @@
    /**
     * Redirect the user to about:preferences
     */
+diff --git a/browser/locales/en-US/browser/translations.ftl b/browser/locales/en-US/browser/translations.ftl
+index e2aca3eabbe1..92d738fdf6e5 100644
 --- a/browser/locales/en-US/browser/translations.ftl
 +++ b/browser/locales/en-US/browser/translations.ftl
 @@ -58,6 +58,9 @@ translations-panel-settings-never-translate-unknown-language =

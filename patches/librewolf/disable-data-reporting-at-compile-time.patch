@@ -1,4 +1,5 @@
 diff --git a/browser/moz.configure b/browser/moz.configure
+index e605019172ad..73268e5d353d 100644
 --- a/browser/moz.configure
 +++ b/browser/moz.configure
 @@ -5,11 +5,11 @@
@@ -16,9 +17,10 @@ diff --git a/browser/moz.configure b/browser/moz.configure
  
  
 diff --git a/python/mach/mach/telemetry.py b/python/mach/mach/telemetry.py
+index 40d5cc221644..36db9a9e45b1 100644
 --- a/python/mach/mach/telemetry.py
 +++ b/python/mach/mach/telemetry.py
-@@ -98,10 +98,7 @@ def is_applicable_telemetry_environment(
+@@ -98,10 +98,7 @@ def is_applicable_telemetry_environment():
  
  
  def is_telemetry_enabled(settings):

@@ -1,5 +1,5 @@
 diff --git a/browser/base/content/browser-context.inc b/browser/base/content/browser-context.inc
-index 39a139f..c565bce 100644
+index 3a58888b28b4..471c238aa284 100644
 --- a/browser/base/content/browser-context.inc
 +++ b/browser/base/content/browser-context.inc
 @@ -107,9 +107,6 @@
