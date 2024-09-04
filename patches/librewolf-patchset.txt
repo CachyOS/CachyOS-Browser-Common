@@ -1,5 +1,6 @@
 patches/librewolf/allow-JXL-in-non-nightly-browser.patch
 patches/librewolf/allow-ubo-private-mode.patch
+patches/librewolf/bootstrap.patch
 patches/librewolf/context-menu.patch
 patches/librewolf/custom-ubo-assets-bootstrap-location.patch
 patches/librewolf/dbus_name.patch
@@ -11,7 +12,6 @@ patches/librewolf/hide-passwordmgr.patch
 patches/librewolf/cachy-browser-prefs.patch
 patches/librewolf/mozilla_dirs.patch
 patches/librewolf/msix.patch
-patches/librewolf/privacy-security-settings-hotfix.patch
 patches/librewolf/remove_addons.patch
 patches/sed-patches/allow-searchengines-non-esr.patch
 patches/sed-patches/disable-pocket.patch
