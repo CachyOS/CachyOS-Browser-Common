@@ -1,5 +1,14 @@
 --- a/browser/locales/en-US/browser/preferences/preferences.ftl
 +++ b/browser/locales/en-US/browser/preferences/preferences.ftl
+@@ -142,6 +142,8 @@ search-results-help-link = Need help? Visit <a data-l10n-name="url">{ -brand-sho
+ 
+ startup-header = Startup
+ 
++session-restore-learn-more = What if it does not work?
++
+ always-check-default =
+     .label = Always check if { -brand-short-name } is your default browser
+     .accesskey = y
 @@ -489,7 +491,7 @@ play-drm-content =
      .label = Play DRM-controlled content
      .accesskey = P
@@ -18,3 +27,23 @@
  
  update-history =
      .label = Show Update History…
+@@ -664,7 +666,7 @@ home-restore-defaults =
+     .accesskey = R
+ 
+ home-mode-choice-default-fx =
+-    .label = { -firefox-home-brand-name } (Default)
++    .label = Homepage (Default)
+ 
+ home-mode-choice-custom =
+     .label = Custom URLs…
+@@ -693,8 +695,8 @@ choose-bookmark =
+ 
+ ## Home Section - Firefox Home Content Customization
+ 
+-home-prefs-content-header2 = { -firefox-home-brand-name } Content
+-home-prefs-content-description2 = Choose what content you want on your { -firefox-home-brand-name } screen.
++home-prefs-content-header2 = Homepage Content
++home-prefs-content-description2 = Choose what content you want on your Homepage screen.
+ 
+ home-prefs-search-header =
+     .label = Web Search
