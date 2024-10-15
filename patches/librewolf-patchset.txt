@@ -23,9 +23,7 @@ patches/librewolf-ui/hide-default-browser.patch
 patches/librewolf-ui/lw-logo-devtools.patch
 patches/librewolf-ui/pref-naming.patch
 patches/librewolf-ui/privacy-preferences.patch
-patches/librewolf-ui/remove-branding-urlbar.patch
 patches/librewolf-ui/remove-cfrprefs.patch
 patches/librewolf-ui/remove-organization-policy-banner.patch
-patches/librewolf-ui/rename-firefox-labs.patch
 patches/librewolf-ui/website-appearance-ui-rfp.patch
 patches/librewolf/urlbarprovider-interventions.patch
