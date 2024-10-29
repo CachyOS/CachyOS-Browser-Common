@@ -62,15 +62,3 @@ index 8bc64fa..4a4a1af 100644
        </vbox>
      </panelview>
  
-diff --git a/browser/locales/en-US/browser/browser.ftl b/browser/locales/en-US/browser/browser.ftl
-index 0dbdc78..e183f1a 100644
---- a/browser/locales/en-US/browser/browser.ftl
-+++ b/browser/locales/en-US/browser/browser.ftl
-@@ -402,6 +402,7 @@ identity-permissions-storage-access-learn-more = Learn more
- identity-permissions-reload-hint = You may need to reload the page for changes to apply.
- identity-clear-site-data =
-     .label = Clear cookies and site data…
-+identity-allow-site-data = Cachy: Always store cookies/data for this site
- identity-connection-not-secure-security-view = You are not securely connected to this site.
- identity-connection-verified = You are securely connected to this site.
- identity-ev-owner-label = Certificate issued to:
