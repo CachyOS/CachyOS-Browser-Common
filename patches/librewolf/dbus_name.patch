@@ -47,12 +47,12 @@
      "   <method name=\"OpenURL\">\n"
      "     <arg name=\"url\" direction=\"in\" type=\"ay\"/>\n"
      "   </method>\n"
-@@ -38,7 +38,7 @@ static const char* introspect_template =
+@@ -39,7 +39,7 @@
  bool nsDBusRemoteServer::HandleOpenURL(const gchar* aInterfaceName,
                                         const gchar* aMethodName,
-                                        const gchar* aParam) {
--  nsPrintfCString ourInterfaceName("org.mozilla.%s", mAppName.get());
-+  nsPrintfCString ourInterfaceName("org.cachyos.%s", mAppName.get());
+                                        Span<const gchar> aParam) {
+-  nsPrintfCString ourInterfaceName("org.cachyos.%s", mAppName.get());
++  nsPrintfCString ourInterfaceName("org.mozilla.%s", mAppName.get());
  
    if ((strcmp("OpenURL", aMethodName) != 0) ||
        (strcmp(ourInterfaceName.get(), aInterfaceName) != 0)) {
