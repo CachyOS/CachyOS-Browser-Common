@@ -51,8 +51,8 @@
  bool nsDBusRemoteServer::HandleOpenURL(const gchar* aInterfaceName,
                                         const gchar* aMethodName,
                                         Span<const gchar> aParam) {
--  nsPrintfCString ourInterfaceName("org.cachyos.%s", mAppName.get());
-+  nsPrintfCString ourInterfaceName("org.mozilla.%s", mAppName.get());
+-  nsPrintfCString ourInterfaceName("org.mozilla.%s", mAppName.get());
++  nsPrintfCString ourInterfaceName("org.cachyos.%s", mAppName.get());
  
    if ((strcmp("OpenURL", aMethodName) != 0) ||
        (strcmp(ourInterfaceName.get(), aInterfaceName) != 0)) {
