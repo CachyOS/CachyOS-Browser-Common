@@ -1,6 +1,8 @@
+diff --git a/toolkit/components/remote/nsDBusRemoteClient.cpp b/toolkit/components/remote/nsDBusRemoteClient.cpp
+index aad9d7054af8..a926d8b6abdc 100644
 --- a/toolkit/components/remote/nsDBusRemoteClient.cpp
 +++ b/toolkit/components/remote/nsDBusRemoteClient.cpp
-@@ -73,7 +73,7 @@ bool nsDBusRemoteClient::GetRemoteDestinationName(const char* aProgram,
+@@ -76,7 +76,7 @@ bool nsDBusRemoteClient::GetRemoteDestinationName(const char* aProgram,
    mozilla::XREAppData::SanitizeNameForDBus(profileName);
  
    aDestinationName =
@@ -9,7 +11,7 @@
    if (aDestinationName.Length() > DBUS_MAXIMUM_NAME_LENGTH)
      aDestinationName.Truncate(DBUS_MAXIMUM_NAME_LENGTH);
  
-@@ -87,7 +87,7 @@ bool nsDBusRemoteClient::GetRemoteDestinationName(const char* aProgram,
+@@ -90,7 +90,7 @@ bool nsDBusRemoteClient::GetRemoteDestinationName(const char* aProgram,
    if (!sDBusValidateBusName(aDestinationName.get(), nullptr)) {
      // We don't have a valid busName yet - try to create a default one.
      aDestinationName =
@@ -18,7 +20,7 @@
      if (!sDBusValidateBusName(aDestinationName.get(), nullptr)) {
        // We failed completelly to get a valid bus name - just quit
        // to prevent crash at dbus_bus_request_name().
-@@ -115,7 +115,7 @@ nsresult nsDBusRemoteClient::DoSendDBusCommandLine(const char* aProgram,
+@@ -117,7 +117,7 @@ nsresult nsDBusRemoteClient::DoSendDBusCommandLine(const char* aProfile,
    }
  
    nsAutoCString pathName;
@@ -27,7 +29,7 @@
  
    static auto sDBusValidatePathName = (bool (*)(const char*, DBusError*))dlsym(
        RTLD_DEFAULT, "dbus_validate_path");
-@@ -126,7 +126,7 @@ nsresult nsDBusRemoteClient::DoSendDBusCommandLine(const char* aProgram,
+@@ -128,7 +128,7 @@ nsresult nsDBusRemoteClient::DoSendDBusCommandLine(const char* aProfile,
    }
  
    nsAutoCString remoteInterfaceName;
@@ -36,9 +38,11 @@
  
    LOG("  DBus destination: %s\n", destinationName.get());
    LOG("  DBus path: %s\n", pathName.get());
+diff --git a/toolkit/components/remote/nsDBusRemoteServer.cpp b/toolkit/components/remote/nsDBusRemoteServer.cpp
+index 4afb8381d0bc..bd927334b817 100644
 --- a/toolkit/components/remote/nsDBusRemoteServer.cpp
 +++ b/toolkit/components/remote/nsDBusRemoteServer.cpp
-@@ -28,7 +28,7 @@ static const char* introspect_template =
+@@ -29,7 +29,7 @@ static const char* introspect_template =
      "1.0//EN\"\n"
      "\"http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd\">\n"
      "<node>\n"
@@ -47,7 +51,7 @@
      "   <method name=\"OpenURL\">\n"
      "     <arg name=\"url\" direction=\"in\" type=\"ay\"/>\n"
      "   </method>\n"
-@@ -39,7 +39,7 @@
+@@ -39,7 +39,7 @@ static const char* introspect_template =
  bool nsDBusRemoteServer::HandleOpenURL(const gchar* aInterfaceName,
                                         const gchar* aMethodName,
                                         Span<const gchar> aParam) {
@@ -56,7 +60,7 @@
  
    if ((strcmp("OpenURL", aMethodName) != 0) ||
        (strcmp(ourInterfaceName.get(), aInterfaceName) != 0)) {
-@@ -129,7 +129,7 @@ static const GDBusInterfaceVTable gInterfaceVTable = {
+@@ -132,7 +132,7 @@ static const GDBusInterfaceVTable gInterfaceVTable = {
      HandleMethodCall, HandleGetProperty, HandleSetProperty};
  
  void nsDBusRemoteServer::OnBusAcquired(GDBusConnection* aConnection) {
@@ -65,7 +69,7 @@
    static auto sDBusValidatePathName = (bool (*)(const char*, DBusError*))dlsym(
        RTLD_DEFAULT, "dbus_validate_path");
    if (!sDBusValidatePathName ||
-@@ -202,8 +202,7 @@ nsresult nsDBusRemoteServer::Startup(const char* aAppName,
+@@ -206,8 +206,7 @@ nsresult nsDBusRemoteServer::Startup(const char* aAppName,
  
    mozilla::XREAppData::SanitizeNameForDBus(profileName);
  
@@ -75,7 +79,7 @@
    if (busName.Length() > DBUS_MAXIMUM_NAME_LENGTH) {
      busName.Truncate(DBUS_MAXIMUM_NAME_LENGTH);
    }
-@@ -217,7 +216,7 @@ nsresult nsDBusRemoteServer::Startup(const char* aAppName,
+@@ -221,7 +220,7 @@ nsresult nsDBusRemoteServer::Startup(const char* aAppName,
  
    // We don't have a valid busName yet - try to create a default one.
    if (!sDBusValidateBusName(busName.get(), nullptr)) {
