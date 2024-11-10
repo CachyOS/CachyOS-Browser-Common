@@ -1,12 +1,12 @@
 diff --git a/browser/base/content/browser-siteIdentity.js b/browser/base/content/browser-siteIdentity.js
-index d0ba6ac670f4..c051a5f4ccc8 100644
+index d0ba6ac670f4..a7dc8393e9de 100644
 --- a/browser/base/content/browser-siteIdentity.js
 +++ b/browser/base/content/browser-siteIdentity.js
 @@ -204,6 +204,9 @@ var gIdentityHandler = {
        "identity-popup-clear-sitedata-button": event => {
          this.clearSiteData(event);
        },
-+      "identity-allow-sitedata-button": () => {
++      "identity-popup-allow-sitedata-button": () => {
 +        this.toggleSiteData();
 +      },
        "identity-popup-remove-cert-exception": () => {
