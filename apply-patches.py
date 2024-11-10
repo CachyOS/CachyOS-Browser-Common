@@ -137,8 +137,8 @@ def librewolf_patches(firefox_folder: str, common_srcdir: str, settings_srcdir: 
     exec('cp {0} browser/components/preferences/cachy-browser.inc.xhtml'.format(join(common_srcdir, 'patches/pref-pane/cachy-browser.inc.xhtml')))
     exec('cp {0} browser/components/preferences/cachy-browser.js'.format(join(common_srcdir, 'patches/pref-pane/cachy-browser.js')))
     # 3) append our locale string values to preferences.ftl
-    exec('cat browser/locales/en-US/browser/preferences/preferences.ftl {0} > preferences.ftl'.format(join(common_srcdir, 'patches/pref-pane/preferences.ftl')))
-    exec('mv preferences.ftl browser/locales/en-US/browser/preferences/preferences.ftl')
+#    exec('cat browser/locales/en-US/browser/preferences/preferences.ftl {0} > preferences.ftl'.format(join(common_srcdir, 'patches/pref-pane/preferences.ftl')))
+#    exec('mv preferences.ftl browser/locales/en-US/browser/preferences/preferences.ftl')
 
     # generate locales
     #exec("bash ../scripts/generate-locales.sh")
