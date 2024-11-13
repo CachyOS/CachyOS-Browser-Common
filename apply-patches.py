@@ -129,8 +129,6 @@ def librewolf_patches(firefox_folder: str, common_srcdir: str, settings_srcdir: 
     # pref-pane patches
     #
 
-    # 1) patch it in
-    patch(join(common_srcdir, 'patches/pref-pane/pref-pane-small.patch'))
     # 2) new files
     exec('cp {0} browser/themes/shared/preferences/category-cachy-browser.svg'.format(join(common_srcdir, 'patches/pref-pane/category-cachy-browser.svg')))
     exec('cp {0} browser/themes/shared/preferences/cachy-browser.css'.format(join(common_srcdir, 'patches/pref-pane/cachy-browser.css')))
