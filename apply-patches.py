@@ -92,7 +92,7 @@ def gentoo_patches(firefox_folder: str, common_srcdir: str):
 
     leave_srcdir()
 
-def librewolf_patches(firefox_folder: str, common_srcdir: str, settings_srcdir: str):
+def cachy_patches(firefox_folder: str, common_srcdir: str, settings_srcdir: str):
 
     enter_srcdir(firefox_folder)
 
@@ -102,15 +102,8 @@ def librewolf_patches(firefox_folder: str, common_srcdir: str, settings_srcdir: 
     # copy the right search-config.json file
     exec('cp -v {0} services/settings/dumps/main/search-config.json'.format(join(common_srcdir, 'source_files/search-config.json')))
 
-    # read lines of .txt file into 'patches'
-    with open(join(common_srcdir, 'patches/librewolf-patchset.txt'), 'r') as f:
-        for line in f.read().splitlines():
-            patch(join(common_srcdir, line))
-
-    # apply xmas.patch seperately because not all builders use this repo the same way, and
-    # we don't want to disturbe those workflows.
-    # patch(join(common_srcdir, 'patches/librewolf/xmas.patch'))
-
+    # apply dbus names patch, to have dbus name exposed as cachy instead of mozilla
+    patch(join(common_srcdir, 'patches/dbus_name.patch'))
 
     #
     # Apply most recent `settings` repository files.
@@ -162,8 +155,8 @@ if not os.path.exists(join(firefox_folder, 'configure.py')):
 print('---- Gentoo patches')
 gentoo_patches(firefox_folder, cachy_common_folder)
 
-print('---- Librewolf patches')
-librewolf_patches(firefox_folder, cachy_common_folder, cachy_settings_folder)
+print('---- Cachy patches')
+cachy_patches(firefox_folder, cachy_common_folder, cachy_settings_folder)
 
 sys.exit(0) # ensure 0 exit code
 
