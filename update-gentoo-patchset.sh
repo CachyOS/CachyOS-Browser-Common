@@ -6,7 +6,7 @@ cd "$(dirname "$0")"
 
 UPPER="$PWD"
 
-FIREFOX_PATCHSET="firefox-134-patches-01.tar.xz"
+FIREFOX_PATCHSET="firefox-134-patches-02.tar.xz"
 GENTOO_PATH="$UPPER/patches/gentoo"
 
 curl -o "$UPPER/$FIREFOX_PATCHSET" https://dev.gentoo.org/~{juippis,polynomial-c,whissi,slashbeast}/mozilla/patchsets/"${FIREFOX_PATCHSET}"
