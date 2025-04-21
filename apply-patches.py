@@ -108,6 +108,10 @@ def cachy_patches(firefox_folder: str, common_srcdir: str, settings_srcdir: str)
     # apply patch to have correct profiles folder name
     patch(join(common_srcdir, 'patches/mozilla_dirs.patch'))
 
+    # apply patch to fix wrong profile dir on Firefox 137
+    # see https://codeberg.org/librewolf/source/commit/0ce00ca673e7311f2ce35d4815d5a1bb2db3bbce
+    patch(join(common_srcdir, 'patches/moz-configure.patch'))
+
     #
     # Apply most recent `settings` repository files.
     #
