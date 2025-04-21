@@ -1,20 +1,22 @@
-diff --git a/toolkit/components/extensions/Extension.jsm b/toolkit/components/extensions/Extension.jsm
-index 7281518..322dc09 100644
+diff --git a/toolkit/components/extensions/Extension.sys.mjs b/toolkit/components/extensions/Extension.sys.mjs
+index 8c7c14e60c..f19d705b20 100644
 --- a/toolkit/components/extensions/Extension.sys.mjs
 +++ b/toolkit/components/extensions/Extension.sys.mjs
-@@ -3286,6 +3286,16 @@ class Extension extends ExtensionData {
-       this.permissions.add(PRIVATE_ALLOWED_PERMISSION);
+@@ -3989,6 +3989,18 @@
+       }
      }
  
 +    // We allow uBo in private mode.
 +    if (this.id === "uBlock0@raymondhill.net") {
-+      lazy.ExtensionPermissions.add(this.id, {
-+	permissions: [PRIVATE_ALLOWED_PERMISSION],
-+	origins: [],
++      lazy.ExtensionPermissions._has(this.id).then(has => {
++        if (has) return;
++        lazy.ExtensionPermissions.add(this.id, {
++          permissions: [PRIVATE_ALLOWED_PERMISSION],
++          origins: [],
 +        });
-+      this.permissions.add(PRIVATE_ALLOWED_PERMISSION);
++        this.permissions.add(PRIVATE_ALLOWED_PERMISSION);
++      });
 +    }
-+
 +
      // We only want to update the SVG_CONTEXT_PROPERTIES_PERMISSION during
      // install and upgrade/downgrade startups.

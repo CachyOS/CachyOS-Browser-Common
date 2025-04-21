@@ -5,8 +5,7 @@
 /* import-globals-from extensionControlled.js */
 /* import-globals-from preferences.js */
 
-var { AppConstants } = ChromeUtils.import( "resource://gre/modules/AppConstants.jsm");
-XPCOMUtils.defineLazyGetter(this, "L10n", () => {
+ChromeUtils.defineLazyGetter(this, "L10n", () => {
   return new Localization([
     "branding/brand.ftl",
     "browser/preferences/preferences.ftl",
@@ -44,11 +43,6 @@ Preferences.addAll([
   // Google safe browsing check downloads
   //{ id: "browser.safebrowsing.downloads.enabled", type: "bool" }, //Also already added
   { id: "toolkit.legacyUserProfileCustomizations.stylesheets", type: "bool" },
-  // Canvas UI when blocked
-  {
-    id: "privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts",
-    type: "bool",
-  },
 ]);
 
 var gCachyPane = {
@@ -99,11 +93,6 @@ var gCachyPane = {
       "cachy-browser-rfp-checkbox",
       ["privacy.resistFingerprinting"],
       [true                          ],
-    );
-    setBoolSyncListeners(
-      "cachy-browser-auto-decline-canvas-checkbox",
-      ["privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts"],
-      [true                                      ],
     );
 
     setBoolSyncListeners(

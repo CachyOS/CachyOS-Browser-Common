@@ -149,19 +149,6 @@
       </vbox>
     </vbox>
 
-    <hbox>
-      <checkbox id="cachy-browser-auto-decline-canvas-checkbox" data-l10n-id="cachy-browser-auto-decline-canvas-checkbox" preference="privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts" flex="1" />
-      <html:label for="cachy-browser-auto-decline-canvas-collapse" class="sidebar-footer-link" pack="end"> <image class="sidebar-footer-icon help-icon"/> </html:label>
-    </hbox>
-    <vbox class="cachy-browser-collapse indent">
-      <html:input type="checkbox" id="cachy-browser-auto-decline-canvas-collapse" />
-      <vbox class="cachy-browser-collapsed tracking-protection-ui content-blocking-category">
-        <label data-l10n-id="cachy-browser-auto-decline-canvas-description" />
-        <html:div> <label data-l10n-id="cachy-browser-auto-decline-canvas-warning1" class="cachy-browser-warning" /> </html:div>
-        <checkbox preference="privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts" label="privacy.resistFingerprinting.autoDeclineNoUserInputCanvasPrompts" />
-      </vbox>
-    </vbox>
-
   </vbox>
 
   <hbox>
@@ -240,7 +227,7 @@
   <vbox align="start">
     <hbox>
       <button id="cachy-browser-config-link" is="highlightable-button" flex="1">
-        <image class="cachy-browser-button-icon" src="chrome://browser/skin/ion.svg" /> <!-- TODO not the typical way a picture is defined I think, and also we should copy the svg file in case they change it -->
+        <image class="cachy-browser-button-icon" src="chrome://browser/skin/preferences/category-general.svg" />
         <label data-l10n-id="cachy-browser-config-link"></label>
       </button>
       <button id="cachy-browser-open-profile" is="highlightable-button" flex="1">
