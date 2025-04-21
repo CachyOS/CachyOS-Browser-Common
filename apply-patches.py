@@ -105,6 +105,9 @@ def cachy_patches(firefox_folder: str, common_srcdir: str, settings_srcdir: str)
     # apply dbus names patch, to have dbus name exposed as cachy instead of mozilla
     patch(join(common_srcdir, 'patches/dbus_name.patch'))
 
+    # apply patch to have correct profiles folder name
+    patch(join(common_srcdir, 'patches/mozilla_dirs.patch'))
+
     #
     # Apply most recent `settings` repository files.
     #
